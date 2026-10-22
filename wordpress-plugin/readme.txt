@@ -3,7 +3,7 @@ Contributors: atshift
 Tags: security, firewall, ip, access-control
 Requires at least: 6.4
 Requires PHP: 7.4
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,6 +12,8 @@ Review existing WAF IP records and manually manage Apache server blocks with bac
 == Description ==
 
 This administrator-only tool reads bounded CloudSecure or Wordfence log records. Repeated candidates default to 30 records of the same classification from the same IP within a rolling ten-minute window. Different classifications are never combined; a candidate still needs manual review. Source reads and .htaccess editing are separate opt-ins, disabled by default. It is not a WAF, does not detect attacks, and never automatically blocks an IP based on its count.
+
+Provider plugin pages: [CloudSecure WP Security](https://wordpress.org/plugins/cloudsecure-wp-security/) and [Wordfence](https://wordpress.org/plugins/wordfence/).
 
 Apache 2.4, single-site WordPress and a same-directory site home are required for file editing. Select exact public IPs, review a preview, download the original file and confirm independent hosting/SFTP access before applying. The plugin preserves unrelated .htaccess bytes and manages only its own conditional-denial section.
 
@@ -35,6 +37,10 @@ It never independently trusts forwarding headers. Only use server editing when A
 Yes, but changes are refused while semantic responses are enabled or responded observation windows are open, to avoid confusing server blocking with warning effectiveness. See the repository README for the exact guard and limitations.
 
 == Changelog ==
+
+= 0.1.1 =
+* Add official WordPress.org introduction links for CloudSecure WP Security and Wordfence to the administrator connection settings and plugin documentation.
+* Keep provider selection separate from external links, with mobile wrapping and safe new-tab attributes. Detection, grouping, blocking and backup behavior are unchanged.
 
 = 0.1.0 =
 * Initial pilot: administrator-only CloudSecure/Wordfence IP review, public-IP validation, protected addresses, bounded read-only queries, change previews, backup download, hash-checked replacement and guarded rollback.

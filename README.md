@@ -7,8 +7,8 @@ Existing WAFs may record hundreds of repeat requests from one address. This plug
 ## Current Scope
 
 - WordPress 6.4+, PHP 7.4+; Apache 2.4, single-site WordPress installed in the site-home directory.
-- CloudSecure WP Security: retained detection counts per IP. A detection is not necessarily a blocked request.
-- Wordfence: retained `blocked:waf` records with a valid category from `wfHits`. The database extracts only a bounded category from JSON; raw action data is not returned. MySQL/MariaDB JSON functions are required; unsupported schemas fail closed. Generic IP blocks and learning-mode records are not used as same-classification evidence.
+- [CloudSecure WP Security](https://wordpress.org/plugins/cloudsecure-wp-security/): retained detection counts per IP. A detection is not necessarily a blocked request.
+- [Wordfence](https://wordpress.org/plugins/wordfence/): retained `blocked:waf` records with a valid category from `wfHits`. The database extracts only a bounded category from JSON; raw action data is not returned. MySQL/MariaDB JSON functions are required; unsupported schemas fail closed. Generic IP blocks and learning-mode records are not used as same-classification evidence.
 - Repeat candidates default to **30 records from the same IP and classification within a rolling ten-minute window** during the selected period. Choose 20/30/50/100 records and 5/10/30 minutes. Different classifications never combine to cross the threshold; single records are not selectable candidates. Manual IP-list entry remains an explicit administrator override for independently verified addresses.
 - Administrator-only screens and actions (`manage_options`), including direct URLs and backup downloads.
 - Exact public IPv4/IPv6 only, at most 50 managed IPs. No hostnames, ranges, masked IPs or private/reserved addresses.
