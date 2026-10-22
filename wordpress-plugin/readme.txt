@@ -2,8 +2,9 @@
 Contributors: atshift
 Tags: security, firewall, ip, access-control
 Requires at least: 6.4
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.1
+Stable tag: 0.1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +38,12 @@ It never independently trusts forwarding headers. Only use server editing when A
 Yes, but changes are refused while semantic responses are enabled or responded observation windows are open, to avoid confusing server blocking with warning effectiveness. See the repository README for the exact guard and limitations.
 
 == Changelog ==
+
+= 0.1.2 =
+* Prepare the WordPress.org submission package and add tested-version metadata.
+* Make POST nonce verification explicit in each action, unslash inputs, retain strict exact-IP and consent validation, and add translator context for placeholders.
+* Document the narrowly scoped native filesystem and live-query exceptions required for atomic configuration replacement and current WAF observations.
+* Keep the WordPress.org submission branch English-only, without bundled language files or a GitHub updater. Translation functions remain ready for future WordPress.org language packs.
 
 = 0.1.1 =
 * Add official WordPress.org introduction links for CloudSecure WP Security and Wordfence to the administrator connection settings and plugin documentation.

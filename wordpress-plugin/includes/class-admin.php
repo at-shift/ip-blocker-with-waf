@@ -41,14 +41,15 @@ class IP_Blocker_WAF_Admin {
 	private static function notice( $message, $error = false ) {
 		set_transient( 'ipbw_notice_' . get_current_user_id(), array( 'text' => $message, 'error' => $error ), 60 );
 	}
-	private static function post( $action ) {
+	private static function post() {
 		self::require_admin();
-		if ( 'POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) ) { wp_die( '', '', array( 'response' => 405 ) ); }
-		check_admin_referer( $action );
+		if ( 'POST' !== sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ?? '' ) ) ) { wp_die( '', '', array( 'response' => 405 ) ); }
 	}
 
 	public static function save() {
-		self::post( 'ipbw_save' );
+		self::post();
+		check_admin_referer( 'ipbw_save' );
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Validate exact IPs below; lossy sanitization could turn invalid input into a different address.
 		$protected = isset( $_POST['protected'] ) && is_string( $_POST['protected'] ) ? wp_unslash( $_POST['protected'] ) : '';
 		$lines = strlen( $protected ) <= 6000 ? preg_split( '/\R/', trim( $protected ) ) : array_fill( 0, 51, '' );
 		$ips = array();
@@ -60,23 +61,27 @@ class IP_Blocker_WAF_Admin {
 		}
 		if ( count( $lines ) > 50 ) { wp_die( esc_html__( 'Enter no more than 50 valid protected IP addresses.', 'ip-blocker-with-waf' ) ); }
 		$sources = array();
-		$posted = is_array( $_POST['sources'] ?? null ) ? $_POST['sources'] : array();
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Only known provider keys with the exact value '1' are accepted below; do not coerce malformed consent flags.
+		$posted = is_array( $_POST['sources'] ?? null ) ? wp_unslash( $_POST['sources'] ) : array();
 		foreach ( IP_Blocker_WAF_Sources::providers() as $key => $name ) {
 			if ( '1' === ( $posted[$key] ?? '' ) ) { $sources[] = $key; }
 		}
-		$threshold = is_string( $_POST['threshold'] ?? null ) ? (int) $_POST['threshold'] : 30;
-		$minutes = is_string( $_POST['minutes'] ?? null ) ? (int) $_POST['minutes'] : 10;
-		update_option( self::SETTINGS, array( 'sources' => $sources, 'protected' => implode( "\n", array_unique( $ips ) ), 'editing' => '1' === ( $_POST['editing'] ?? '' ) ? '1' : '0', 'threshold' => in_array( $threshold, array( 20, 30, 50, 100 ), true ) ? $threshold : 30, 'minutes' => in_array( $minutes, array( 5, 10, 30 ), true ) ? $minutes : 10 ), false );
+		$threshold = is_string( $_POST['threshold'] ?? null ) ? intval( wp_unslash( $_POST['threshold'] ), 10 ) : 30;
+		$minutes = is_string( $_POST['minutes'] ?? null ) ? intval( wp_unslash( $_POST['minutes'] ), 10 ) : 10;
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Exact opt-in flag; never coerce malformed values into consent.
+		$editing = '1' === wp_unslash( $_POST['editing'] ?? '' ) ? '1' : '0';
+		update_option( self::SETTINGS, array( 'sources' => $sources, 'protected' => implode( "\n", array_unique( $ips ) ), 'editing' => $editing, 'threshold' => in_array( $threshold, array( 20, 30, 50, 100 ), true ) ? $threshold : 30, 'minutes' => in_array( $minutes, array( 5, 10, 30 ), true ) ? $minutes : 10 ), false );
 		delete_transient( self::session_key( 'plan' ) );
 		self::notice( __( 'Settings saved.', 'ip-blocker-with-waf' ) );
 		wp_safe_redirect( self::url( 'connections' ) ); exit;
 	}
 
 	public static function download_backup() {
-		self::post( 'ipbw_backup' );
+		self::post();
+		check_admin_referer( 'ipbw_backup' );
 		$content = null;
 		if ( isset( $_POST['backup_id'] ) ) {
-			$id = is_string( $_POST['backup_id'] ) ? $_POST['backup_id'] : '';
+			$id = is_string( $_POST['backup_id'] ) ? sanitize_key( wp_unslash( $_POST['backup_id'] ) ) : '';
 			$backups = get_option( IP_Blocker_WAF_Server::BACKUPS, array() );
 			foreach ( is_array( $backups ) ? array_slice( $backups, -3 ) : array() as $backup ) {
 				if ( $id === ( $backup['id'] ?? null ) && is_string( $backup['content'] ?? null ) && strlen( $backup['content'] ) <= 131072 && hash_equals( $backup['sha256'] ?? '', hash( 'sha256', $backup['content'] ) ) ) { $content = $backup['content']; }
@@ -98,13 +103,16 @@ class IP_Blocker_WAF_Admin {
 	}
 
 	public static function apply() {
-		self::post( 'ipbw_apply' );
+		self::post();
+		check_admin_referer( 'ipbw_apply' );
 		$settings = self::settings();
 		$plan = get_transient( self::session_key( 'plan' ) );
 		delete_transient( self::session_key( 'plan' ) );
 		$downloaded = get_transient( self::session_key( 'backup_ready' ) );
 		delete_transient( self::session_key( 'backup_ready' ) );
-		if ( ! $settings['editing'] || '1' !== ( $_POST['recovery_confirmed'] ?? '' ) || '1' !== ( $_POST['address_confirmed'] ?? '' ) || ! is_array( $plan ) || ! is_string( $downloaded ) || ! hash_equals( $plan['hash'] ?? '', $downloaded ) ) {
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Both acknowledgements must be the exact checkbox value, not a sanitized approximation.
+		$confirmed = '1' === wp_unslash( $_POST['recovery_confirmed'] ?? '' ) && '1' === wp_unslash( $_POST['address_confirmed'] ?? '' );
+		if ( ! $settings['editing'] || ! $confirmed || ! is_array( $plan ) || ! is_string( $downloaded ) || ! hash_equals( $plan['hash'] ?? '', $downloaded ) ) {
 			self::notice( __( 'Enable editing, download the current backup, and confirm address attribution and recovery access before applying.', 'ip-blocker-with-waf' ), true );
 		} else {
 			$result = IP_Blocker_WAF_Server::apply_plan( $plan, IP_Blocker_WAF_IP_Rules::protected_addresses( $settings['protected'] ) );
@@ -114,16 +122,20 @@ class IP_Blocker_WAF_Admin {
 	}
 
 	private static function preview( $before, $settings ) {
-		self::post( 'ipbw_preview' );
+		self::post();
+		check_admin_referer( 'ipbw_preview' );
 		if ( ! $settings['editing'] ) { return new WP_Error( 'disabled', __( 'Enable server editing in Connections first.', 'ip-blocker-with-waf' ) ); }
 		$state = IP_Blocker_WAF_IP_Rules::inspect( $before );
 		if ( is_wp_error( $state ) ) { return $state; }
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Strict exact-IP validation below rejects malformed addresses without rewriting them.
 		$manual = isset( $_POST['manual_ips'] ) && is_string( $_POST['manual_ips'] ) ? wp_unslash( $_POST['manual_ips'] ) : '';
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Each selected address is strictly validated before preview storage or filesystem use.
 		$selected = is_array( $_POST['selected_ips'] ?? null ) ? wp_unslash( $_POST['selected_ips'] ) : array();
+		$intent = sanitize_key( wp_unslash( $_POST['intent'] ?? '' ) );
 		if ( strlen( $manual ) > 6000 || count( $selected ) > 50 ) { return new WP_Error( 'limit', __( 'Enter no more than 50 exact public IP addresses, one per line.', 'ip-blocker-with-waf' ) ); }
 		$values = array_merge( $selected, '' === trim( $manual ) ? array() : preg_split( '/\R/', trim( $manual ) ) );
-		if ( 'add' === ( $_POST['intent'] ?? '' ) && empty( $values ) ) { return new WP_Error( 'empty', __( 'Select at least one repeated candidate.', 'ip-blocker-with-waf' ) ); }
-		if ( 'add' === ( $_POST['intent'] ?? '' ) ) { $values = array_values( array_unique( array_merge( $state['ips'], $values ), SORT_REGULAR ) ); }
+		if ( 'add' === $intent && empty( $values ) ) { return new WP_Error( 'empty', __( 'Select at least one repeated candidate.', 'ip-blocker-with-waf' ) ); }
+		if ( 'add' === $intent ) { $values = array_values( array_unique( array_merge( $state['ips'], $values ), SORT_REGULAR ) ); }
 		$ips = IP_Blocker_WAF_IP_Rules::validate( $values, IP_Blocker_WAF_IP_Rules::protected_addresses( $settings['protected'] ) );
 		if ( is_wp_error( $ips ) ) { return $ips; }
 		$after = IP_Blocker_WAF_IP_Rules::compose( $before, $ips );
@@ -136,7 +148,9 @@ class IP_Blocker_WAF_Admin {
 	public static function render() {
 		self::require_admin();
 		nocache_headers();
-		$tab = isset( $_GET['tab'] ) && is_string( $_GET['tab'] ) && in_array( $_GET['tab'], array( 'observations', 'rules', 'connections' ), true ) ? $_GET['tab'] : 'observations';
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only navigation after a capability check; writes use separate nonce-protected POST handlers.
+		$tab = sanitize_key( wp_unslash( $_GET['tab'] ?? '' ) );
+		$tab = in_array( $tab, array( 'observations', 'rules', 'connections' ), true ) ? $tab : 'observations';
 		$settings = self::settings();
 		?><div class="wrap ipbw-wrap">
 			<header class="ipbw-header"><h1><span class="dashicons dashicons-shield" aria-hidden="true"></span> IP Blocker with WAF</h1><span class="ipbw-badge">v<?php echo esc_html( IP_BLOCKER_WAF_VERSION ); ?></span></header>
@@ -165,28 +179,39 @@ class IP_Blocker_WAF_Admin {
 
 	private static function observations( $settings ) {
 		$providers = IP_Blocker_WAF_Sources::providers();
-		$source = isset( $_GET['source'] ) && is_string( $_GET['source'] ) && isset( $providers[$_GET['source']] ) ? $_GET['source'] : ( $settings['sources'][0] ?? 'cloudsecure' );
-		$hours = isset( $_GET['hours'] ) && is_string( $_GET['hours'] ) ? absint( $_GET['hours'] ) : 24;
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only local view filter, allowlisted below.
+		$source = sanitize_key( wp_unslash( $_GET['source'] ?? '' ) );
+		$source = isset( $providers[$source] ) ? $source : ( $settings['sources'][0] ?? 'cloudsecure' );
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only period filter, restricted to three supported values.
+		$hours = isset( $_GET['hours'] ) ? absint( wp_unslash( $_GET['hours'] ) ) : 24;
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Exact read-only checkbox flag; no write action is performed.
+		$show_all = '1' === wp_unslash( $_GET['show_all'] ?? '' );
 		$hours = in_array( $hours, array( 24, 168, 720 ), true ) ? $hours : 24;
 		?><section class="ipbw-section"><h2><?php esc_html_e( 'Local WAF records', 'ip-blocker-with-waf' ); ?></h2>
 		<form method="get" class="ipbw-toolbar"><input type="hidden" name="page" value="ip-blocker-with-waf"><input type="hidden" name="tab" value="observations">
 		<label><?php esc_html_e( 'Source', 'ip-blocker-with-waf' ); ?> <select name="source"><?php foreach ( $providers as $key => $name ) : ?><option value="<?php echo esc_attr( $key ); ?>" <?php selected( $source, $key ); ?>><?php echo esc_html( $name ); ?></option><?php endforeach; ?></select></label>
 		<label><?php esc_html_e( 'Period', 'ip-blocker-with-waf' ); ?> <select name="hours"><?php foreach ( array( 24 => __( '24 hours', 'ip-blocker-with-waf' ), 168 => __( '7 days', 'ip-blocker-with-waf' ), 720 => __( '30 days', 'ip-blocker-with-waf' ) ) as $key => $label ) : ?><option value="<?php echo esc_attr( $key ); ?>" <?php selected( $hours, $key ); ?>><?php echo esc_html( $label ); ?></option><?php endforeach; ?></select></label>
-		<label><input type="checkbox" name="show_all" value="1" <?php checked( '1' === ( $_GET['show_all'] ?? '' ) ); ?>> <?php esc_html_e( 'Include below-threshold groups', 'ip-blocker-with-waf' ); ?></label>
+		<label><input type="checkbox" name="show_all" value="1" <?php checked( $show_all ); ?>> <?php esc_html_e( 'Include below-threshold groups', 'ip-blocker-with-waf' ); ?></label>
 		<?php self::button( __( 'Read logs', 'ip-blocker-with-waf' ), 'update' ); ?></form>
 		<p class="ipbw-meta"><?php esc_html_e( 'Up to 10,000 retained rows and 200 IP/classification groups. Counts are source-specific records, not confirmed attacks. No automatic polling or external sharing.', 'ip-blocker-with-waf' ); ?></p>
 		<?php
 		if ( ! in_array( $source, $settings['sources'], true ) ) { self::message( __( 'This source is disabled. Enable it in Connections & safety to read its IP records.', 'ip-blocker-with-waf' ) ); echo '</section>'; return; }
 		$rows = IP_Blocker_WAF_Sources::read( $source, $hours, $settings['minutes'], $settings['threshold'] );
 		if ( is_wp_error( $rows ) ) { self::message( $rows->get_error_message(), true ); echo '</section>'; return; }
-		if ( '1' !== ( $_GET['show_all'] ?? '' ) ) { $rows = array_filter( $rows, static function ( $row ) { return $row['candidate']; } ); }
+		if ( ! $show_all ) { $rows = array_filter( $rows, static function ( $row ) { return $row['candidate']; } ); }
+		/* translators: 1: minimum record count, 2: rolling window duration in minutes. */
 		self::message( sprintf( __( 'Candidate threshold: %1$d records of the same classification from the same IP within any %2$d-minute window in this period. This is not proof of identical payloads or an attack.', 'ip-blocker-with-waf' ), $settings['threshold'], $settings['minutes'] ) );
 		self::message( 'cloudsecure' === $source ? __( 'CloudSecure retained detections may include records that were not blocked.', 'ip-blocker-with-waf' ) : __( 'Wordfence uses retained blocked:waf records with a valid category. Generic blocks, learning-mode logs and unknown categories are not combined into candidates.', 'ip-blocker-with-waf' ) );
 		$protected = IP_Blocker_WAF_IP_Rules::protected_addresses( $settings['protected'] );
 		?><form method="post" action="<?php echo esc_url( self::url( 'rules' ) ); ?>"><?php wp_nonce_field( 'ipbw_preview' ); ?><input type="hidden" name="ipbw_preview" value="1"><input type="hidden" name="intent" value="add">
 		<table class="widefat ipbw-table"><thead><tr><th><?php esc_html_e( 'Select', 'ip-blocker-with-waf' ); ?></th><th>IP</th><th><?php esc_html_e( 'Classification', 'ip-blocker-with-waf' ); ?></th><th><?php esc_html_e( 'Records', 'ip-blocker-with-waf' ); ?></th><th><?php esc_html_e( 'Peak in window', 'ip-blocker-with-waf' ); ?></th><th><?php esc_html_e( 'Last seen', 'ip-blocker-with-waf' ); ?></th><th><?php esc_html_e( 'Eligibility', 'ip-blocker-with-waf' ); ?></th></tr></thead><tbody>
-		<?php foreach ( $rows as $row ) : $public = false !== IP_Blocker_WAF_IP_Rules::public_address( $row['ip'] ) && ! in_array( $row['ip'], $protected, true ); $eligible = $public && $row['candidate']; ?>
-		<tr><td data-label="<?php esc_attr_e( 'Select', 'ip-blocker-with-waf' ); ?>"><input type="checkbox" name="selected_ips[]" value="<?php echo esc_attr( $row['ip'] ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Select %s', 'ip-blocker-with-waf' ), $row['ip'] ) ); ?>" <?php disabled( ! $eligible ); ?>></td><td data-label="IP"><code><?php echo esc_html( $row['ip'] ); ?></code></td><td data-label="<?php esc_attr_e( 'Classification', 'ip-blocker-with-waf' ); ?>"><?php echo esc_html( self::classification( $row['kind'] ) ); ?></td><td data-label="<?php esc_attr_e( 'Records', 'ip-blocker-with-waf' ); ?>"><?php echo esc_html( number_format_i18n( $row['count'] ) ); ?></td><td data-label="<?php esc_attr_e( 'Peak in window', 'ip-blocker-with-waf' ); ?>"><strong><?php echo esc_html( number_format_i18n( $row['burst_count'] ) ); ?></strong><br><small><?php echo esc_html( $row['burst_end'] ); ?></small></td><td data-label="<?php esc_attr_e( 'Last seen', 'ip-blocker-with-waf' ); ?>"><?php echo esc_html( $row['last_seen'] ); ?></td><td data-label="<?php esc_attr_e( 'Eligibility', 'ip-blocker-with-waf' ); ?>"><span class="ipbw-badge<?php echo $eligible ? '' : ' is-protected'; ?>"><?php echo esc_html( $eligible ? __( 'Review required', 'ip-blocker-with-waf' ) : ( $public ? __( 'Below threshold', 'ip-blocker-with-waf' ) : __( 'Protected / non-public', 'ip-blocker-with-waf' ) ) ); ?></span></td></tr>
+		<?php foreach ( $rows as $row ) :
+			$public = false !== IP_Blocker_WAF_IP_Rules::public_address( $row['ip'] ) && ! in_array( $row['ip'], $protected, true );
+			$eligible = $public && $row['candidate'];
+			/* translators: %s: exact IP address to select for manual review. */
+			$select_label = sprintf( __( 'Select %s', 'ip-blocker-with-waf' ), $row['ip'] );
+		?>
+		<tr><td data-label="<?php esc_attr_e( 'Select', 'ip-blocker-with-waf' ); ?>"><input type="checkbox" name="selected_ips[]" value="<?php echo esc_attr( $row['ip'] ); ?>" aria-label="<?php echo esc_attr( $select_label ); ?>" <?php disabled( ! $eligible ); ?>></td><td data-label="IP"><code><?php echo esc_html( $row['ip'] ); ?></code></td><td data-label="<?php esc_attr_e( 'Classification', 'ip-blocker-with-waf' ); ?>"><?php echo esc_html( self::classification( $row['kind'] ) ); ?></td><td data-label="<?php esc_attr_e( 'Records', 'ip-blocker-with-waf' ); ?>"><?php echo esc_html( number_format_i18n( $row['count'] ) ); ?></td><td data-label="<?php esc_attr_e( 'Peak in window', 'ip-blocker-with-waf' ); ?>"><strong><?php echo esc_html( number_format_i18n( $row['burst_count'] ) ); ?></strong><br><small><?php echo esc_html( $row['burst_end'] ); ?></small></td><td data-label="<?php esc_attr_e( 'Last seen', 'ip-blocker-with-waf' ); ?>"><?php echo esc_html( $row['last_seen'] ); ?></td><td data-label="<?php esc_attr_e( 'Eligibility', 'ip-blocker-with-waf' ); ?>"><span class="ipbw-badge<?php echo $eligible ? '' : ' is-protected'; ?>"><?php echo esc_html( $eligible ? __( 'Review required', 'ip-blocker-with-waf' ) : ( $public ? __( 'Below threshold', 'ip-blocker-with-waf' ) : __( 'Protected / non-public', 'ip-blocker-with-waf' ) ) ); ?></span></td></tr>
 		<?php endforeach; ?>
 		<?php if ( empty( $rows ) ) : ?><tr><td colspan="7"><?php esc_html_e( 'No matching groups for this period and threshold.', 'ip-blocker-with-waf' ); ?></td></tr><?php endif; ?>
 		</tbody></table><div class="ipbw-actions"><?php self::button( __( 'Preview selected IP blocks', 'ip-blocker-with-waf' ) ); ?></div></form></section><?php
@@ -200,7 +225,7 @@ class IP_Blocker_WAF_Admin {
 		if ( is_wp_error( $state ) ) { self::message( $state->get_error_message(), true ); echo '</section>'; self::recovery_history(); return; }
 		if ( ! $settings['editing'] ) { self::message( __( 'Server editing is disabled. Viewing does not change the file.', 'ip-blocker-with-waf' ) ); }
 		self::message( __( 'Only this plugin\'s managed section is edited. Existing manual deny rules remain outside its control. Blocks remain after deactivation or uninstall.', 'ip-blocker-with-waf' ) );
-		if ( isset( $_POST['ipbw_preview'] ) ) {
+		if ( 'POST' === sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ?? '' ) ) ) {
 			$preview = self::preview( $content, $settings );
 			if ( is_wp_error( $preview ) ) { self::message( $preview->get_error_message(), true ); }
 			else { self::render_preview( $preview ); }

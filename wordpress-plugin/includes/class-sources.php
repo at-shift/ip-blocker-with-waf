@@ -68,21 +68,23 @@ class IP_Blocker_WAF_Sources {
 		$previous = $wpdb->suppress_errors( true );
 		try {
 			$table = $wpdb->prefix . ( 'cloudsecure' === $provider ? 'cloudsecurewp_waf_log' : 'wfHits' );
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Read-only schema check for an enabled provider; it can be removed or upgraded outside this plugin.
 			if ( $table !== $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $table ) ) ) ) {
 				return new WP_Error( 'unavailable', __( 'The provider log table is unavailable.', 'ip-blocker-with-waf' ) );
 			}
 			if ( 'cloudsecure' === $provider ) {
-				$sql = $wpdb->prepare(
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Explicit administrator refresh of bounded, live third-party records; never cache or copy raw IP observations.
+				$rows = $wpdb->get_results( $wpdb->prepare(
 					'SELECT ip AS address, access_at AS seen_at, attack AS kind FROM (SELECT ip, access_at, attack FROM %i ORDER BY id DESC LIMIT 10000) AS recent WHERE access_at >= %s AND access_at <= %s',
 					$table, wp_date( 'Y-m-d H:i:s', time() - $hours * HOUR_IN_SECONDS ), current_time( 'mysql' )
-				);
+				), ARRAY_A );
 			} else {
-				$sql = $wpdb->prepare(
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Bounded provider refresh; JSON extraction returns only the classification, never request payloads.
+				$rows = $wpdb->get_results( $wpdb->prepare(
 					"SELECT HEX(IP) AS address, ctime AS seen_at, LEFT(JSON_UNQUOTE(JSON_EXTRACT(CASE WHEN JSON_VALID(actionData) THEN actionData ELSE '{}' END, '$.category')), 41) AS kind FROM (SELECT IP, ctime, action, actionData FROM %i ORDER BY id DESC LIMIT 10000) AS recent WHERE ctime >= %d AND ctime <= %d AND action = %s",
 					$table, time() - $hours * HOUR_IN_SECONDS, time(), 'blocked:waf'
-				);
+				), ARRAY_A );
 			}
-			$rows = $wpdb->get_results( $sql, ARRAY_A );
 			if ( '' !== $wpdb->last_error || ! is_array( $rows ) ) {
 				return new WP_Error( 'unavailable', __( 'The provider log could not be read. No raw database details are shown.', 'ip-blocker-with-waf' ) );
 			}

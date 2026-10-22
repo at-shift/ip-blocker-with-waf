@@ -51,7 +51,8 @@ class IP_Blocker_WAF_IP_Rules {
 	}
 
 	public static function protected_addresses( $extra = '' ) {
-		$values = array( $_SERVER['REMOTE_ADDR'] ?? '', $_SERVER['SERVER_ADDR'] ?? '' );
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Both unslashed server addresses pass strict canonical IP validation below, without lossy text rewriting.
+		$values = array( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ), wp_unslash( $_SERVER['SERVER_ADDR'] ?? '' ) );
 		if ( is_string( $extra ) ) {
 			$values = array_merge( $values, preg_split( '/\R/', substr( $extra, 0, 6000 ) ) );
 		}

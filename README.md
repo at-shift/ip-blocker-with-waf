@@ -1,5 +1,7 @@
 # IP Blocker with WAF
 
+**WordPress.org submission branch (`wordpress-org`).** The GitHub distribution is maintained separately on [`main`](https://github.com/at-shift/ip-blocker-with-waf/tree/main). This branch is English-only, contains no bundled language packs or external update checker, and must not be merged into `main` before approval. Translation and integration will be handled after the submission is accepted.
+
 **A local, administrator-operated WordPress desk for reviewing WAF IP records and manually managing Apache IP blocks.**
 
 Existing WAFs may record hundreds of repeat requests from one address. This plugin reads a bounded slice of those existing records, lets an administrator review the addresses, and prepares a reversible server configuration change. It does not detect attacks, replace the WAF, or automatically block an IP based on a count.
@@ -14,7 +16,7 @@ Existing WAFs may record hundreds of repeat requests from one address. This plug
 - Exact public IPv4/IPv6 only, at most 50 managed IPs. No hostnames, ranges, masked IPs or private/reserved addresses.
 - Protects the current `REMOTE_ADDR`, `SERVER_ADDR`, and explicitly configured IPs from selection. Never trusts forwarding headers on its own.
 - WAF reads and server editing are separate opt-ins, both disabled initially.
-- English source strings and Japanese admin translations. Public repository documentation is in English.
+- English-only submission package, with translation-ready source strings. Bundled language files are intentionally omitted until approval.
 
 The tested provider sources are CloudSecure 1.4.18 and Wordfence 9.0.2. Their internal schemas are not public compatibility contracts. SiteGuard login histories are not general WAF logs; BBQ has no built-in historical IP log; NinjaFirewall may mask IPs. These adapters are deliberately not included in this first version.
 
@@ -62,7 +64,6 @@ If Semantic Deterrence is active, this plugin refuses server changes while its d
 ```sh
 php tests/run.php
 find wordpress-plugin tests -name '*.php' -print0 | xargs -0 -n1 php -l
-msgfmt --check --check-format -o /dev/null wordpress-plugin/languages/ip-blocker-with-waf-ja.po
 bash bin/build.sh /tmp/ip-blocker-with-waf-package
 ```
 

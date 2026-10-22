@@ -17,6 +17,9 @@ class WP_Error {
 }
 function is_wp_error( $value ) { return $value instanceof WP_Error; }
 function __( $text, $domain = '' ) { return $text; }
+function wp_unslash( $value ) { return is_array( $value ) ? array_map( 'wp_unslash', $value ) : stripslashes( (string) $value ); }
+function sanitize_text_field( $value ) { return is_scalar( $value ) ? trim( strip_tags( (string) $value ) ) : ''; }
+function sanitize_key( $value ) { return is_scalar( $value ) ? preg_replace( '/[^a-z0-9_\-]/', '', strtolower( (string) $value ) ) : ''; }
 function esc_html__( $text, $domain = '' ) { return htmlspecialchars( $text, ENT_QUOTES ); }
 function current_user_can( $cap ) { global $capable; return $capable && 'manage_options' === $cap; }
 function is_multisite() { global $multisite; return $multisite; }

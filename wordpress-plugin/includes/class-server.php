@@ -7,7 +7,7 @@ class IP_Blocker_WAF_Server {
 	const LOCK = 'ipbw_write_lock';
 
 	public static function path() {
-		$software = $_SERVER['SERVER_SOFTWARE'] ?? '';
+		$software = sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ?? '' ) );
 		$unsupported_version = preg_match( '/^Apache\/(\d+\.\d+)/i', $software, $version ) && version_compare( $version[1], '2.4', '<' );
 		if ( is_multisite() || ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS ) || ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) || ! preg_match( '/^Apache(?:\/|$)/i', $software ) || $unsupported_version ) {
 			return new WP_Error( 'environment', __( 'Editing requires Apache 2.4, a single-site installation, and enabled WordPress file modifications.', 'ip-blocker-with-waf' ) );
@@ -29,6 +29,7 @@ class IP_Blocker_WAF_Server {
 		}
 		$previous = $wpdb->suppress_errors( true );
 		try {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Live third-party observation-window guard must not use stale cached results.
 			$pending = $wpdb->get_var( $wpdb->prepare( 'SELECT id FROM %i WHERE responded = 1 AND window_ends_at >= %s LIMIT 1', $wpdb->prefix . 'atsdn_events', current_time( 'mysql' ) ) );
 			return null === $pending && '' === $wpdb->last_error;
 		} finally { $wpdb->suppress_errors( $previous ); }
@@ -44,8 +45,9 @@ class IP_Blocker_WAF_Server {
 	}
 
 	public static function maybe_probe() {
-		$token = $_GET['ipbw_probe'] ?? null;
-		if ( 'GET' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) || ! is_string( $token ) || ! preg_match( '/^[a-f0-9]{64}$/', $token ) ) { return; }
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- The unauthenticated health callback authenticates a random 256-bit, 90-second bearer token below; it exposes only a fixed marker.
+		$token = sanitize_text_field( wp_unslash( $_GET['ipbw_probe'] ?? '' ) );
+		if ( 'GET' !== sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ?? '' ) ) || ! preg_match( '/^[a-f0-9]{64}$/', $token ) ) { return; }
 		$active = get_transient( 'ipbw_probe' );
 		if ( ! is_string( $active ) || ! hash_equals( $active, $token ) ) { return; }
 		nocache_headers();
@@ -66,6 +68,7 @@ class IP_Blocker_WAF_Server {
 		global $wpdb;
 		$token = wp_generate_uuid4();
 		$value = ( time() + 120 ) . ':' . $token;
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Atomic expiry comparison cannot be implemented safely with separate option reads and deletes.
 		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name = %s AND CAST(option_value AS UNSIGNED) <= %d", self::LOCK, time() ) );
 		wp_cache_delete( self::LOCK, 'options' );
 		return add_option( self::LOCK, $value, '', false ) ? $value : false;
@@ -94,6 +97,7 @@ class IP_Blocker_WAF_Server {
 			return new WP_Error( 'failed', __( 'The change could not be completed. Review the current file and backups before retrying.', 'ip-blocker-with-waf' ) );
 		} finally {
 			if ( false !== $lock ) {
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Atomic compare-and-delete releases only this request's lock; the option cache is invalidated immediately below.
 				$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name = %s AND option_value = %s", self::LOCK, $lock ) );
 				wp_cache_delete( self::LOCK, 'options' );
 			}
