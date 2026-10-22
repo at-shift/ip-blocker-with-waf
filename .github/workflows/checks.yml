@@ -1,0 +1,15 @@
+name: Plugin checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Regression tests
+        run: php tests/run.php
+      - name: PHP syntax
+        run: find wordpress-plugin tests -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Build installable ZIP
+        run: bash bin/build.sh

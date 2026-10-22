@@ -1,0 +1,434 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the IP Blocker with WAF package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: IP Blocker with WAF 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-22 14:34+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: wordpress-plugin/includes/class-admin.php:18
+#: wordpress-plugin/includes/class-sources.php:59
+msgid "Administrator access on a single-site installation is required."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:58
+#: wordpress-plugin/includes/class-admin.php:61
+msgid "Enter no more than 50 valid protected IP addresses."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:71
+msgid "Settings saved."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:84
+msgid "Backup not found."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:108
+msgid "Enable editing, download the current backup, and confirm address attribution and recovery access before applying."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:111
+msgid "Server settings updated and the site self-check passed. This does not prove that a selected remote IP was blocked."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:118
+msgid "Enable server editing in Connections first."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:123
+#: wordpress-plugin/includes/class-ip-rules.php:73
+msgid "Enter no more than 50 exact public IP addresses, one per line."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:125
+msgid "Select at least one repeated candidate."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:132
+msgid "The preview could not be saved."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:143
+msgid "Plugin views"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:144
+msgid "WAF observations"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:144
+msgid "Server blocks"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:144
+#: wordpress-plugin/includes/class-admin.php:225
+msgid "Connections & safety"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:161
+msgid "SQL injection"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:161
+msgid "Cross-site scripting"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:161
+msgid "OS command injection"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:161
+msgid "Code injection"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:161
+msgid "Mail header injection"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:171
+msgid "Local WAF records"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:173
+msgid "Source"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:174
+msgid "Period"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:174
+msgid "24 hours"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:174
+msgid "7 days"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:174
+msgid "30 days"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:175
+msgid "Include below-threshold groups"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:176
+msgid "Read logs"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:177
+msgid "Up to 10,000 retained rows and 200 IP/classification groups. Counts are source-specific records, not confirmed attacks. No automatic polling or external sharing."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:179
+msgid "This source is disabled. Enable it in Connections & safety to read its IP records."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:183
+#, php-format
+msgid "Candidate threshold: %1$d records of the same classification from the same IP within any %2$d-minute window in this period. This is not proof of identical payloads or an attack."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:184
+msgid "CloudSecure retained detections may include records that were not blocked."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:184
+msgid "Wordfence uses retained blocked:waf records with a valid category. Generic blocks, learning-mode logs and unknown categories are not combined into candidates."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:187
+#: wordpress-plugin/includes/class-admin.php:189
+msgid "Select"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:187
+#: wordpress-plugin/includes/class-admin.php:189
+msgid "Classification"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:187
+#: wordpress-plugin/includes/class-admin.php:189
+msgid "Records"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:187
+#: wordpress-plugin/includes/class-admin.php:189
+msgid "Peak in window"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:187
+#: wordpress-plugin/includes/class-admin.php:189
+msgid "Last seen"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:187
+#: wordpress-plugin/includes/class-admin.php:189
+msgid "Eligibility"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:189
+#, php-format
+msgid "Select %s"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:189
+msgid "Review required"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:189
+msgid "Below threshold"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:189
+msgid "Protected / non-public"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:191
+msgid "No matching groups for this period and threshold."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:192
+msgid "Preview selected IP blocks"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:196
+msgid "Managed server blocks"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:201
+msgid "Server editing is disabled. Viewing does not change the file."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:202
+msgid "Only this plugin's managed section is edited. Existing manual deny rules remain outside its control. Blocks remain after deactivation or uninstall."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:209
+msgid "Managed IP list"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:210
+msgid "Preview replacement list"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:212
+msgid "Recovery history"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:212
+msgid "Download backup"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:216
+msgid "Change preview"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:216
+msgid "Current managed section"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:216
+msgid "(empty)"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:216
+msgid "Proposed managed section"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:216
+msgid "(remove managed section)"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:217
+msgid "Download current .htaccess backup"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:219
+msgid "I verified that these are client IPs, not CDN/proxy or shared-service addresses."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:220
+msgid "I saved the backup and can restore .htaccess through hosting or SFTP if WordPress becomes unreachable."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:221
+msgid "Apply server changes"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:226
+msgid "Read existing WAF logs"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:227
+msgid "Raw IPs are read locally only when an administrator views the records. Provider logs are never modified. URLs, payloads, cookies and user accounts are not read."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:228
+msgid "Minimum repeat count"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:228
+msgid "Window (minutes)"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:229
+msgid "Protected IP addresses"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:230
+msgid "Your current REMOTE_ADDR and SERVER_ADDR are protected automatically. Forwarded IP headers are not trusted by this plugin. Add monitoring, proxy and administrator IPs here."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:231
+msgid "Enable manual .htaccess editing with backup and self-check"
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:232
+msgid "Apache 2.4 and same-directory, single-site WordPress only. Self-checks cannot guarantee recovery after process termination or hosting failures. Keep independent hosting/SFTP access. No background or automatic IP blocking."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:233
+msgid "Up to three full configuration backups and configured IPs remain in the local database. Preview and probe tokens expire. There is no Hub, telemetry, geolocation lookup or remote block list. Uninstall does not remove server blocks or recovery data."
+msgstr ""
+
+#: wordpress-plugin/includes/class-admin.php:234
+msgid "Save settings"
+msgstr ""
+
+#: wordpress-plugin/includes/class-ip-rules.php:82
+msgid "Only exact public IPv4 or IPv6 addresses are accepted. Private, reserved, masked addresses, hostnames and ranges are not accepted."
+msgstr ""
+
+#: wordpress-plugin/includes/class-ip-rules.php:85
+msgid "The list contains your current connection, the server address, or a protected IP. Remove it before continuing."
+msgstr ""
+
+#: wordpress-plugin/includes/class-ip-rules.php:112
+msgid "The settings file is unreadable or larger than 128 KiB."
+msgstr ""
+
+#: wordpress-plugin/includes/class-ip-rules.php:120
+#: wordpress-plugin/includes/class-ip-rules.php:124
+msgid "The managed section is ambiguous or was moved. Restore or review it manually."
+msgstr ""
+
+#: wordpress-plugin/includes/class-ip-rules.php:131
+msgid "The managed section was edited outside this plugin. No changes were made."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server-file.php:9
+msgid "An existing, regular .htaccess file of at most 128 KiB is required. Symbolic links are not supported."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server-file.php:12
+msgid "The settings file could not be read."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server-file.php:18
+#: wordpress-plugin/includes/class-server-file.php:45
+#: wordpress-plugin/includes/class-server-file.php:60
+msgid "The settings file changed. Create a fresh preview before applying."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server-file.php:21
+msgid "The file or its directory is not writable, or the result exceeds 128 KiB."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server-file.php:25
+msgid "Use non-executable file permissions without group or world write access before editing."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server-file.php:30
+msgid "A private temporary file could not be created."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server-file.php:50
+msgid "The settings file could not be replaced. No partial file was installed."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server-file.php:62
+msgid "No changes to apply."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server-file.php:64
+msgid "The preflight site check failed. The settings file was not changed."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server-file.php:65
+msgid "The database backup could not be saved. The settings file was not changed."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server-file.php:67
+msgid "Preflight or backup failed. The settings file was not changed."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server-file.php:75
+msgid "The file changed again during verification. Review its current contents before retrying."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server-file.php:79
+msgid "The site check failed and automatic rollback could not safely complete. Restore the downloaded backup through your hosting panel or SFTP immediately."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server-file.php:80
+msgid "The site check failed. The previous file was restored automatically."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server.php:11
+msgid "Editing requires Apache 2.4, a single-site installation, and enabled WordPress file modifications."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server.php:16
+msgid "WordPress and the site home must use the same directory in this version."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server.php:74
+msgid "Administrator access is required."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server.php:76
+msgid "The preview expired. Create a new preview."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server.php:80
+msgid "Pause Semantic Deterrence responses and wait for active observation windows to finish before changing server blocks."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server.php:85
+msgid "Another change is in progress. Try again later."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server.php:92
+msgid "The change could not be completed. Review the current file and backups before retrying."
+msgstr ""
+
+#: wordpress-plugin/includes/class-sources.php:62
+msgid "Unsupported log source."
+msgstr ""
+
+#: wordpress-plugin/includes/class-sources.php:66
+msgid "The selected WAF is not active."
+msgstr ""
+
+#: wordpress-plugin/includes/class-sources.php:72
+msgid "The provider log table is unavailable."
+msgstr ""
+
+#: wordpress-plugin/includes/class-sources.php:87
+#: wordpress-plugin/includes/class-sources.php:91
+msgid "The provider log could not be read. No raw database details are shown."
+msgstr ""

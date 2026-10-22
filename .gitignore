@@ -1,0 +1,8 @@
+.DS_Store
+build/
+private/
+*.zip
+*.sha256
+.env*
+!.env.example
+node_modules/
