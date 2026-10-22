@@ -313,4 +313,3 @@ msgstr "取得元の記録テーブルを利用できません。"
 
 msgid "The provider log could not be read. No raw database details are shown."
 msgstr "取得元の記録を読み込めませんでした。データベースの内部情報は表示していません。"
-
