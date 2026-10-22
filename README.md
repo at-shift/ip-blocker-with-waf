@@ -1,5 +1,7 @@
 # IP Blocker with WAF
 
+**GitHub distribution (`main`).** The English-only [WordPress.org submission branch](https://github.com/at-shift/ip-blocker-with-waf/tree/wordpress-org) is maintained separately, without bundled languages or a GitHub updater. Do not merge the submission branch until approval; translation and integration follow approval.
+
 **A local, administrator-operated WordPress desk for reviewing WAF IP records and manually managing Apache IP blocks.**
 
 Existing WAFs may record hundreds of repeat requests from one address. This plugin reads a bounded slice of those existing records, lets an administrator review the addresses, and prepares a reversible server configuration change. It does not detect attacks, replace the WAF, or automatically block an IP based on a count.
@@ -42,7 +44,7 @@ Deactivation or uninstall does **not** remove server blocks or recovery data. Re
 ## Privacy And Load
 
 - No telemetry, Hub, geolocation service, remote block list, automatic WAF installation or background request collection.
-- No IP/URL/attack payload is sent to GitHub or a third-party service by the runtime. Publishing this repository shares source code only, never site logs or configuration backups.
+- No observed WAF IP, site URL, attack payload or configuration backup is sent to GitHub or a third-party service. Publishing this repository shares source code only.
 - Only IP, timestamp and detection-classification fields are returned to the plugin. Wordfence categories are extracted from its JSON in the database with a length guard; full JSON, URLs, matched strings, cookies, usernames, bodies and User-Agent values are not returned.
 - The log screen reads at most the latest 10,000 provider rows and returns at most 200 IP/classification groups, sorted by peak-window count. Counts are local reference observations, not proof of an attack or identical payloads. Peak windows may be historical within the selected period; review last-seen/peak timestamps before acting. High-volume or expired logs can truncate the requested period. No automatic refresh, per-request hooks, or scheduled scans are added.
 - Source rows are not copied into another event table. Configured/protected IPs, up to three full configuration backups, preview plans, and short-lived readiness/probe/lock data remain locally. Expired WordPress transients may be physically removed later by WordPress cleanup.
@@ -57,10 +59,19 @@ If Semantic Deterrence is active, this plugin refuses server changes while its d
 
 ## Repository And Development
 
+### GitHub Updates In WordPress
+
+This distribution uses WordPress's normal plugin-update interface to check the latest stable public GitHub Release. It requires the exact installable `ip-blocker-with-waf.zip` asset and its `.sha256` companion from this repository. Downloads are streamed with TLS verification and rejected if SHA-256 verification fails. Checksums detect mismatches; they are not an independent signature or protection against a compromised publisher account.
+
+Successful metadata is cached for six hours, failures for fifteen minutes. Normal update checks and the plugin-information modal contact GitHub; downloads occur through WordPress's upgrade flow. Requests use a plugin/version-only User-Agent, without site URLs, administrator cookies or WAF records. GitHub/CDN servers receive ordinary connection metadata such as the connecting server IP. The updater does not force automatic updates or modify other plugins' update results.
+
+**Versions 0.1.1 and earlier have no GitHub updater. Install 0.1.2 once manually to enable future WordPress update notifications.** The `wordpress-org` submission package does not include this updater or an external Update URI.
+
 `wordpress-plugin/` is the installable source. `tests/` contains inert, isolated regression fixtures. No third-party WAF code is redistributed.
 
 ```sh
 php tests/run.php
+php tests/updater.php
 find wordpress-plugin tests -name '*.php' -print0 | xargs -0 -n1 php -l
 msgfmt --check --check-format -o /dev/null wordpress-plugin/languages/ip-blocker-with-waf-ja.po
 bash bin/build.sh /tmp/ip-blocker-with-waf-package

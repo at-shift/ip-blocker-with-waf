@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: IP Blocker with WAF 0.1.1\n"
+"Project-Id-Version: IP Blocker with WAF 0.1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-22 14:34+0900\n"
+"POT-Creation-Date: 2026-10-22 18:06+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,7 +73,7 @@ msgid "Server blocks"
 msgstr ""
 
 #: wordpress-plugin/includes/class-admin.php:144
-#: wordpress-plugin/includes/class-admin.php:225
+#: wordpress-plugin/includes/class-admin.php:229
 msgid "Connections & safety"
 msgstr ""
 
@@ -225,87 +225,87 @@ msgstr ""
 msgid "Preview replacement list"
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:212
+#: wordpress-plugin/includes/class-admin.php:216
 msgid "Recovery history"
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:212
+#: wordpress-plugin/includes/class-admin.php:216
 msgid "Download backup"
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:216
+#: wordpress-plugin/includes/class-admin.php:220
 msgid "Change preview"
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:216
+#: wordpress-plugin/includes/class-admin.php:220
 msgid "Current managed section"
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:216
+#: wordpress-plugin/includes/class-admin.php:220
 msgid "(empty)"
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:216
+#: wordpress-plugin/includes/class-admin.php:220
 msgid "Proposed managed section"
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:216
+#: wordpress-plugin/includes/class-admin.php:220
 msgid "(remove managed section)"
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:217
+#: wordpress-plugin/includes/class-admin.php:221
 msgid "Download current .htaccess backup"
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:219
+#: wordpress-plugin/includes/class-admin.php:223
 msgid "I verified that these are client IPs, not CDN/proxy or shared-service addresses."
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:220
+#: wordpress-plugin/includes/class-admin.php:224
 msgid "I saved the backup and can restore .htaccess through hosting or SFTP if WordPress becomes unreachable."
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:221
+#: wordpress-plugin/includes/class-admin.php:225
 msgid "Apply server changes"
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:226
+#: wordpress-plugin/includes/class-admin.php:230
 msgid "Read existing WAF logs"
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:227
+#: wordpress-plugin/includes/class-admin.php:231
 msgid "Raw IPs are read locally only when an administrator views the records. Provider logs are never modified. URLs, payloads, cookies and user accounts are not read."
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:228
+#: wordpress-plugin/includes/class-admin.php:232
 msgid "Minimum repeat count"
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:228
+#: wordpress-plugin/includes/class-admin.php:232
 msgid "Window (minutes)"
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:229
+#: wordpress-plugin/includes/class-admin.php:233
 msgid "Protected IP addresses"
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:230
+#: wordpress-plugin/includes/class-admin.php:234
 msgid "Your current REMOTE_ADDR and SERVER_ADDR are protected automatically. Forwarded IP headers are not trusted by this plugin. Add monitoring, proxy and administrator IPs here."
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:231
+#: wordpress-plugin/includes/class-admin.php:235
 msgid "Enable manual .htaccess editing with backup and self-check"
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:232
+#: wordpress-plugin/includes/class-admin.php:236
 msgid "Apache 2.4 and same-directory, single-site WordPress only. Self-checks cannot guarantee recovery after process termination or hosting failures. Keep independent hosting/SFTP access. No background or automatic IP blocking."
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:233
+#: wordpress-plugin/includes/class-admin.php:237
 msgid "Up to three full configuration backups and configured IPs remain in the local database. Preview and probe tokens expire. There is no Hub, telemetry, geolocation lookup or remote block list. Uninstall does not remove server blocks or recovery data."
 msgstr ""
 
-#: wordpress-plugin/includes/class-admin.php:234
+#: wordpress-plugin/includes/class-admin.php:238
 msgid "Save settings"
 msgstr ""
 
@@ -330,17 +330,46 @@ msgstr ""
 msgid "The managed section was edited outside this plugin. No changes were made."
 msgstr ""
 
+#: wordpress-plugin/includes/class-server.php:13
+msgid "Editing requires Apache 2.4, a single-site installation, and enabled WordPress file modifications."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server.php:18
+msgid "WordPress and the site home must use the same directory in this version."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server.php:76
+msgid "Administrator access is required."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server.php:78
+msgid "The preview expired. Create a new preview."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server.php:82
+msgid "Pause Semantic Deterrence responses and wait for active observation windows to finish before changing server blocks."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server.php:87
+msgid "Another change is in progress. Try again later."
+msgstr ""
+
+#: wordpress-plugin/includes/class-server.php:94
+msgid "The change could not be completed. Review the current file and backups before retrying."
+msgstr ""
+
 #: wordpress-plugin/includes/class-server-file.php:9
 msgid "An existing, regular .htaccess file of at most 128 KiB is required. Symbolic links are not supported."
 msgstr ""
 
 #: wordpress-plugin/includes/class-server-file.php:12
+#: wordpress-plugin/includes/class-server-file.php:24
 msgid "The settings file could not be read."
 msgstr ""
 
 #: wordpress-plugin/includes/class-server-file.php:18
-#: wordpress-plugin/includes/class-server-file.php:45
-#: wordpress-plugin/includes/class-server-file.php:60
+#: wordpress-plugin/includes/class-server-file.php:53
+#: wordpress-plugin/includes/class-server-file.php:68
 msgid "The settings file changed. Create a fresh preview before applying."
 msgstr ""
 
@@ -348,72 +377,44 @@ msgstr ""
 msgid "The file or its directory is not writable, or the result exceeds 128 KiB."
 msgstr ""
 
-#: wordpress-plugin/includes/class-server-file.php:25
+#: wordpress-plugin/includes/class-server-file.php:27
 msgid "Use non-executable file permissions without group or world write access before editing."
 msgstr ""
 
-#: wordpress-plugin/includes/class-server-file.php:30
+#: wordpress-plugin/includes/class-server-file.php:33
 msgid "A private temporary file could not be created."
 msgstr ""
 
-#: wordpress-plugin/includes/class-server-file.php:50
+#: wordpress-plugin/includes/class-server-file.php:58
 msgid "The settings file could not be replaced. No partial file was installed."
 msgstr ""
 
-#: wordpress-plugin/includes/class-server-file.php:62
+#: wordpress-plugin/includes/class-server-file.php:70
 msgid "No changes to apply."
 msgstr ""
 
-#: wordpress-plugin/includes/class-server-file.php:64
+#: wordpress-plugin/includes/class-server-file.php:72
 msgid "The preflight site check failed. The settings file was not changed."
 msgstr ""
 
-#: wordpress-plugin/includes/class-server-file.php:65
+#: wordpress-plugin/includes/class-server-file.php:73
 msgid "The database backup could not be saved. The settings file was not changed."
 msgstr ""
 
-#: wordpress-plugin/includes/class-server-file.php:67
+#: wordpress-plugin/includes/class-server-file.php:75
 msgid "Preflight or backup failed. The settings file was not changed."
 msgstr ""
 
-#: wordpress-plugin/includes/class-server-file.php:75
+#: wordpress-plugin/includes/class-server-file.php:83
 msgid "The file changed again during verification. Review its current contents before retrying."
 msgstr ""
 
-#: wordpress-plugin/includes/class-server-file.php:79
+#: wordpress-plugin/includes/class-server-file.php:87
 msgid "The site check failed and automatic rollback could not safely complete. Restore the downloaded backup through your hosting panel or SFTP immediately."
 msgstr ""
 
-#: wordpress-plugin/includes/class-server-file.php:80
+#: wordpress-plugin/includes/class-server-file.php:88
 msgid "The site check failed. The previous file was restored automatically."
-msgstr ""
-
-#: wordpress-plugin/includes/class-server.php:11
-msgid "Editing requires Apache 2.4, a single-site installation, and enabled WordPress file modifications."
-msgstr ""
-
-#: wordpress-plugin/includes/class-server.php:16
-msgid "WordPress and the site home must use the same directory in this version."
-msgstr ""
-
-#: wordpress-plugin/includes/class-server.php:74
-msgid "Administrator access is required."
-msgstr ""
-
-#: wordpress-plugin/includes/class-server.php:76
-msgid "The preview expired. Create a new preview."
-msgstr ""
-
-#: wordpress-plugin/includes/class-server.php:80
-msgid "Pause Semantic Deterrence responses and wait for active observation windows to finish before changing server blocks."
-msgstr ""
-
-#: wordpress-plugin/includes/class-server.php:85
-msgid "Another change is in progress. Try again later."
-msgstr ""
-
-#: wordpress-plugin/includes/class-server.php:92
-msgid "The change could not be completed. Review the current file and backups before retrying."
 msgstr ""
 
 #: wordpress-plugin/includes/class-sources.php:62
@@ -431,4 +432,26 @@ msgstr ""
 #: wordpress-plugin/includes/class-sources.php:87
 #: wordpress-plugin/includes/class-sources.php:91
 msgid "The provider log could not be read. No raw database details are shown."
+msgstr ""
+
+#: wordpress-plugin/includes/class-updater.php:58
+msgid "Review repeated local WAF detections and manually manage server blocks with backups."
+msgstr ""
+
+#: wordpress-plugin/includes/class-updater.php:58
+msgid "View release notes on GitHub."
+msgstr ""
+
+#: wordpress-plugin/includes/class-updater.php:71
+msgid "The GitHub update checksum is unavailable. Please try again later."
+msgstr ""
+
+#: wordpress-plugin/includes/class-updater.php:75
+#: wordpress-plugin/includes/class-updater.php:83
+#: wordpress-plugin/includes/class-updater.php:93
+msgid "The GitHub update package could not be downloaded."
+msgstr ""
+
+#: wordpress-plugin/includes/class-updater.php:88
+msgid "The GitHub update package failed SHA-256 verification."
 msgstr ""

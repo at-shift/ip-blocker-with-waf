@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: IP Blocker with WAF 0.1.1\n"
+"Project-Id-Version: IP Blocker with WAF 0.1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-22 00:00+0000\n"
 "PO-Revision-Date: 2026-10-22 00:00+0000\n"
@@ -313,3 +313,18 @@ msgstr "取得元の記録テーブルを利用できません。"
 
 msgid "The provider log could not be read. No raw database details are shown."
 msgstr "取得元の記録を読み込めませんでした。データベースの内部情報は表示していません。"
+
+msgid "Review repeated local WAF detections and manually manage server blocks with backups."
+msgstr "このサイトのWAFによる反復検知を確認し、バックアップ付きでサーバーの遮断設定を手動管理します。"
+
+msgid "View release notes on GitHub."
+msgstr "GitHubでリリースノートを確認する。"
+
+msgid "The GitHub update checksum is unavailable. Please try again later."
+msgstr "GitHub更新用のチェックサムを取得・確認できません。時間をおいて再試行してください。"
+
+msgid "The GitHub update package could not be downloaded."
+msgstr "GitHubの更新パッケージをダウンロードできませんでした。"
+
+msgid "The GitHub update package failed SHA-256 verification."
+msgstr "GitHubの更新パッケージのSHA-256検証に失敗しました。"

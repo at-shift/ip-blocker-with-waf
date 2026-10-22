@@ -3,7 +3,7 @@ Contributors: atshift
 Tags: security, firewall, ip, access-control
 Requires at least: 6.4
 Requires PHP: 7.4
-Stable tag: 0.1.1
+Stable tag: 0.1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,6 +21,8 @@ Failed site checks attempt rollback but cannot guarantee recovery after process 
 
 == Privacy ==
 
+This is the GitHub distribution. Normal WordPress update checks contact GitHub for the latest stable release and require its installable ZIP and SHA-256 file. Metadata is cached for six hours, failures for fifteen minutes. Update requests use a plugin/version-only User-Agent and send no WAF observations, site URL, administrator cookies or configuration backups. GitHub receives normal connection metadata such as the server IP. Downloads are checksum-verified; automatic updates are not forced. Versions 0.1.1 and earlier require one manual installation of 0.1.2 to enable this mechanism. The separate WordPress.org submission branch contains no external updater.
+
 Source reads are administrator-triggered, limited to 10,000 retained rows and 200 IP/classification groups. Only IP, timestamp and classification fields are returned. Wordfence extracts a bounded category from valid JSON in the database; raw request data is not returned. Provider logs are never modified. There is no telemetry, Hub, geolocation service, remote block list or background collection.
 
 Configured IPs, up to three full configuration backups, and expiring preview/readiness/probe/lock data remain in the local database. Applying a change sends random-token self-probes to this site's home URL, with no admin cookies, no redirects and normal TLS verification. Infrastructure access logs may contain those requests. Keep configuration backups private.
@@ -37,6 +39,11 @@ It never independently trusts forwarding headers. Only use server editing when A
 Yes, but changes are refused while semantic responses are enabled or responded observation windows are open, to avoid confusing server blocking with warning effectiveness. See the repository README for the exact guard and limitations.
 
 == Changelog ==
+
+= 0.1.2 =
+* Add GitHub Release notifications and plugin details through WordPress's normal update interface, only in the GitHub distribution.
+* Validate stable release versions and exact repository assets, cache metadata, verify downloaded ZIPs against their named SHA-256 file, and reject missing or mismatched checksums.
+* Keep the WordPress.org submission in a separate English-only branch without this updater. Retain Japanese translations in the GitHub package and register them on init.
 
 = 0.1.1 =
 * Add official WordPress.org introduction links for CloudSecure WP Security and Wordfence to the administrator connection settings and plugin documentation.
