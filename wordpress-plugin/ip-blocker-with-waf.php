@@ -2,7 +2,7 @@
 /**
  * Plugin Name: IP Blocker with WAF
  * Description: Review local WAF IP observations and manually manage server-side IP blocks with backups and rollback checks.
- * Version: 0.1.2
+ * Version: 0.1.3
  * Requires at least: 6.4
  * Requires PHP: 7.4
  * Author: @shift
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'IP_BLOCKER_WAF_VERSION', '0.1.2' );
+define( 'IP_BLOCKER_WAF_VERSION', '0.1.3' );
 define( 'IP_BLOCKER_WAF_FILE', __FILE__ );
 require_once __DIR__ . '/includes/class-ip-rules.php';
 require_once __DIR__ . '/includes/class-sources.php';

@@ -3,7 +3,7 @@ Contributors: atshift
 Tags: security, firewall, ip, access-control
 Requires at least: 6.4
 Requires PHP: 7.4
-Stable tag: 0.1.2
+Stable tag: 0.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,9 +36,15 @@ No. A log entry or high count is not proof of an attack. An administrator must r
 It never independently trusts forwarding headers. Only use server editing when Apache's client-IP restoration and provider attribution have been correctly configured. Shared-service/proxy IP blocking can deny legitimate visitors.
 
 = Can it run alongside Semantic Deterrence? =
-Yes, but changes are refused while semantic responses are enabled or responded observation windows are open, to avoid confusing server blocking with warning effectiveness. See the repository README for the exact guard and limitations.
+Yes. With Semantic Deterrence 0.1.8 or later, responses and experiment assignment stay enabled during manual IP blocking. An opaque local measurement revision protects overlapping undecided windows: they are classified as rate_limited (indeterminate), never as deterrence success. No IP or WAF record is copied to SDN. Older SDN versions still refuse changes while responses or observation windows are active. Interrupted changes require explicit measurement recovery after a site health check.
 
 == Changelog ==
+
+= 0.1.3 =
+* Allow manual IP blocks alongside SDN experiments through the SDN 0.1.8 measurement API, without changing its mode or experiment assignment.
+* Protect overlapping undecided observation windows from being classified as non-continuation successes; keep these results indeterminate in local and shared statistics.
+* Require explicit, health-checked measurement recovery after an interrupted change. Preserve the legacy safety guard with older SDN versions.
+* Show compatibility and recovery guidance before applying changes, and separate missing confirmations, expired previews and missing backup errors.
 
 = 0.1.2 =
 * Add GitHub Release notifications and plugin details through WordPress's normal update interface, only in the GitHub distribution.

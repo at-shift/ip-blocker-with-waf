@@ -455,3 +455,51 @@ msgstr ""
 #: wordpress-plugin/includes/class-updater.php:88
 msgid "The GitHub update package failed SHA-256 verification."
 msgstr ""
+
+msgid "SDN measurement state is unavailable. Server changes are disabled until it can be read."
+msgstr ""
+
+msgid "A previous server change interrupted SDN measurement. Review the current file and resume measurement below before another change."
+msgstr ""
+
+msgid "Update Semantic Deterrence to version 0.1.8 or later to change IP blocks while its responses or observation windows are active."
+msgstr ""
+
+msgid "Compatible SDN measurement support and administrator access are required."
+msgstr ""
+
+msgid "No interrupted SDN measurement is available to resume."
+msgstr ""
+
+msgid "The site self-check failed. Measurement remains interrupted; review the server configuration and recovery access."
+msgstr ""
+
+msgid "SDN measurement could not be resumed. No server file was changed by this recovery attempt."
+msgstr ""
+
+msgid "The server file changed. Create a new preview and download a fresh backup."
+msgstr ""
+
+msgid "SDN measurement could not be protected. No server changes were started. Review the SDN measurement status before retrying."
+msgstr ""
+
+msgid "The file change attempt finished, but SDN measurement remains interrupted. Review the managed IP list and use Resume SDN measurement. Do not assume the file was unchanged."
+msgstr ""
+
+msgid "Both address attribution and independent recovery access must be confirmed."
+msgstr ""
+
+msgid "The preview expired or was already used. Create a new preview."
+msgstr ""
+
+msgid "Download the current .htaccess backup from this preview before applying. An old or expired download cannot be used."
+msgstr ""
+
+msgid "SDN measurement resumed. Interrupted windows remain indeterminate; the SDN mode and assignment were not changed."
+msgstr ""
+
+msgid "Resume SDN measurement"
+msgstr ""
+
+msgid "SDN stays active. Undecided observation windows overlapping a server change are conservatively counted as indeterminate due to site-side restriction, not as deterrence success. No IP addresses are copied to SDN or shared."
+msgstr ""

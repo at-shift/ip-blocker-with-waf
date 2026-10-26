@@ -106,11 +106,11 @@ try {
 	$wpdb->fail = true; verify( code_is( IP_Blocker_WAF_Sources::read( 'cloudsecure' ), 'unavailable' ) && false === $wpdb->suppressed, 'provider DB failure stays private and restores state' ); $wpdb->fail = false; $wpdb->last_error = '';
 	$before_calls = count( $wpdb->calls ); $capable = false;
 	verify( code_is( IP_Blocker_WAF_Sources::read( 'cloudsecure' ), 'forbidden' ) && $before_calls === count( $wpdb->calls ), 'reader cannot read IPs' );
-	foreach ( array( 'render', 'save', 'apply', 'download_backup' ) as $method ) {
+	foreach ( array( 'render', 'save', 'apply', 'download_backup', 'resume_measurement' ) as $method ) {
 		try { IP_Blocker_WAF_Admin::$method(); verify( false, 'must reject non-admin' ); } catch ( RuntimeException $error ) { verify( 'denied' === $error->getMessage(), 'capability before nonce/file work' ); }
 	}
 	$capable = true; $_SERVER['REQUEST_METHOD'] = 'POST';
-	foreach ( array( 'save', 'apply', 'download_backup' ) as $method ) {
+	foreach ( array( 'save', 'apply', 'download_backup', 'resume_measurement' ) as $method ) {
 		try { IP_Blocker_WAF_Admin::$method(); } catch ( RuntimeException $error ) { verify( 'nonce-reached' === $error->getMessage(), 'actions require nonce' ); }
 	}
 	verify( array() === IP_Blocker_WAF_Admin::settings()['sources'] && false === IP_Blocker_WAF_Admin::settings()['editing'], 'all opt-ins default off' );
@@ -136,8 +136,10 @@ try {
 	verify( array() === IP_Blocker_WAF_Sources::group_bursts( $bad, 'wordfence' ), 'overlong category is rejected, not truncated into another category' );
 	if ( ! class_exists( 'Atshift_Semantic_Deterrence_Storage', false ) ) { class Atshift_Semantic_Deterrence_Storage { public static $mode = 'observe'; public static function get_settings() { return array( 'mode' => self::$mode ); } } }
 	Atshift_Semantic_Deterrence_Storage::$mode = 'deter'; verify( false === IP_Blocker_WAF_Server::experiment_safe(), 'semantic responses block server modifications' );
+	verify( code_is( IP_Blocker_WAF_Server::measurement_status(), 'experiment' ), 'legacy SDN requires compatible update rather than bypass' );
 	Atshift_Semantic_Deterrence_Storage::$mode = 'observe'; $wpdb->pending = 1; verify( false === IP_Blocker_WAF_Server::experiment_safe(), 'open observation window blocks server modifications' );
 	$wpdb->pending = null; verify( true === IP_Blocker_WAF_Server::experiment_safe(), 'no active responses or open windows permits modification' );
+	verify( true === IP_Blocker_WAF_Server::measurement_status(), 'legacy idle SDN remains supported' );
 	echo 'PASS ' . $checks . ' rule, file transaction, privacy, opt-in and permission checks' . PHP_EOL;
 } finally {
 	foreach ( glob( $root . '/*' ) as $file ) { unlink( $file ); }

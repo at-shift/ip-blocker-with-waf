@@ -6,6 +6,62 @@ class IP_Blocker_WAF_Server {
 	const BACKUPS = 'ipbw_backups';
 	const LOCK = 'ipbw_write_lock';
 
+	public static function has_measurement_api() {
+		return class_exists( 'Atshift_Semantic_Deterrence_Server_Blocks', false ) &&
+			defined( 'Atshift_Semantic_Deterrence_Server_Blocks::API_VERSION' ) &&
+			1 === Atshift_Semantic_Deterrence_Server_Blocks::API_VERSION &&
+			is_callable( array( 'Atshift_Semantic_Deterrence_Server_Blocks', 'begin_change' ) ) &&
+			is_callable( array( 'Atshift_Semantic_Deterrence_Server_Blocks', 'finish_change' ) ) &&
+			is_callable( array( 'Atshift_Semantic_Deterrence_Server_Blocks', 'snapshot' ) );
+	}
+
+	public static function measurement_status() {
+		if ( self::has_measurement_api() ) {
+			$state = self::measurement_state();
+			if ( is_wp_error( $state ) ) { return $state; }
+			if ( $state['active'] ) { return new WP_Error( 'measurement_pending', __( 'A previous server change interrupted SDN measurement. Review the current file and resume measurement below before another change.', 'ip-blocker-with-waf' ) ); }
+			return true;
+		}
+		return self::experiment_safe() ? true : new WP_Error( 'experiment', __( 'Update Semantic Deterrence to version 0.1.8 or later to change IP blocks while its responses or observation windows are active.', 'ip-blocker-with-waf' ) );
+	}
+
+	private static function measurement_state() {
+		try { $state = Atshift_Semantic_Deterrence_Server_Blocks::snapshot(); }
+		catch ( Throwable $error ) { $state = false; }
+		if ( ! is_array( $state ) || ! is_bool( $state['active'] ?? null ) || ! is_string( $state['revision'] ?? null ) ||
+			( '' !== $state['revision'] && ! preg_match( '/^[a-f0-9]{32}$/D', $state['revision'] ) ) ||
+			( $state['active'] && '' === $state['revision'] ) ) {
+			return new WP_Error( 'measurement_state', __( 'SDN measurement state is unavailable. Server changes are disabled until it can be read.', 'ip-blocker-with-waf' ) );
+		}
+		return $state;
+	}
+
+	public static function resume_measurement() {
+		global $wpdb;
+		if ( ! current_user_can( 'manage_options' ) || ! self::has_measurement_api() ) { return new WP_Error( 'forbidden', __( 'Compatible SDN measurement support and administrator access are required.', 'ip-blocker-with-waf' ) ); }
+		$state = self::measurement_state();
+		if ( is_wp_error( $state ) || ! $state['active'] ) { return new WP_Error( 'measurement_state', __( 'No interrupted SDN measurement is available to resume.', 'ip-blocker-with-waf' ) ); }
+		$previous = $wpdb->suppress_errors( true );
+		$lock = false;
+		try {
+			$lock = self::lock();
+			if ( false === $lock ) { return new WP_Error( 'busy', __( 'Another change is in progress. Try again later.', 'ip-blocker-with-waf' ) ); }
+			$path = self::path();
+			$content = is_wp_error( $path ) ? $path : IP_Blocker_WAF_Server_File::read( $path );
+			$inspection = is_wp_error( $content ) ? $content : IP_Blocker_WAF_IP_Rules::inspect( $content );
+			if ( is_wp_error( $inspection ) ) { return $inspection; }
+			if ( ! self::probe() ) { return new WP_Error( 'baseline', __( 'The site self-check failed. Measurement remains interrupted; review the server configuration and recovery access.', 'ip-blocker-with-waf' ) ); }
+			$result = Atshift_Semantic_Deterrence_Server_Blocks::finish_change( $state['revision'] );
+			return true === $result ? true : new WP_Error( 'measurement_finish', __( 'SDN measurement could not be resumed. No server file was changed by this recovery attempt.', 'ip-blocker-with-waf' ) );
+		} finally {
+			if ( false !== $lock ) {
+				$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name = %s AND option_value = %s", self::LOCK, $lock ) );
+				wp_cache_delete( self::LOCK, 'options' );
+			}
+			$wpdb->suppress_errors( $previous );
+		}
+	}
+
 	public static function path() {
 		$software = $_SERVER['SERVER_SOFTWARE'] ?? '';
 		$unsupported_version = preg_match( '/^Apache\/(\d+\.\d+)/i', $software, $version ) && version_compare( $version[1], '2.4', '<' );
@@ -79,9 +135,12 @@ class IP_Blocker_WAF_Server {
 		}
 		$path = self::path();
 		if ( is_wp_error( $path ) ) { return $path; }
-		if ( ! self::experiment_safe() ) { return new WP_Error( 'experiment', __( 'Pause Semantic Deterrence responses and wait for active observation windows to finish before changing server blocks.', 'ip-blocker-with-waf' ) ); }
+		$measurement_status = self::measurement_status();
+		if ( is_wp_error( $measurement_status ) ) { return $measurement_status; }
 		$previous = $wpdb->suppress_errors( true );
 		$lock = false;
+		$measurement = false;
+		$result = new WP_Error( 'failed', __( 'The change could not be completed. Review the current file and backups before retrying.', 'ip-blocker-with-waf' ) );
 		try {
 			$lock = self::lock();
 			if ( false === $lock ) { return new WP_Error( 'busy', __( 'Another change is in progress. Try again later.', 'ip-blocker-with-waf' ) ); }
@@ -89,15 +148,28 @@ class IP_Blocker_WAF_Server {
 			if ( is_wp_error( $before ) ) { return $before; }
 			$after = IP_Blocker_WAF_IP_Rules::compose( $before, $plan['ips'], $protected );
 			if ( is_wp_error( $after ) ) { return $after; }
-			return IP_Blocker_WAF_Server_File::apply( $path, $plan['hash'], $after, array( __CLASS__, 'backup' ), array( __CLASS__, 'probe' ) );
+			if ( ! hash_equals( hash( 'sha256', $before ), $plan['hash'] ) ) { return new WP_Error( 'changed', __( 'The server file changed. Create a new preview and download a fresh backup.', 'ip-blocker-with-waf' ) ); }
+			if ( $after === $before ) { return true; }
+			if ( self::has_measurement_api() ) {
+				$token = Atshift_Semantic_Deterrence_Server_Blocks::begin_change();
+				if ( ! is_string( $token ) || ! preg_match( '/^[a-f0-9]{32}$/D', $token ) ) { return new WP_Error( 'measurement_prepare', __( 'SDN measurement could not be protected. No server changes were started. Review the SDN measurement status before retrying.', 'ip-blocker-with-waf' ) ); }
+				$measurement = $token;
+			}
+			$result = IP_Blocker_WAF_Server_File::apply( $path, $plan['hash'], $after, array( __CLASS__, 'backup' ), array( __CLASS__, 'probe' ) );
 		} catch ( Throwable $error ) {
-			return new WP_Error( 'failed', __( 'The change could not be completed. Review the current file and backups before retrying.', 'ip-blocker-with-waf' ) );
+			$result = new WP_Error( 'failed', __( 'The change could not be completed. Review the current file and backups before retrying.', 'ip-blocker-with-waf' ) );
 		} finally {
+			if ( is_string( $measurement ) ) {
+				try { $finished = Atshift_Semantic_Deterrence_Server_Blocks::finish_change( $measurement ); }
+				catch ( Throwable $error ) { $finished = false; }
+				if ( true !== $finished ) { $result = new WP_Error( 'measurement_finish', __( 'The file change attempt finished, but SDN measurement remains interrupted. Review the managed IP list and use Resume SDN measurement. Do not assume the file was unchanged.', 'ip-blocker-with-waf' ) ); }
+			}
 			if ( false !== $lock ) {
 				$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name = %s AND option_value = %s", self::LOCK, $lock ) );
 				wp_cache_delete( self::LOCK, 'options' );
 			}
 			$wpdb->suppress_errors( $previous );
 		}
+		return $result;
 	}
 }

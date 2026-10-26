@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: IP Blocker with WAF 0.1.2\n"
+"Project-Id-Version: IP Blocker with WAF 0.1.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-22 00:00+0000\n"
 "PO-Revision-Date: 2026-10-22 00:00+0000\n"
@@ -328,3 +328,51 @@ msgstr "GitHubの更新パッケージをダウンロードできませんでし
 
 msgid "The GitHub update package failed SHA-256 verification."
 msgstr "GitHubの更新パッケージのSHA-256検証に失敗しました。"
+
+msgid "SDN measurement state is unavailable. Server changes are disabled until it can be read."
+msgstr "SDNの測定状態を確認できません。確認できるまでサーバー設定は変更できません。"
+
+msgid "A previous server change interrupted SDN measurement. Review the current file and resume measurement below before another change."
+msgstr "前回のサーバー変更でSDNの測定が中断しています。現在のファイルを確認し、下のボタンで測定を再開してから変更してください。"
+
+msgid "Update Semantic Deterrence to version 0.1.8 or later to change IP blocks while its responses or observation windows are active."
+msgstr "SDNの応答や観測を続けながらIP遮断を変更するには、Semantic Deterrenceを0.1.8以降へ更新してください。"
+
+msgid "Compatible SDN measurement support and administrator access are required."
+msgstr "対応するSDNの測定連携と管理者権限が必要です。"
+
+msgid "No interrupted SDN measurement is available to resume."
+msgstr "再開待ちのSDN測定はありません。"
+
+msgid "The site self-check failed. Measurement remains interrupted; review the server configuration and recovery access."
+msgstr "サイトの自己診断に失敗しました。測定は中断したままです。サーバー設定と復旧手段を確認してください。"
+
+msgid "SDN measurement could not be resumed. No server file was changed by this recovery attempt."
+msgstr "SDNの測定を再開できませんでした。この復旧操作ではサーバーファイルを変更していません。"
+
+msgid "The server file changed. Create a new preview and download a fresh backup."
+msgstr "サーバーファイルが変更されています。プレビューを作り直し、新しいバックアップを取得してください。"
+
+msgid "SDN measurement could not be protected. No server changes were started. Review the SDN measurement status before retrying."
+msgstr "SDNの測定を保護できなかったため、サーバー変更は開始していません。SDNの測定状態を確認して再試行してください。"
+
+msgid "The file change attempt finished, but SDN measurement remains interrupted. Review the managed IP list and use Resume SDN measurement. Do not assume the file was unchanged."
+msgstr "ファイル変更の処理は終了しましたが、SDNの測定が中断したままです。管理するIP一覧を確認し「SDNの測定を再開」を実行してください。ファイルが未変更とは限りません。"
+
+msgid "Both address attribution and independent recovery access must be confirmed."
+msgstr "接続元IPの帰属と、独立した復旧手段の両方を確認してください。"
+
+msgid "The preview expired or was already used. Create a new preview."
+msgstr "プレビューの有効期限が切れたか、既に使用されています。プレビューを作り直してください。"
+
+msgid "Download the current .htaccess backup from this preview before applying. An old or expired download cannot be used."
+msgstr "反映前に、このプレビューから現在の.htaccessバックアップを取得してください。古い、または期限切れのダウンロードは使用できません。"
+
+msgid "SDN measurement resumed. Interrupted windows remain indeterminate; the SDN mode and assignment were not changed."
+msgstr "SDNの測定を再開しました。中断した観測は判定不能のままとし、SDNのモードや実験割り当ては変更していません。"
+
+msgid "Resume SDN measurement"
+msgstr "SDNの測定を再開"
+
+msgid "SDN stays active. Undecided observation windows overlapping a server change are conservatively counted as indeterminate due to site-side restriction, not as deterrence success. No IP addresses are copied to SDN or shared."
+msgstr "SDNは継続します。サーバー変更に重なる未確定の観測は、抑止の成功ではなく、サイト側の制限による判定不能として保守的に集計します。IPをSDNへコピーしたり共有したりしません。"

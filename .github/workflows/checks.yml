@@ -11,6 +11,10 @@ jobs:
         run: php tests/run.php
       - name: GitHub updater checks
         run: php tests/updater.php
+      - name: SDN coexistence checks
+        run: php tests/measurement.php
+      - name: Admin save flow checks
+        run: php tests/admin-flow.php
       - name: PHP syntax
         run: find wordpress-plugin tests -name '*.php' -print0 | xargs -0 -n1 php -l
       - name: Build installable ZIP
