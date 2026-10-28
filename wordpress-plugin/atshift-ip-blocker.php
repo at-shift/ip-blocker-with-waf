@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: IP Blocker with WAF
+ * Plugin Name: atshift IP Blocker
  * Description: Review local WAF IP observations and manually manage server-side IP blocks with backups and rollback checks.
  * Version: 0.1.2
  * Requires at least: 6.4
  * Requires PHP: 7.4
  * Author: @shift
  * License: GPL-2.0-or-later
- * Text Domain: ip-blocker-with-waf
+ * Text Domain: atshift-ip-blocker
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

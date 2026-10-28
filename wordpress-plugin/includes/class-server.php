@@ -10,12 +10,12 @@ class IP_Blocker_WAF_Server {
 		$software = sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ?? '' ) );
 		$unsupported_version = preg_match( '/^Apache\/(\d+\.\d+)/i', $software, $version ) && version_compare( $version[1], '2.4', '<' );
 		if ( is_multisite() || ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS ) || ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) || ! preg_match( '/^Apache(?:\/|$)/i', $software ) || $unsupported_version ) {
-			return new WP_Error( 'environment', __( 'Editing requires Apache 2.4, a single-site installation, and enabled WordPress file modifications.', 'ip-blocker-with-waf' ) );
+			return new WP_Error( 'environment', __( 'Editing requires Apache 2.4, a single-site installation, and enabled WordPress file modifications.', 'atshift-ip-blocker' ) );
 		}
 		if ( ! function_exists( 'get_home_path' ) ) { require_once ABSPATH . 'wp-admin/includes/file.php'; }
 		$root = realpath( get_home_path() );
 		if ( false === $root || $root !== realpath( ABSPATH ) ) {
-			return new WP_Error( 'root', __( 'WordPress and the site home must use the same directory in this version.', 'ip-blocker-with-waf' ) );
+			return new WP_Error( 'root', __( 'WordPress and the site home must use the same directory in this version.', 'atshift-ip-blocker' ) );
 		}
 		return $root . '/.htaccess';
 	}
@@ -76,25 +76,25 @@ class IP_Blocker_WAF_Server {
 
 	public static function apply_plan( $plan, $protected ) {
 		global $wpdb;
-		if ( ! current_user_can( 'manage_options' ) ) { return new WP_Error( 'forbidden', __( 'Administrator access is required.', 'ip-blocker-with-waf' ) ); }
+		if ( ! current_user_can( 'manage_options' ) ) { return new WP_Error( 'forbidden', __( 'Administrator access is required.', 'atshift-ip-blocker' ) ); }
 		if ( ! is_array( $plan ) || ! isset( $plan['ips'], $plan['hash'], $plan['at'] ) || ! is_int( $plan['at'] ) || $plan['at'] < time() - 600 || $plan['at'] > time() ) {
-			return new WP_Error( 'expired', __( 'The preview expired. Create a new preview.', 'ip-blocker-with-waf' ) );
+			return new WP_Error( 'expired', __( 'The preview expired. Create a new preview.', 'atshift-ip-blocker' ) );
 		}
 		$path = self::path();
 		if ( is_wp_error( $path ) ) { return $path; }
-		if ( ! self::experiment_safe() ) { return new WP_Error( 'experiment', __( 'Pause Semantic Deterrence responses and wait for active observation windows to finish before changing server blocks.', 'ip-blocker-with-waf' ) ); }
+		if ( ! self::experiment_safe() ) { return new WP_Error( 'experiment', __( 'Pause Semantic Deterrence responses and wait for active observation windows to finish before changing server blocks.', 'atshift-ip-blocker' ) ); }
 		$previous = $wpdb->suppress_errors( true );
 		$lock = false;
 		try {
 			$lock = self::lock();
-			if ( false === $lock ) { return new WP_Error( 'busy', __( 'Another change is in progress. Try again later.', 'ip-blocker-with-waf' ) ); }
+			if ( false === $lock ) { return new WP_Error( 'busy', __( 'Another change is in progress. Try again later.', 'atshift-ip-blocker' ) ); }
 			$before = IP_Blocker_WAF_Server_File::read( $path );
 			if ( is_wp_error( $before ) ) { return $before; }
 			$after = IP_Blocker_WAF_IP_Rules::compose( $before, $plan['ips'], $protected );
 			if ( is_wp_error( $after ) ) { return $after; }
 			return IP_Blocker_WAF_Server_File::apply( $path, $plan['hash'], $after, array( __CLASS__, 'backup' ), array( __CLASS__, 'probe' ) );
 		} catch ( Throwable $error ) {
-			return new WP_Error( 'failed', __( 'The change could not be completed. Review the current file and backups before retrying.', 'ip-blocker-with-waf' ) );
+			return new WP_Error( 'failed', __( 'The change could not be completed. Review the current file and backups before retrying.', 'atshift-ip-blocker' ) );
 		} finally {
 			if ( false !== $lock ) {
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Atomic compare-and-delete releases only this request's lock; the option cache is invalidated immediately below.

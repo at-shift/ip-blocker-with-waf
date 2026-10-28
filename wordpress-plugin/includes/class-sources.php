@@ -56,21 +56,21 @@ class IP_Blocker_WAF_Sources {
 	public static function read( $provider, $hours = 24, $minutes = 10, $threshold = 30 ) {
 		global $wpdb;
 		if ( ! current_user_can( 'manage_options' ) || is_multisite() ) {
-			return new WP_Error( 'forbidden', __( 'Administrator access on a single-site installation is required.', 'ip-blocker-with-waf' ) );
+			return new WP_Error( 'forbidden', __( 'Administrator access on a single-site installation is required.', 'atshift-ip-blocker' ) );
 		}
 		if ( ! array_key_exists( $provider, self::providers() ) ) {
-			return new WP_Error( 'provider', __( 'Unsupported log source.', 'ip-blocker-with-waf' ) );
+			return new WP_Error( 'provider', __( 'Unsupported log source.', 'atshift-ip-blocker' ) );
 		}
 		$hours = in_array( $hours, array( 24, 168, 720 ), true ) ? $hours : 24;
 		if ( ( 'cloudsecure' === $provider && ! class_exists( 'CloudSecureWP_Waf', false ) ) || ( 'wordfence' === $provider && ! defined( 'WORDFENCE_VERSION' ) ) ) {
-			return new WP_Error( 'inactive', __( 'The selected WAF is not active.', 'ip-blocker-with-waf' ) );
+			return new WP_Error( 'inactive', __( 'The selected WAF is not active.', 'atshift-ip-blocker' ) );
 		}
 		$previous = $wpdb->suppress_errors( true );
 		try {
 			$table = $wpdb->prefix . ( 'cloudsecure' === $provider ? 'cloudsecurewp_waf_log' : 'wfHits' );
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Read-only schema check for an enabled provider; it can be removed or upgraded outside this plugin.
 			if ( $table !== $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $table ) ) ) ) {
-				return new WP_Error( 'unavailable', __( 'The provider log table is unavailable.', 'ip-blocker-with-waf' ) );
+				return new WP_Error( 'unavailable', __( 'The provider log table is unavailable.', 'atshift-ip-blocker' ) );
 			}
 			if ( 'cloudsecure' === $provider ) {
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Explicit administrator refresh of bounded, live third-party records; never cache or copy raw IP observations.
@@ -86,11 +86,11 @@ class IP_Blocker_WAF_Sources {
 				), ARRAY_A );
 			}
 			if ( '' !== $wpdb->last_error || ! is_array( $rows ) ) {
-				return new WP_Error( 'unavailable', __( 'The provider log could not be read. No raw database details are shown.', 'ip-blocker-with-waf' ) );
+				return new WP_Error( 'unavailable', __( 'The provider log could not be read. No raw database details are shown.', 'atshift-ip-blocker' ) );
 			}
 			return self::group_bursts( $rows, $provider, $minutes, $threshold );
 		} catch ( Throwable $error ) {
-			return new WP_Error( 'unavailable', __( 'The provider log could not be read. No raw database details are shown.', 'ip-blocker-with-waf' ) );
+			return new WP_Error( 'unavailable', __( 'The provider log could not be read. No raw database details are shown.', 'atshift-ip-blocker' ) );
 		} finally {
 			$wpdb->suppress_errors( $previous );
 		}

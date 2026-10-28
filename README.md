@@ -1,6 +1,8 @@
-# IP Blocker with WAF
+# atshift IP Blocker
 
 **WordPress.org submission branch (`wordpress-org`).** The GitHub distribution is maintained separately on [`main`](https://github.com/at-shift/ip-blocker-with-waf/tree/main). This branch is English-only, contains no bundled language packs or external update checker, and must not be merged into `main` before approval. Translation and integration will be handled after the submission is accepted.
+
+The pending application uses the revised display name **atshift IP Blocker**, requested slug **atshift-ip-blocker**, and matching text domain. This is a naming-only revision of the unreleased WordPress.org 0.1.2 candidate, not a new GitHub release. Existing `ipbw_*` settings, backup identifiers and legacy managed-file markers are intentionally retained. The published GitHub package/folder and its update URL are unchanged; the SDN coexistence feature on GitHub `main` is not included in this application revision.
 
 **A local, administrator-operated WordPress desk for reviewing WAF IP records and manually managing Apache IP blocks.**
 
@@ -64,10 +66,10 @@ If Semantic Deterrence is active, this plugin refuses server changes while its d
 ```sh
 php tests/run.php
 find wordpress-plugin tests -name '*.php' -print0 | xargs -0 -n1 php -l
-bash bin/build.sh /tmp/ip-blocker-with-waf-package
+bash bin/build.sh /tmp/atshift-ip-blocker-package
 ```
 
-The ZIP root is `ip-blocker-with-waf/`. Do not install a GitHub source archive as the plugin ZIP without repackaging `wordpress-plugin/`.
+The ZIP root is `atshift-ip-blocker/`, containing `atshift-ip-blocker.php`. Do not install a GitHub source archive as the plugin ZIP without repackaging `wordpress-plugin/`. Do not activate this submission build alongside the existing GitHub distribution: the two distributions intentionally share runtime classes and saved-setting keys.
 
 Initial verification uses an isolated filesystem and mocked WordPress/provider data, plus an isolated Apache configuration and rendered desktop/mobile fixture. It does not prove compatibility with every hosting environment, provider configuration, reverse proxy, or live MySQL deployment. Test on a staging copy with independent recovery access before production use.
 

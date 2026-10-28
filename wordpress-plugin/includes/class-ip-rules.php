@@ -71,7 +71,7 @@ class IP_Blocker_WAF_IP_Rules {
 			$values = preg_split( '/\R/', trim( $values ) );
 		}
 		if ( ! is_array( $values ) || count( $values ) > self::MAX_IPS ) {
-			return new WP_Error( 'invalid_list', __( 'Enter no more than 50 exact public IP addresses, one per line.', 'ip-blocker-with-waf' ) );
+			return new WP_Error( 'invalid_list', __( 'Enter no more than 50 exact public IP addresses, one per line.', 'atshift-ip-blocker' ) );
 		}
 		$result = array();
 		foreach ( $values as $value ) {
@@ -80,10 +80,10 @@ class IP_Blocker_WAF_IP_Rules {
 			}
 			$ip = self::public_address( $value );
 			if ( false === $ip ) {
-				return new WP_Error( 'invalid_ip', __( 'Only exact public IPv4 or IPv6 addresses are accepted. Private, reserved, masked addresses, hostnames and ranges are not accepted.', 'ip-blocker-with-waf' ) );
+				return new WP_Error( 'invalid_ip', __( 'Only exact public IPv4 or IPv6 addresses are accepted. Private, reserved, masked addresses, hostnames and ranges are not accepted.', 'atshift-ip-blocker' ) );
 			}
 			if ( in_array( $ip, $protected, true ) ) {
-				return new WP_Error( 'protected_ip', __( 'The list contains your current connection, the server address, or a protected IP. Remove it before continuing.', 'ip-blocker-with-waf' ) );
+				return new WP_Error( 'protected_ip', __( 'The list contains your current connection, the server address, or a protected IP. Remove it before continuing.', 'atshift-ip-blocker' ) );
 			}
 			$result[] = $ip;
 		}
@@ -110,7 +110,7 @@ class IP_Blocker_WAF_IP_Rules {
 
 	public static function inspect( $content ) {
 		if ( ! is_string( $content ) || strlen( $content ) > 131072 ) {
-			return new WP_Error( 'file_size', __( 'The settings file is unreadable or larger than 128 KiB.', 'ip-blocker-with-waf' ) );
+			return new WP_Error( 'file_size', __( 'The settings file is unreadable or larger than 128 KiB.', 'atshift-ip-blocker' ) );
 		}
 		$begin = substr_count( $content, self::BEGIN );
 		$end = substr_count( $content, self::END );
@@ -118,18 +118,18 @@ class IP_Blocker_WAF_IP_Rules {
 			return array( 'ips' => array(), 'rest' => $content );
 		}
 		if ( 1 !== $begin || 1 !== $end || 0 !== strpos( $content, self::BEGIN . "\n" ) ) {
-			return new WP_Error( 'markers', __( 'The managed section is ambiguous or was moved. Restore or review it manually.', 'ip-blocker-with-waf' ) );
+			return new WP_Error( 'markers', __( 'The managed section is ambiguous or was moved. Restore or review it manually.', 'atshift-ip-blocker' ) );
 		}
 		$position = strpos( $content, self::END . "\n" );
 		if ( false === $position ) {
-			return new WP_Error( 'markers', __( 'The managed section is ambiguous or was moved. Restore or review it manually.', 'ip-blocker-with-waf' ) );
+			return new WP_Error( 'markers', __( 'The managed section is ambiguous or was moved. Restore or review it manually.', 'atshift-ip-blocker' ) );
 		}
 		$length = $position + strlen( self::END ) + 1;
 		$section = substr( $content, 0, $length );
 		preg_match_all( "/-R '([0-9a-f:.]+)'/", $section, $matches );
 		$ips = self::validate( $matches[1] );
 		if ( is_wp_error( $ips ) || empty( $ips ) || self::generate( $ips ) !== $section ) {
-			return new WP_Error( 'modified', __( 'The managed section was edited outside this plugin. No changes were made.', 'ip-blocker-with-waf' ) );
+			return new WP_Error( 'modified', __( 'The managed section was edited outside this plugin. No changes were made.', 'atshift-ip-blocker' ) );
 		}
 		return array( 'ips' => $ips, 'rest' => substr( $content, $length ) );
 	}

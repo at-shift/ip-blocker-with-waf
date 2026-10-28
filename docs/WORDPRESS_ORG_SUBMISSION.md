@@ -2,9 +2,9 @@
 
 ## Distribution Boundary
 
-This is the `wordpress-org` branch of IP Blocker with WAF. The submission package is English-only and includes no PO/MO language pack, bundled translation template, external update checker, Update URI override, telemetry, remote block list or remote executable code. The separate GitHub distribution lives on `main`. These branches will be translated and integrated only after approval.
+This is the `wordpress-org` branch of **atshift IP Blocker**, previously submitted as IP Blocker with WAF. The requested new slug and text domain are `atshift-ip-blocker`. This naming-only revision keeps the unreleased application version at 0.1.2; it does not add the GitHub main branch's newer SDN protocol or updater. The submission package is English-only and includes no PO/MO language pack, bundled translation template, external update checker, Update URI override, telemetry, remote block list or remote executable code. The separate GitHub distribution lives on `main`. These branches will be translated and integrated only after approval.
 
-The package contains only `wordpress-plugin/`, under the installation directory `ip-blocker-with-waf/`. Repository tests, QA results, configuration, databases and backups are not included.
+The package contains only `wordpress-plugin/`, under the installation directory `atshift-ip-blocker/`, with main file `atshift-ip-blocker.php`. Repository tests, QA results, configuration, databases and backups are not included. Runtime class names, `ipbw_*` settings/backup keys and `# BEGIN/END IP Blocker with WAF` markers remain for data and file compatibility; these are internal legacy identifiers, not the displayed plugin name or requested slug.
 
 ## Operation And Consent
 

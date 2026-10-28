@@ -1,4 +1,4 @@
-=== IP Blocker with WAF ===
+=== atshift IP Blocker ===
 Contributors: atshift
 Tags: security, firewall, ip, access-control
 Requires at least: 6.4
@@ -40,6 +40,7 @@ Yes, but changes are refused while semantic responses are enabled or responded o
 == Changelog ==
 
 = 0.1.2 =
+* Rename the pending WordPress.org submission to atshift IP Blocker, with the requested slug and text domain atshift-ip-blocker. Existing settings and managed server-section identifiers are preserved.
 * Prepare the WordPress.org submission package and add tested-version metadata.
 * Make POST nonce verification explicit in each action, unslash inputs, retain strict exact-IP and consent validation, and add translator context for placeholders.
 * Document the narrowly scoped native filesystem and live-query exceptions required for atomic configuration replacement and current WAF observations.

@@ -1,0 +1,7 @@
+Hello,
+
+Please change the reserved slug from "ip-blocker-with-waf" to "atshift-ip-blocker".
+
+The plugin is now named "atshift IP Blocker", using our atshift brand as the distinguishing prefix. The corrected package uses the matching plugin header, readme, directory name and text domain.
+
+Thank you.
