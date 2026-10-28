@@ -4,7 +4,7 @@ Tags: security, firewall, ip, access-control
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,6 +40,12 @@ It never independently trusts forwarding headers. Only use server editing when A
 Yes. With Semantic Deterrence 0.1.8 or later, responses and experiment assignment stay enabled during manual IP blocking. An opaque local measurement revision protects overlapping undecided windows: they are classified as rate_limited (indeterminate), never as deterrence success. No IP or WAF record is copied to SDN. Older SDN versions still refuse changes while responses or observation windows are active. Interrupted changes require explicit measurement recovery after a site health check.
 
 == Changelog ==
+
+= 1.0.1 =
+* Add complete bundled translations for Spanish, German, French, Brazilian Portuguese, Italian, Russian, Dutch, Simplified Chinese, Polish, Turkish, Indonesian, Traditional Chinese (Taiwan) and Korean.
+* Retain English and Japanese for 15 interface languages in total, selected through the WordPress user locale.
+* Validate catalog completeness, printf placeholders, compiled translations and actual WordPress locale switching.
+* Blocking behavior, consent, permissions, backups and SDN measurement are unchanged.
 
 = 1.0.0 =
 * First stable WordPress.org release under the approved name atshift IP Blocker and slug atshift-ip-blocker.

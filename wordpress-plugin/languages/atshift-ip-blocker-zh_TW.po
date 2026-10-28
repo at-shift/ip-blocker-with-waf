@@ -1,0 +1,511 @@
+# Copyright (C) 2026 @shift
+# This file is distributed under the GPL-2.0-or-later.
+# Agent-authored translation, reviewed against the English catalog and plugin usage.
+msgid ""
+msgstr ""
+"Project-Id-Version: atshift IP Blocker 1.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/atshift-ip-blocker\n"
+"POT-Creation-Date: 2026-10-28T09:47:11+00:00\n"
+"PO-Revision-Date: 2026-10-28 00:00+0000\n"
+"Last-Translator: OpenAI Codex\n"
+"Language-Team: Chinese (Taiwan)\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: OpenAI Codex\n"
+"X-Domain: atshift-ip-blocker\n"
+
+#. Plugin Name of the plugin
+#: atshift-ip-blocker.php
+msgid "atshift IP Blocker"
+msgstr "atshift IP Blocker"
+
+#. Description of the plugin
+#: atshift-ip-blocker.php
+msgid "Review local WAF IP observations and manually manage server-side IP blocks with backups and rollback checks."
+msgstr "檢視本機 WAF 的 IP 觀測紀錄，並透過備份及回復原狀檢查，手動管理伺服器端的 IP 封鎖。"
+
+#. Author of the plugin
+#: atshift-ip-blocker.php
+msgid "@shift"
+msgstr "@shift"
+
+#: includes/class-admin.php:19
+#: includes/class-sources.php:59
+msgid "Administrator access on a single-site installation is required."
+msgstr "需要單一網站安裝環境的網站管理員權限。"
+
+#: includes/class-admin.php:60
+#: includes/class-admin.php:63
+msgid "Enter no more than 50 valid protected IP addresses."
+msgstr "請輸入最多 50 個有效的受保護 IP 位址。"
+
+#: includes/class-admin.php:76
+msgid "Settings saved."
+msgstr "設定已儲存。"
+
+#: includes/class-admin.php:90
+msgid "Backup not found."
+msgstr "找不到備份。"
+
+#: includes/class-admin.php:113
+#: includes/class-admin.php:141
+msgid "Enable server editing in Connections first."
+msgstr "請先在 [連線與安全性] 中啟用伺服器編輯功能。"
+
+#: includes/class-admin.php:116
+msgid "Both address attribution and independent recovery access must be confirmed."
+msgstr "必須同時確認 IP 位址的歸屬，以及獨立的復原存取途徑。"
+
+#: includes/class-admin.php:118
+msgid "The preview expired or was already used. Create a new preview."
+msgstr "預覽已過期或已使用。請建立新的預覽。"
+
+#: includes/class-admin.php:120
+msgid "Download the current .htaccess backup from this preview before applying. An old or expired download cannot be used."
+msgstr "套用變更前，請從這個預覽下載目前的 .htaccess 備份。無法使用舊的或已過期的下載。"
+
+#: includes/class-admin.php:125
+msgid "Server settings updated and the site self-check passed. This does not prove that a selected remote IP was blocked."
+msgstr "伺服器設定已更新，網站自我檢查已通過。這並不代表已封鎖選取的遠端 IP。"
+
+#: includes/class-admin.php:134
+msgid "SDN measurement resumed. Interrupted windows remain indeterminate; the SDN mode and assignment were not changed."
+msgstr "SDN 測量已繼續執行。中斷的觀測時段仍列為無法判定；SDN 模式及分派均未變更。"
+
+#: includes/class-admin.php:149
+#: includes/class-ip-rules.php:74
+msgid "Enter no more than 50 exact public IP addresses, one per line."
+msgstr "請輸入最多 50 個完整的公用 IP 位址，每行一個。"
+
+#: includes/class-admin.php:151
+msgid "Select at least one repeated candidate."
+msgstr "請至少選取一個重複偵測到的候選項目。"
+
+#: includes/class-admin.php:158
+msgid "The preview could not be saved."
+msgstr "無法儲存預覽。"
+
+#: includes/class-admin.php:171
+msgid "Plugin views"
+msgstr "外掛檢視畫面"
+
+#: includes/class-admin.php:172
+msgid "WAF observations"
+msgstr "WAF 觀測紀錄"
+
+#: includes/class-admin.php:172
+msgid "Server blocks"
+msgstr "伺服器封鎖"
+
+#: includes/class-admin.php:172
+#: includes/class-admin.php:277
+msgid "Connections & safety"
+msgstr "連線與安全性"
+
+#: includes/class-admin.php:189
+msgid "SQL injection"
+msgstr "SQL 隱碼攻擊"
+
+#: includes/class-admin.php:189
+msgid "Cross-site scripting"
+msgstr "跨網站指令碼"
+
+#: includes/class-admin.php:189
+msgid "OS command injection"
+msgstr "OS 指令注入"
+
+#: includes/class-admin.php:189
+msgid "Code injection"
+msgstr "程式碼注入"
+
+#: includes/class-admin.php:189
+msgid "Mail header injection"
+msgstr "郵件標頭注入"
+
+#: includes/class-admin.php:204
+msgid "Local WAF records"
+msgstr "本機 WAF 紀錄"
+
+#: includes/class-admin.php:206
+msgid "Source"
+msgstr "來源"
+
+#: includes/class-admin.php:207
+msgid "Period"
+msgstr "期間"
+
+#: includes/class-admin.php:207
+msgid "24 hours"
+msgstr "24 小時"
+
+#: includes/class-admin.php:207
+msgid "7 days"
+msgstr "7 天"
+
+#: includes/class-admin.php:207
+msgid "30 days"
+msgstr "30 天"
+
+#: includes/class-admin.php:208
+msgid "Include below-threshold groups"
+msgstr "包含未達門檻的群組"
+
+#: includes/class-admin.php:209
+msgid "Read logs"
+msgstr "讀取記錄檔"
+
+#: includes/class-admin.php:210
+msgid "Up to 10,000 retained rows and 200 IP/classification groups. Counts are source-specific records, not confirmed attacks. No automatic polling or external sharing."
+msgstr "最多讀取 10,000 筆保留紀錄及 200 個依 IP/分類劃分的群組。計數為各來源的紀錄數，並非已確認的攻擊次數。不會自動輪詢或對外分享。"
+
+#: includes/class-admin.php:212
+msgid "This source is disabled. Enable it in Connections & safety to read its IP records."
+msgstr "這個來源已停用。請在 [連線與安全性] 中啟用，以讀取其 IP 紀錄。"
+
+#. translators: 1: minimum record count, 2: rolling window duration in minutes.
+#: includes/class-admin.php:217
+#, php-format
+msgid "Candidate threshold: %1$d records of the same classification from the same IP within any %2$d-minute window in this period. This is not proof of identical payloads or an attack."
+msgstr "候選門檻：在這段期間內任一段 %2$d 分鐘的時間區間中，同一 IP 的相同分類紀錄達到 %1$d 筆。這並不能證明酬載相同，也不能證明發生攻擊。"
+
+#: includes/class-admin.php:218
+msgid "CloudSecure retained detections may include records that were not blocked."
+msgstr "CloudSecure 保留的偵測紀錄中，可能包含未遭封鎖的紀錄。"
+
+#: includes/class-admin.php:218
+msgid "Wordfence uses retained blocked:waf records with a valid category. Generic blocks, learning-mode logs and unknown categories are not combined into candidates."
+msgstr "Wordfence 使用保留的、具有有效分類的 blocked:waf 紀錄。一般封鎖紀錄、學習模式記錄檔及未知分類不會合併計入候選項目。"
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Select"
+msgstr "選取"
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Classification"
+msgstr "分類"
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Records"
+msgstr "紀錄數"
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Peak in window"
+msgstr "時間區間內的最高筆數"
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Last seen"
+msgstr "最後偵測時間"
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Eligibility"
+msgstr "可選取狀態"
+
+#. translators: %s: exact IP address to select for manual review.
+#: includes/class-admin.php:226
+#, php-format
+msgid "Select %s"
+msgstr "選取 %s"
+
+#: includes/class-admin.php:228
+msgid "Review required"
+msgstr "需要檢閱"
+
+#: includes/class-admin.php:228
+msgid "Below threshold"
+msgstr "未達門檻"
+
+#: includes/class-admin.php:228
+msgid "Protected / non-public"
+msgstr "受保護 / 非公用"
+
+#: includes/class-admin.php:230
+msgid "No matching groups for this period and threshold."
+msgstr "沒有符合這段期間及門檻的群組。"
+
+#: includes/class-admin.php:231
+msgid "Preview selected IP blocks"
+msgstr "預覽選取 IP 的封鎖設定"
+
+#: includes/class-admin.php:235
+msgid "Managed server blocks"
+msgstr "受管理的伺服器封鎖設定"
+
+#: includes/class-admin.php:240
+msgid "Server editing is disabled. Viewing does not change the file."
+msgstr "伺服器編輯功能已停用。僅檢視不會變更檔案。"
+
+#: includes/class-admin.php:241
+msgid "Only this plugin's managed section is edited. Existing manual deny rules remain outside its control. Blocks remain after deactivation or uninstall."
+msgstr "僅編輯這個外掛管理的區段。現有的手動拒絕規則不在其管理範圍內。停用或解除安裝外掛後，封鎖設定仍會保留。"
+
+#: includes/class-admin.php:246
+msgid "Resume SDN measurement"
+msgstr "繼續執行 SDN 測量"
+
+#: includes/class-admin.php:249
+msgid "SDN stays active. Undecided observation windows overlapping a server change are conservatively counted as indeterminate due to site-side restriction, not as deterrence success. No IP addresses are copied to SDN or shared."
+msgstr "SDN 會保持啟用。與伺服器變更時間重疊且尚未判定的觀測時段，會保守地計為因網站端限制而無法判定，而非嚇阻成功。不會將任何 IP 位址複製至 SDN 或進行分享。"
+
+#: includes/class-admin.php:257
+msgid "Managed IP list"
+msgstr "受管理的 IP 清單"
+
+#: includes/class-admin.php:258
+msgid "Preview replacement list"
+msgstr "預覽替換清單"
+
+#: includes/class-admin.php:264
+msgid "Recovery history"
+msgstr "復原歷程記錄"
+
+#: includes/class-admin.php:264
+msgid "Download backup"
+msgstr "下載備份"
+
+#: includes/class-admin.php:268
+msgid "Change preview"
+msgstr "變更預覽"
+
+#: includes/class-admin.php:268
+msgid "Current managed section"
+msgstr "目前的管理區段"
+
+#: includes/class-admin.php:268
+msgid "(empty)"
+msgstr "（空白）"
+
+#: includes/class-admin.php:268
+msgid "Proposed managed section"
+msgstr "預計套用的管理區段"
+
+#: includes/class-admin.php:268
+msgid "(remove managed section)"
+msgstr "（移除管理區段）"
+
+#: includes/class-admin.php:269
+msgid "Download current .htaccess backup"
+msgstr "下載目前的 .htaccess 備份"
+
+#: includes/class-admin.php:271
+msgid "I verified that these are client IPs, not CDN/proxy or shared-service addresses."
+msgstr "我已確認這些是用戶端 IP，而非 CDN/Proxy 或共用服務的位址。"
+
+#: includes/class-admin.php:272
+msgid "I saved the backup and can restore .htaccess through hosting or SFTP if WordPress becomes unreachable."
+msgstr "我已儲存備份，而且即使無法存取 WordPress，也能透過主機管理或 SFTP 還原 .htaccess。"
+
+#: includes/class-admin.php:273
+msgid "Apply server changes"
+msgstr "套用伺服器變更"
+
+#: includes/class-admin.php:278
+msgid "Read existing WAF logs"
+msgstr "讀取現有的 WAF 記錄檔"
+
+#: includes/class-admin.php:279
+msgid "Raw IPs are read locally only when an administrator views the records. Provider logs are never modified. URLs, payloads, cookies and user accounts are not read."
+msgstr "僅在網站管理員檢視紀錄時，才會在本機讀取原始 IP。絕不修改提供者的記錄檔。不會讀取網址、酬載、Cookie 或使用者帳號。"
+
+#: includes/class-admin.php:280
+msgid "Minimum repeat count"
+msgstr "最低重複次數"
+
+#: includes/class-admin.php:280
+msgid "Window (minutes)"
+msgstr "時間區間（分鐘）"
+
+#: includes/class-admin.php:281
+msgid "Protected IP addresses"
+msgstr "受保護的 IP 位址"
+
+#: includes/class-admin.php:282
+msgid "Your current REMOTE_ADDR and SERVER_ADDR are protected automatically. Forwarded IP headers are not trusted by this plugin. Add monitoring, proxy and administrator IPs here."
+msgstr "目前的 REMOTE_ADDR 及 SERVER_ADDR 會自動受到保護。這個外掛不信任轉送的 IP 標頭。請在這裡新增監控服務、Proxy 及網站管理員的 IP。"
+
+#: includes/class-admin.php:283
+msgid "Enable manual .htaccess editing with backup and self-check"
+msgstr "啟用包含備份及自我檢查的 .htaccess 手動編輯功能"
+
+#: includes/class-admin.php:284
+msgid "Apache 2.4 and same-directory, single-site WordPress only. Self-checks cannot guarantee recovery after process termination or hosting failures. Keep independent hosting/SFTP access. No background or automatic IP blocking."
+msgstr "僅適用於 Apache 2.4，且 WordPress 與網站首頁位於同一目錄的單一網站安裝環境。自我檢查無法保證在處理程序終止或主機故障後能夠復原。請保留獨立的主機管理/SFTP 存取途徑。不會在背景封鎖 IP，也不會自動封鎖 IP。"
+
+#: includes/class-admin.php:285
+msgid "Up to three full configuration backups and configured IPs remain in the local database. Preview and probe tokens expire. There is no Hub, telemetry, geolocation lookup or remote block list. Uninstall does not remove server blocks or recovery data."
+msgstr "本機資料庫會保留最多三份完整設定備份及已設定的 IP。預覽及探測權杖會過期。沒有 Hub、遙測、地理位置查詢或遠端封鎖清單。解除安裝外掛不會移除伺服器封鎖設定或復原資料。"
+
+#: includes/class-admin.php:286
+msgid "Save settings"
+msgstr "儲存設定"
+
+#: includes/class-ip-rules.php:83
+msgid "Only exact public IPv4 or IPv6 addresses are accepted. Private, reserved, masked addresses, hostnames and ranges are not accepted."
+msgstr "僅接受完整的公用 IPv4 或 IPv6 位址。不接受私有位址、保留位址、經過遮蔽的位址、主機名稱或位址範圍。"
+
+#: includes/class-ip-rules.php:86
+msgid "The list contains your current connection, the server address, or a protected IP. Remove it before continuing."
+msgstr "清單中包含目前連線的 IP、伺服器位址或受保護的 IP。請先移除再繼續。"
+
+#: includes/class-ip-rules.php:113
+msgid "The settings file is unreadable or larger than 128 KiB."
+msgstr "設定檔無法讀取，或大小超過 128 KiB。"
+
+#: includes/class-ip-rules.php:121
+#: includes/class-ip-rules.php:125
+msgid "The managed section is ambiguous or was moved. Restore or review it manually."
+msgstr "無法明確識別管理區段，或該區段已移動。請手動還原或檢閱。"
+
+#: includes/class-ip-rules.php:132
+msgid "The managed section was edited outside this plugin. No changes were made."
+msgstr "管理區段已在這個外掛之外遭到編輯。未進行任何變更。"
+
+#: includes/class-server-file.php:13
+msgid "An existing, regular .htaccess file of at most 128 KiB is required. Symbolic links are not supported."
+msgstr "必須有現存、大小不超過 128 KiB 的一般 .htaccess 檔案。不支援符號連結。"
+
+#: includes/class-server-file.php:16
+#: includes/class-server-file.php:29
+msgid "The settings file could not be read."
+msgstr "無法讀取設定檔。"
+
+#: includes/class-server-file.php:22
+#: includes/class-server-file.php:64
+#: includes/class-server-file.php:82
+msgid "The settings file changed. Create a fresh preview before applying."
+msgstr "設定檔已變更。套用前請建立新的預覽。"
+
+#: includes/class-server-file.php:26
+msgid "The file or its directory is not writable, or the result exceeds 128 KiB."
+msgstr "檔案或其目錄無法寫入，或變更後的檔案大小超過 128 KiB。"
+
+#: includes/class-server-file.php:32
+msgid "Use non-executable file permissions without group or world write access before editing."
+msgstr "編輯前，請將檔案權限設為不可執行，並禁止群組及其他使用者寫入。"
+
+#: includes/class-server-file.php:39
+msgid "A private temporary file could not be created."
+msgstr "無法建立私有暫存檔。"
+
+#: includes/class-server-file.php:70
+msgid "The settings file could not be replaced. No partial file was installed."
+msgstr "無法替換設定檔。未安裝任何不完整的檔案。"
+
+#: includes/class-server-file.php:84
+msgid "No changes to apply."
+msgstr "沒有可套用的變更。"
+
+#: includes/class-server-file.php:86
+msgid "The preflight site check failed. The settings file was not changed."
+msgstr "套用前的網站檢查失敗。設定檔未變更。"
+
+#: includes/class-server-file.php:87
+msgid "The database backup could not be saved. The settings file was not changed."
+msgstr "無法將備份儲存至資料庫。設定檔未變更。"
+
+#: includes/class-server-file.php:89
+msgid "Preflight or backup failed. The settings file was not changed."
+msgstr "套用前檢查或備份失敗。設定檔未變更。"
+
+#: includes/class-server-file.php:97
+msgid "The file changed again during verification. Review its current contents before retrying."
+msgstr "驗證期間檔案再次變更。請先檢閱目前的內容，再重試。"
+
+#: includes/class-server-file.php:101
+msgid "The site check failed and automatic rollback could not safely complete. Restore the downloaded backup through your hosting panel or SFTP immediately."
+msgstr "網站檢查失敗，且無法安全完成自動回復原狀。請立即透過主機控制台或 SFTP 還原已下載的備份。"
+
+#: includes/class-server-file.php:102
+msgid "The site check failed. The previous file was restored automatically."
+msgstr "網站檢查失敗。已自動還原先前的檔案。"
+
+#: includes/class-server.php:22
+msgid "A previous server change interrupted SDN measurement. Review the current file and resume measurement below before another change."
+msgstr "上一次伺服器變更導致 SDN 測量中斷。請檢閱目前的檔案，並在下方繼續執行測量後，再進行其他變更。"
+
+#: includes/class-server.php:25
+msgid "Update Semantic Deterrence to version 0.1.8 or later to change IP blocks while its responses or observation windows are active."
+msgstr "若要在 Semantic Deterrence 的回應或觀測時段啟用期間變更 IP 封鎖設定，請將其更新至 0.1.8 或更新版本。"
+
+#: includes/class-server.php:34
+msgid "SDN measurement state is unavailable. Server changes are disabled until it can be read."
+msgstr "無法取得 SDN 測量狀態。在能夠讀取該狀態之前，伺服器變更功能會保持停用。"
+
+#: includes/class-server.php:41
+msgid "Compatible SDN measurement support and administrator access are required."
+msgstr "必須具備相容的 SDN 測量支援及網站管理員權限。"
+
+#: includes/class-server.php:43
+msgid "No interrupted SDN measurement is available to resume."
+msgstr "沒有可繼續執行的中斷 SDN 測量。"
+
+#: includes/class-server.php:48
+#: includes/class-server.php:150
+msgid "Another change is in progress. Try again later."
+msgstr "另一項變更正在進行中。請稍後再試。"
+
+#: includes/class-server.php:53
+msgid "The site self-check failed. Measurement remains interrupted; review the server configuration and recovery access."
+msgstr "網站自我檢查失敗。測量仍處於中斷狀態；請檢閱伺服器設定及復原存取途徑。"
+
+#: includes/class-server.php:55
+msgid "SDN measurement could not be resumed. No server file was changed by this recovery attempt."
+msgstr "無法繼續執行 SDN 測量。這次復原嘗試未變更任何伺服器檔案。"
+
+#: includes/class-server.php:70
+msgid "Editing requires Apache 2.4, a single-site installation, and enabled WordPress file modifications."
+msgstr "編輯需要 Apache 2.4、單一網站安裝環境，且必須允許 WordPress 修改檔案。"
+
+#: includes/class-server.php:75
+msgid "WordPress and the site home must use the same directory in this version."
+msgstr "在這個版本中，WordPress 與網站首頁必須使用同一目錄。"
+
+#: includes/class-server.php:136
+msgid "Administrator access is required."
+msgstr "需要網站管理員權限。"
+
+#: includes/class-server.php:138
+msgid "The preview expired. Create a new preview."
+msgstr "預覽已過期。請建立新的預覽。"
+
+#: includes/class-server.php:147
+#: includes/class-server.php:164
+msgid "The change could not be completed. Review the current file and backups before retrying."
+msgstr "無法完成變更。請先檢閱目前的檔案及備份，再重試。"
+
+#: includes/class-server.php:155
+msgid "The server file changed. Create a new preview and download a fresh backup."
+msgstr "伺服器檔案已變更。請建立新的預覽並下載新的備份。"
+
+#: includes/class-server.php:159
+msgid "SDN measurement could not be protected. No server changes were started. Review the SDN measurement status before retrying."
+msgstr "無法保護 SDN 測量。未開始任何伺服器變更。請先檢閱 SDN 測量狀態，再重試。"
+
+#: includes/class-server.php:169
+msgid "The file change attempt finished, but SDN measurement remains interrupted. Review the managed IP list and use Resume SDN measurement. Do not assume the file was unchanged."
+msgstr "檔案變更嘗試已結束，但 SDN 測量仍處於中斷狀態。請檢閱受管理的 IP 清單，並使用 [繼續執行 SDN 測量]。請勿認定檔案未變更。"
+
+#: includes/class-sources.php:62
+msgid "Unsupported log source."
+msgstr "不支援這個記錄檔來源。"
+
+#: includes/class-sources.php:66
+msgid "The selected WAF is not active."
+msgstr "選取的 WAF 尚未啟用。"
+
+#: includes/class-sources.php:73
+msgid "The provider log table is unavailable."
+msgstr "提供者的記錄資料表無法使用。"
+
+#: includes/class-sources.php:89
+#: includes/class-sources.php:93
+msgid "The provider log could not be read. No raw database details are shown."
+msgstr "無法讀取提供者的記錄檔。不會顯示原始資料庫詳細資訊。"

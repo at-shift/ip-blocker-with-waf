@@ -1,0 +1,511 @@
+# Copyright (C) 2026 @shift
+# This file is distributed under the GPL-2.0-or-later.
+# Agent-authored translation, reviewed against the English catalog and plugin usage.
+msgid ""
+msgstr ""
+"Project-Id-Version: atshift IP Blocker 1.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/atshift-ip-blocker\n"
+"POT-Creation-Date: 2026-10-28T09:47:11+00:00\n"
+"PO-Revision-Date: 2026-10-28 00:00+0000\n"
+"Last-Translator: OpenAI Codex\n"
+"Language-Team: Indonesian\n"
+"Language: id_ID\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: OpenAI Codex\n"
+"X-Domain: atshift-ip-blocker\n"
+
+#. Plugin Name of the plugin
+#: atshift-ip-blocker.php
+msgid "atshift IP Blocker"
+msgstr "atshift IP Blocker"
+
+#. Description of the plugin
+#: atshift-ip-blocker.php
+msgid "Review local WAF IP observations and manually manage server-side IP blocks with backups and rollback checks."
+msgstr "Tinjau catatan pengamatan IP dari WAF lokal dan kelola pemblokiran IP di sisi server secara manual dengan pencadangan dan pemeriksaan pengembalian ke kondisi sebelumnya."
+
+#. Author of the plugin
+#: atshift-ip-blocker.php
+msgid "@shift"
+msgstr "@shift"
+
+#: includes/class-admin.php:19
+#: includes/class-sources.php:59
+msgid "Administrator access on a single-site installation is required."
+msgstr "Diperlukan akses administrator pada instalasi situs tunggal."
+
+#: includes/class-admin.php:60
+#: includes/class-admin.php:63
+msgid "Enter no more than 50 valid protected IP addresses."
+msgstr "Masukkan maksimal 50 alamat IP valid yang akan dilindungi."
+
+#: includes/class-admin.php:76
+msgid "Settings saved."
+msgstr "Pengaturan disimpan."
+
+#: includes/class-admin.php:90
+msgid "Backup not found."
+msgstr "Cadangan tidak ditemukan."
+
+#: includes/class-admin.php:113
+#: includes/class-admin.php:141
+msgid "Enable server editing in Connections first."
+msgstr "Aktifkan pengeditan server di Koneksi & keamanan terlebih dahulu."
+
+#: includes/class-admin.php:116
+msgid "Both address attribution and independent recovery access must be confirmed."
+msgstr "Asal alamat IP dan akses pemulihan independen harus sama-sama dikonfirmasi."
+
+#: includes/class-admin.php:118
+msgid "The preview expired or was already used. Create a new preview."
+msgstr "Pratinjau telah kedaluwarsa atau sudah digunakan. Buat pratinjau baru."
+
+#: includes/class-admin.php:120
+msgid "Download the current .htaccess backup from this preview before applying. An old or expired download cannot be used."
+msgstr "Unduh cadangan .htaccess saat ini dari pratinjau ini sebelum menerapkan perubahan. Unduhan lama atau yang telah kedaluwarsa tidak dapat digunakan."
+
+#: includes/class-admin.php:125
+msgid "Server settings updated and the site self-check passed. This does not prove that a selected remote IP was blocked."
+msgstr "Pengaturan server telah diperbarui dan pemeriksaan mandiri situs berhasil. Ini tidak membuktikan bahwa IP jarak jauh yang dipilih telah diblokir."
+
+#: includes/class-admin.php:134
+msgid "SDN measurement resumed. Interrupted windows remain indeterminate; the SDN mode and assignment were not changed."
+msgstr "Pengukuran SDN dilanjutkan. Jendela pengamatan yang terputus tetap berstatus tidak dapat ditentukan; mode dan penetapan SDN tidak diubah."
+
+#: includes/class-admin.php:149
+#: includes/class-ip-rules.php:74
+msgid "Enter no more than 50 exact public IP addresses, one per line."
+msgstr "Masukkan maksimal 50 alamat IP publik lengkap, satu per baris."
+
+#: includes/class-admin.php:151
+msgid "Select at least one repeated candidate."
+msgstr "Pilih setidaknya satu kandidat yang terdeteksi berulang kali."
+
+#: includes/class-admin.php:158
+msgid "The preview could not be saved."
+msgstr "Pratinjau tidak dapat disimpan."
+
+#: includes/class-admin.php:171
+msgid "Plugin views"
+msgstr "Tampilan plugin"
+
+#: includes/class-admin.php:172
+msgid "WAF observations"
+msgstr "Pengamatan WAF"
+
+#: includes/class-admin.php:172
+msgid "Server blocks"
+msgstr "Pemblokiran server"
+
+#: includes/class-admin.php:172
+#: includes/class-admin.php:277
+msgid "Connections & safety"
+msgstr "Koneksi & keamanan"
+
+#: includes/class-admin.php:189
+msgid "SQL injection"
+msgstr "Injeksi SQL"
+
+#: includes/class-admin.php:189
+msgid "Cross-site scripting"
+msgstr "Skrip lintas situs"
+
+#: includes/class-admin.php:189
+msgid "OS command injection"
+msgstr "Injeksi perintah OS"
+
+#: includes/class-admin.php:189
+msgid "Code injection"
+msgstr "Injeksi kode"
+
+#: includes/class-admin.php:189
+msgid "Mail header injection"
+msgstr "Injeksi header email"
+
+#: includes/class-admin.php:204
+msgid "Local WAF records"
+msgstr "Catatan WAF lokal"
+
+#: includes/class-admin.php:206
+msgid "Source"
+msgstr "Sumber"
+
+#: includes/class-admin.php:207
+msgid "Period"
+msgstr "Periode"
+
+#: includes/class-admin.php:207
+msgid "24 hours"
+msgstr "24 jam"
+
+#: includes/class-admin.php:207
+msgid "7 days"
+msgstr "7 hari"
+
+#: includes/class-admin.php:207
+msgid "30 days"
+msgstr "30 hari"
+
+#: includes/class-admin.php:208
+msgid "Include below-threshold groups"
+msgstr "Sertakan grup di bawah ambang batas"
+
+#: includes/class-admin.php:209
+msgid "Read logs"
+msgstr "Baca log"
+
+#: includes/class-admin.php:210
+msgid "Up to 10,000 retained rows and 200 IP/classification groups. Counts are source-specific records, not confirmed attacks. No automatic polling or external sharing."
+msgstr "Maksimal 10.000 baris tersimpan dan 200 grup berdasarkan IP/klasifikasi. Jumlah menunjukkan catatan dari masing-masing sumber, bukan serangan yang telah dikonfirmasi. Tidak ada pemeriksaan berkala otomatis atau pembagian data ke pihak luar."
+
+#: includes/class-admin.php:212
+msgid "This source is disabled. Enable it in Connections & safety to read its IP records."
+msgstr "Sumber ini dinonaktifkan. Aktifkan di Koneksi & keamanan untuk membaca catatan IP-nya."
+
+#. translators: 1: minimum record count, 2: rolling window duration in minutes.
+#: includes/class-admin.php:217
+#, php-format
+msgid "Candidate threshold: %1$d records of the same classification from the same IP within any %2$d-minute window in this period. This is not proof of identical payloads or an attack."
+msgstr "Ambang batas kandidat: setidaknya %1$d catatan dengan klasifikasi yang sama dari IP yang sama dalam jendela waktu %2$d menit mana pun selama periode ini. Ini bukan bukti adanya muatan yang identik atau serangan."
+
+#: includes/class-admin.php:218
+msgid "CloudSecure retained detections may include records that were not blocked."
+msgstr "Deteksi tersimpan CloudSecure dapat mencakup catatan yang tidak diblokir."
+
+#: includes/class-admin.php:218
+msgid "Wordfence uses retained blocked:waf records with a valid category. Generic blocks, learning-mode logs and unknown categories are not combined into candidates."
+msgstr "Wordfence menggunakan catatan blocked:waf tersimpan dengan kategori yang valid. Pemblokiran umum, log mode pembelajaran, dan kategori yang tidak dikenal tidak digabungkan dalam penghitungan kandidat."
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Select"
+msgstr "Pilih"
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Classification"
+msgstr "Klasifikasi"
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Records"
+msgstr "Jumlah catatan"
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Peak in window"
+msgstr "Jumlah tertinggi dalam jendela waktu"
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Last seen"
+msgstr "Terakhir terdeteksi"
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Eligibility"
+msgstr "Kelayakan pemilihan"
+
+#. translators: %s: exact IP address to select for manual review.
+#: includes/class-admin.php:226
+#, php-format
+msgid "Select %s"
+msgstr "Pilih %s"
+
+#: includes/class-admin.php:228
+msgid "Review required"
+msgstr "Perlu ditinjau"
+
+#: includes/class-admin.php:228
+msgid "Below threshold"
+msgstr "Di bawah ambang batas"
+
+#: includes/class-admin.php:228
+msgid "Protected / non-public"
+msgstr "Dilindungi / nonpublik"
+
+#: includes/class-admin.php:230
+msgid "No matching groups for this period and threshold."
+msgstr "Tidak ada grup yang cocok dengan periode dan ambang batas ini."
+
+#: includes/class-admin.php:231
+msgid "Preview selected IP blocks"
+msgstr "Pratinjau pemblokiran IP yang dipilih"
+
+#: includes/class-admin.php:235
+msgid "Managed server blocks"
+msgstr "Pemblokiran server yang dikelola"
+
+#: includes/class-admin.php:240
+msgid "Server editing is disabled. Viewing does not change the file."
+msgstr "Pengeditan server dinonaktifkan. Melihat saja tidak mengubah berkas."
+
+#: includes/class-admin.php:241
+msgid "Only this plugin's managed section is edited. Existing manual deny rules remain outside its control. Blocks remain after deactivation or uninstall."
+msgstr "Hanya bagian yang dikelola plugin ini yang diedit. Aturan penolakan manual yang sudah ada tetap berada di luar kendalinya. Pemblokiran tetap berlaku setelah plugin dinonaktifkan atau dihapus."
+
+#: includes/class-admin.php:246
+msgid "Resume SDN measurement"
+msgstr "Lanjutkan pengukuran SDN"
+
+#: includes/class-admin.php:249
+msgid "SDN stays active. Undecided observation windows overlapping a server change are conservatively counted as indeterminate due to site-side restriction, not as deterrence success. No IP addresses are copied to SDN or shared."
+msgstr "SDN tetap aktif. Jendela pengamatan yang belum diputuskan dan bertumpang tindih dengan perubahan server secara konservatif dihitung sebagai tidak dapat ditentukan akibat pembatasan di sisi situs, bukan sebagai keberhasilan penangkalan. Alamat IP tidak disalin ke SDN atau dibagikan."
+
+#: includes/class-admin.php:257
+msgid "Managed IP list"
+msgstr "Daftar IP yang dikelola"
+
+#: includes/class-admin.php:258
+msgid "Preview replacement list"
+msgstr "Pratinjau daftar pengganti"
+
+#: includes/class-admin.php:264
+msgid "Recovery history"
+msgstr "Riwayat pemulihan"
+
+#: includes/class-admin.php:264
+msgid "Download backup"
+msgstr "Unduh cadangan"
+
+#: includes/class-admin.php:268
+msgid "Change preview"
+msgstr "Pratinjau perubahan"
+
+#: includes/class-admin.php:268
+msgid "Current managed section"
+msgstr "Bagian yang dikelola saat ini"
+
+#: includes/class-admin.php:268
+msgid "(empty)"
+msgstr "(kosong)"
+
+#: includes/class-admin.php:268
+msgid "Proposed managed section"
+msgstr "Bagian yang dikelola yang diusulkan"
+
+#: includes/class-admin.php:268
+msgid "(remove managed section)"
+msgstr "(hapus bagian yang dikelola)"
+
+#: includes/class-admin.php:269
+msgid "Download current .htaccess backup"
+msgstr "Unduh cadangan .htaccess saat ini"
+
+#: includes/class-admin.php:271
+msgid "I verified that these are client IPs, not CDN/proxy or shared-service addresses."
+msgstr "Saya telah memverifikasi bahwa alamat ini adalah IP klien, bukan alamat CDN/proksi atau layanan bersama."
+
+#: includes/class-admin.php:272
+msgid "I saved the backup and can restore .htaccess through hosting or SFTP if WordPress becomes unreachable."
+msgstr "Saya telah menyimpan cadangan dan dapat memulihkan .htaccess melalui layanan hosting atau SFTP jika WordPress tidak dapat diakses."
+
+#: includes/class-admin.php:273
+msgid "Apply server changes"
+msgstr "Terapkan perubahan server"
+
+#: includes/class-admin.php:278
+msgid "Read existing WAF logs"
+msgstr "Baca log WAF yang sudah ada"
+
+#: includes/class-admin.php:279
+msgid "Raw IPs are read locally only when an administrator views the records. Provider logs are never modified. URLs, payloads, cookies and user accounts are not read."
+msgstr "IP mentah hanya dibaca secara lokal saat administrator melihat catatan. Log penyedia tidak pernah diubah. URL, muatan, cookie, dan akun pengguna tidak dibaca."
+
+#: includes/class-admin.php:280
+msgid "Minimum repeat count"
+msgstr "Jumlah pengulangan minimum"
+
+#: includes/class-admin.php:280
+msgid "Window (minutes)"
+msgstr "Jendela waktu (menit)"
+
+#: includes/class-admin.php:281
+msgid "Protected IP addresses"
+msgstr "Alamat IP yang dilindungi"
+
+#: includes/class-admin.php:282
+msgid "Your current REMOTE_ADDR and SERVER_ADDR are protected automatically. Forwarded IP headers are not trusted by this plugin. Add monitoring, proxy and administrator IPs here."
+msgstr "REMOTE_ADDR dan SERVER_ADDR Anda saat ini dilindungi secara otomatis. Plugin ini tidak memercayai header IP yang diteruskan. Tambahkan IP pemantauan, proksi, dan administrator di sini."
+
+#: includes/class-admin.php:283
+msgid "Enable manual .htaccess editing with backup and self-check"
+msgstr "Aktifkan pengeditan .htaccess manual dengan pencadangan dan pemeriksaan mandiri"
+
+#: includes/class-admin.php:284
+msgid "Apache 2.4 and same-directory, single-site WordPress only. Self-checks cannot guarantee recovery after process termination or hosting failures. Keep independent hosting/SFTP access. No background or automatic IP blocking."
+msgstr "Hanya untuk Apache 2.4 dan instalasi WordPress situs tunggal dengan WordPress dan beranda situs di direktori yang sama. Pemeriksaan mandiri tidak dapat menjamin pemulihan setelah penghentian proses atau kegagalan hosting. Pertahankan akses hosting/SFTP yang independen. Tidak ada pemblokiran IP di latar belakang atau secara otomatis."
+
+#: includes/class-admin.php:285
+msgid "Up to three full configuration backups and configured IPs remain in the local database. Preview and probe tokens expire. There is no Hub, telemetry, geolocation lookup or remote block list. Uninstall does not remove server blocks or recovery data."
+msgstr "Hingga tiga cadangan konfigurasi lengkap dan IP yang dikonfigurasi tetap tersimpan dalam basis data lokal. Token pratinjau dan pemeriksaan memiliki masa berlaku. Tidak ada Hub, telemetri, pencarian geolokasi, atau daftar blokir jarak jauh. Menghapus plugin tidak menghapus pemblokiran server atau data pemulihan."
+
+#: includes/class-admin.php:286
+msgid "Save settings"
+msgstr "Simpan pengaturan"
+
+#: includes/class-ip-rules.php:83
+msgid "Only exact public IPv4 or IPv6 addresses are accepted. Private, reserved, masked addresses, hostnames and ranges are not accepted."
+msgstr "Hanya alamat IPv4 atau IPv6 publik lengkap yang diterima. Alamat privat, alamat yang dicadangkan, alamat yang disamarkan, nama host, dan rentang alamat tidak diterima."
+
+#: includes/class-ip-rules.php:86
+msgid "The list contains your current connection, the server address, or a protected IP. Remove it before continuing."
+msgstr "Daftar berisi alamat IP koneksi Anda saat ini, alamat server, atau IP yang dilindungi. Hapus alamat tersebut sebelum melanjutkan."
+
+#: includes/class-ip-rules.php:113
+msgid "The settings file is unreadable or larger than 128 KiB."
+msgstr "Berkas pengaturan tidak dapat dibaca atau berukuran lebih dari 128 KiB."
+
+#: includes/class-ip-rules.php:121
+#: includes/class-ip-rules.php:125
+msgid "The managed section is ambiguous or was moved. Restore or review it manually."
+msgstr "Bagian yang dikelola tidak dapat diidentifikasi dengan pasti atau telah dipindahkan. Pulihkan atau tinjau secara manual."
+
+#: includes/class-ip-rules.php:132
+msgid "The managed section was edited outside this plugin. No changes were made."
+msgstr "Bagian yang dikelola telah diedit dari luar plugin ini. Tidak ada perubahan yang dilakukan."
+
+#: includes/class-server-file.php:13
+msgid "An existing, regular .htaccess file of at most 128 KiB is required. Symbolic links are not supported."
+msgstr "Diperlukan berkas .htaccess biasa yang sudah ada dengan ukuran maksimal 128 KiB. Tautan simbolis tidak didukung."
+
+#: includes/class-server-file.php:16
+#: includes/class-server-file.php:29
+msgid "The settings file could not be read."
+msgstr "Berkas pengaturan tidak dapat dibaca."
+
+#: includes/class-server-file.php:22
+#: includes/class-server-file.php:64
+#: includes/class-server-file.php:82
+msgid "The settings file changed. Create a fresh preview before applying."
+msgstr "Berkas pengaturan telah berubah. Buat pratinjau baru sebelum menerapkan perubahan."
+
+#: includes/class-server-file.php:26
+msgid "The file or its directory is not writable, or the result exceeds 128 KiB."
+msgstr "Berkas atau direktorinya tidak dapat ditulisi, atau hasilnya melebihi 128 KiB."
+
+#: includes/class-server-file.php:32
+msgid "Use non-executable file permissions without group or world write access before editing."
+msgstr "Sebelum mengedit, gunakan izin berkas tanpa hak eksekusi dan tanpa hak tulis untuk grup maupun pengguna lain."
+
+#: includes/class-server-file.php:39
+msgid "A private temporary file could not be created."
+msgstr "Berkas sementara privat tidak dapat dibuat."
+
+#: includes/class-server-file.php:70
+msgid "The settings file could not be replaced. No partial file was installed."
+msgstr "Berkas pengaturan tidak dapat diganti. Tidak ada berkas yang tidak lengkap yang dipasang."
+
+#: includes/class-server-file.php:84
+msgid "No changes to apply."
+msgstr "Tidak ada perubahan untuk diterapkan."
+
+#: includes/class-server-file.php:86
+msgid "The preflight site check failed. The settings file was not changed."
+msgstr "Pemeriksaan situs sebelum penerapan gagal. Berkas pengaturan tidak diubah."
+
+#: includes/class-server-file.php:87
+msgid "The database backup could not be saved. The settings file was not changed."
+msgstr "Cadangan tidak dapat disimpan dalam basis data. Berkas pengaturan tidak diubah."
+
+#: includes/class-server-file.php:89
+msgid "Preflight or backup failed. The settings file was not changed."
+msgstr "Pemeriksaan sebelum penerapan atau pencadangan gagal. Berkas pengaturan tidak diubah."
+
+#: includes/class-server-file.php:97
+msgid "The file changed again during verification. Review its current contents before retrying."
+msgstr "Berkas berubah lagi selama verifikasi. Tinjau isinya saat ini sebelum mencoba kembali."
+
+#: includes/class-server-file.php:101
+msgid "The site check failed and automatic rollback could not safely complete. Restore the downloaded backup through your hosting panel or SFTP immediately."
+msgstr "Pemeriksaan situs gagal dan pengembalian otomatis ke kondisi sebelumnya tidak dapat diselesaikan dengan aman. Segera pulihkan cadangan yang telah diunduh melalui panel hosting atau SFTP."
+
+#: includes/class-server-file.php:102
+msgid "The site check failed. The previous file was restored automatically."
+msgstr "Pemeriksaan situs gagal. Berkas sebelumnya telah dipulihkan secara otomatis."
+
+#: includes/class-server.php:22
+msgid "A previous server change interrupted SDN measurement. Review the current file and resume measurement below before another change."
+msgstr "Perubahan server sebelumnya memutus pengukuran SDN. Tinjau berkas saat ini dan lanjutkan pengukuran di bawah sebelum melakukan perubahan lain."
+
+#: includes/class-server.php:25
+msgid "Update Semantic Deterrence to version 0.1.8 or later to change IP blocks while its responses or observation windows are active."
+msgstr "Perbarui Semantic Deterrence ke versi 0.1.8 atau yang lebih baru untuk mengubah pemblokiran IP saat respons atau jendela pengamatannya aktif."
+
+#: includes/class-server.php:34
+msgid "SDN measurement state is unavailable. Server changes are disabled until it can be read."
+msgstr "Status pengukuran SDN tidak tersedia. Perubahan server dinonaktifkan hingga status tersebut dapat dibaca."
+
+#: includes/class-server.php:41
+msgid "Compatible SDN measurement support and administrator access are required."
+msgstr "Diperlukan dukungan pengukuran SDN yang kompatibel dan akses administrator."
+
+#: includes/class-server.php:43
+msgid "No interrupted SDN measurement is available to resume."
+msgstr "Tidak ada pengukuran SDN terputus yang dapat dilanjutkan."
+
+#: includes/class-server.php:48
+#: includes/class-server.php:150
+msgid "Another change is in progress. Try again later."
+msgstr "Perubahan lain sedang berlangsung. Coba lagi nanti."
+
+#: includes/class-server.php:53
+msgid "The site self-check failed. Measurement remains interrupted; review the server configuration and recovery access."
+msgstr "Pemeriksaan mandiri situs gagal. Pengukuran tetap terputus; tinjau konfigurasi server dan akses pemulihan."
+
+#: includes/class-server.php:55
+msgid "SDN measurement could not be resumed. No server file was changed by this recovery attempt."
+msgstr "Pengukuran SDN tidak dapat dilanjutkan. Tidak ada berkas server yang diubah oleh upaya pemulihan ini."
+
+#: includes/class-server.php:70
+msgid "Editing requires Apache 2.4, a single-site installation, and enabled WordPress file modifications."
+msgstr "Pengeditan memerlukan Apache 2.4, instalasi situs tunggal, dan izin modifikasi berkas WordPress yang diaktifkan."
+
+#: includes/class-server.php:75
+msgid "WordPress and the site home must use the same directory in this version."
+msgstr "Pada versi ini, WordPress dan beranda situs harus menggunakan direktori yang sama."
+
+#: includes/class-server.php:136
+msgid "Administrator access is required."
+msgstr "Diperlukan akses administrator."
+
+#: includes/class-server.php:138
+msgid "The preview expired. Create a new preview."
+msgstr "Pratinjau telah kedaluwarsa. Buat pratinjau baru."
+
+#: includes/class-server.php:147
+#: includes/class-server.php:164
+msgid "The change could not be completed. Review the current file and backups before retrying."
+msgstr "Perubahan tidak dapat diselesaikan. Tinjau berkas saat ini dan cadangan sebelum mencoba kembali."
+
+#: includes/class-server.php:155
+msgid "The server file changed. Create a new preview and download a fresh backup."
+msgstr "Berkas server telah berubah. Buat pratinjau baru dan unduh cadangan terbaru."
+
+#: includes/class-server.php:159
+msgid "SDN measurement could not be protected. No server changes were started. Review the SDN measurement status before retrying."
+msgstr "Pengukuran SDN tidak dapat dilindungi. Tidak ada perubahan server yang dimulai. Tinjau status pengukuran SDN sebelum mencoba kembali."
+
+#: includes/class-server.php:169
+msgid "The file change attempt finished, but SDN measurement remains interrupted. Review the managed IP list and use Resume SDN measurement. Do not assume the file was unchanged."
+msgstr "Upaya perubahan berkas telah selesai, tetapi pengukuran SDN tetap terputus. Tinjau daftar IP yang dikelola dan gunakan Lanjutkan pengukuran SDN. Jangan menganggap berkas tidak berubah."
+
+#: includes/class-sources.php:62
+msgid "Unsupported log source."
+msgstr "Sumber log tidak didukung."
+
+#: includes/class-sources.php:66
+msgid "The selected WAF is not active."
+msgstr "WAF yang dipilih tidak aktif."
+
+#: includes/class-sources.php:73
+msgid "The provider log table is unavailable."
+msgstr "Tabel log penyedia tidak tersedia."
+
+#: includes/class-sources.php:89
+#: includes/class-sources.php:93
+msgid "The provider log could not be read. No raw database details are shown."
+msgstr "Log penyedia tidak dapat dibaca. Detail mentah basis data tidak ditampilkan."

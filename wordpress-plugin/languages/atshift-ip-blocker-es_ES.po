@@ -1,0 +1,510 @@
+# Copyright (C) 2026 @shift
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: atshift IP Blocker 1.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/atshift-ip-blocker\n"
+"POT-Creation-Date: 2026-10-28T09:33:54+00:00\n"
+"PO-Revision-Date: 2026-10-28 00:00+0000\n"
+"Last-Translator: Codex\n"
+"Language-Team: Spanish (Spain)\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Agent translation\n"
+"X-Domain: atshift-ip-blocker\n"
+
+#. Plugin Name of the plugin
+#: atshift-ip-blocker.php
+msgid "atshift IP Blocker"
+msgstr "atshift IP Blocker"
+
+#. Description of the plugin
+#: atshift-ip-blocker.php
+msgid "Review local WAF IP observations and manually manage server-side IP blocks with backups and rollback checks."
+msgstr "Revise los registros locales de IP del WAF y gestione manualmente los bloqueos de IP en el servidor con copias de seguridad y comprobaciones de reversión."
+
+#. Author of the plugin
+#: atshift-ip-blocker.php
+msgid "@shift"
+msgstr "@shift"
+
+#: includes/class-admin.php:19
+#: includes/class-sources.php:59
+msgid "Administrator access on a single-site installation is required."
+msgstr "Se requieren permisos de administrador en una instalación de sitio único."
+
+#: includes/class-admin.php:60
+#: includes/class-admin.php:63
+msgid "Enter no more than 50 valid protected IP addresses."
+msgstr "Introduzca un máximo de 50 direcciones IP protegidas válidas."
+
+#: includes/class-admin.php:76
+msgid "Settings saved."
+msgstr "Ajustes guardados."
+
+#: includes/class-admin.php:90
+msgid "Backup not found."
+msgstr "No se ha encontrado la copia de seguridad."
+
+#: includes/class-admin.php:113
+#: includes/class-admin.php:141
+msgid "Enable server editing in Connections first."
+msgstr "Active primero la edición del servidor en «Conexiones y seguridad»."
+
+#: includes/class-admin.php:116
+msgid "Both address attribution and independent recovery access must be confirmed."
+msgstr "Debe confirmar tanto la atribución de las direcciones IP como el acceso independiente para la recuperación."
+
+#: includes/class-admin.php:118
+msgid "The preview expired or was already used. Create a new preview."
+msgstr "La vista previa ha caducado o ya se ha utilizado. Cree una nueva vista previa."
+
+#: includes/class-admin.php:120
+msgid "Download the current .htaccess backup from this preview before applying. An old or expired download cannot be used."
+msgstr "Antes de aplicar los cambios, descargue desde esta vista previa una copia de seguridad del archivo .htaccess actual. No se puede utilizar una descarga antigua o caducada."
+
+#: includes/class-admin.php:125
+msgid "Server settings updated and the site self-check passed. This does not prove that a selected remote IP was blocked."
+msgstr "Se han actualizado los ajustes del servidor y se ha superado la autocomprobación del sitio. Esto no demuestra que se haya bloqueado una IP remota seleccionada."
+
+#: includes/class-admin.php:134
+msgid "SDN measurement resumed. Interrupted windows remain indeterminate; the SDN mode and assignment were not changed."
+msgstr "Se ha reanudado la medición de SDN. Las ventanas interrumpidas siguen siendo indeterminadas; no se han modificado el modo ni la asignación de SDN."
+
+#: includes/class-admin.php:149
+#: includes/class-ip-rules.php:74
+msgid "Enter no more than 50 exact public IP addresses, one per line."
+msgstr "Introduzca un máximo de 50 direcciones IP públicas exactas, una por línea."
+
+#: includes/class-admin.php:151
+msgid "Select at least one repeated candidate."
+msgstr "Seleccione al menos un candidato con registros repetidos."
+
+#: includes/class-admin.php:158
+msgid "The preview could not be saved."
+msgstr "No se ha podido guardar la vista previa."
+
+#: includes/class-admin.php:171
+msgid "Plugin views"
+msgstr "Vistas del plugin"
+
+#: includes/class-admin.php:172
+msgid "WAF observations"
+msgstr "Registros de observación del WAF"
+
+#: includes/class-admin.php:172
+msgid "Server blocks"
+msgstr "Bloqueos del servidor"
+
+#: includes/class-admin.php:172
+#: includes/class-admin.php:277
+msgid "Connections & safety"
+msgstr "Conexiones y seguridad"
+
+#: includes/class-admin.php:189
+msgid "SQL injection"
+msgstr "Inyección SQL"
+
+#: includes/class-admin.php:189
+msgid "Cross-site scripting"
+msgstr "Secuencias de comandos en sitios cruzados (XSS)"
+
+#: includes/class-admin.php:189
+msgid "OS command injection"
+msgstr "Inyección de comandos del sistema operativo"
+
+#: includes/class-admin.php:189
+msgid "Code injection"
+msgstr "Inyección de código"
+
+#: includes/class-admin.php:189
+msgid "Mail header injection"
+msgstr "Inyección de cabeceras de correo"
+
+#: includes/class-admin.php:204
+msgid "Local WAF records"
+msgstr "Registros locales del WAF"
+
+#: includes/class-admin.php:206
+msgid "Source"
+msgstr "Origen"
+
+#: includes/class-admin.php:207
+msgid "Period"
+msgstr "Periodo"
+
+#: includes/class-admin.php:207
+msgid "24 hours"
+msgstr "24 horas"
+
+#: includes/class-admin.php:207
+msgid "7 days"
+msgstr "7 días"
+
+#: includes/class-admin.php:207
+msgid "30 days"
+msgstr "30 días"
+
+#: includes/class-admin.php:208
+msgid "Include below-threshold groups"
+msgstr "Incluir grupos por debajo del umbral"
+
+#: includes/class-admin.php:209
+msgid "Read logs"
+msgstr "Leer registros"
+
+#: includes/class-admin.php:210
+msgid "Up to 10,000 retained rows and 200 IP/classification groups. Counts are source-specific records, not confirmed attacks. No automatic polling or external sharing."
+msgstr "Hasta 10.000 filas conservadas y 200 grupos de IP y clasificación. Las cifras corresponden a registros específicos de cada origen, no a ataques confirmados. No se realizan consultas automáticas periódicas ni se comparten datos fuera del sitio."
+
+#: includes/class-admin.php:212
+msgid "This source is disabled. Enable it in Connections & safety to read its IP records."
+msgstr "Este origen está desactivado. Actívelo en «Conexiones y seguridad» para leer sus registros de IP."
+
+#. translators: 1: minimum record count, 2: rolling window duration in minutes.
+#: includes/class-admin.php:217
+#, php-format
+msgid "Candidate threshold: %1$d records of the same classification from the same IP within any %2$d-minute window in this period. This is not proof of identical payloads or an attack."
+msgstr "Umbral de candidatos: %1$d registros de la misma clasificación y de la misma IP en cualquier ventana de %2$d minutos dentro de este periodo. Esto no demuestra que las cargas útiles sean idénticas ni que se trate de un ataque."
+
+#: includes/class-admin.php:218
+msgid "CloudSecure retained detections may include records that were not blocked."
+msgstr "Las detecciones conservadas de CloudSecure pueden incluir registros que no se bloquearon."
+
+#: includes/class-admin.php:218
+msgid "Wordfence uses retained blocked:waf records with a valid category. Generic blocks, learning-mode logs and unknown categories are not combined into candidates."
+msgstr "Para Wordfence se utilizan los registros blocked:waf conservados que tienen una categoría válida. Los bloqueos genéricos, los registros del modo de aprendizaje y las categorías desconocidas no se agrupan para formar candidatos."
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Select"
+msgstr "Seleccionar"
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Classification"
+msgstr "Clasificación"
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Records"
+msgstr "Registros"
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Peak in window"
+msgstr "Máximo en la ventana"
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Last seen"
+msgstr "Última detección"
+
+#: includes/class-admin.php:221
+#: includes/class-admin.php:228
+msgid "Eligibility"
+msgstr "Posibilidad de selección"
+
+#. translators: %s: exact IP address to select for manual review.
+#: includes/class-admin.php:226
+#, php-format
+msgid "Select %s"
+msgstr "Seleccionar %s"
+
+#: includes/class-admin.php:228
+msgid "Review required"
+msgstr "Requiere revisión"
+
+#: includes/class-admin.php:228
+msgid "Below threshold"
+msgstr "Por debajo del umbral"
+
+#: includes/class-admin.php:228
+msgid "Protected / non-public"
+msgstr "Protegida / no pública"
+
+#: includes/class-admin.php:230
+msgid "No matching groups for this period and threshold."
+msgstr "No hay grupos que coincidan con este periodo y umbral."
+
+#: includes/class-admin.php:231
+msgid "Preview selected IP blocks"
+msgstr "Vista previa de los bloqueos de IP seleccionados"
+
+#: includes/class-admin.php:235
+msgid "Managed server blocks"
+msgstr "Bloqueos del servidor gestionados"
+
+#: includes/class-admin.php:240
+msgid "Server editing is disabled. Viewing does not change the file."
+msgstr "La edición del servidor está desactivada. La visualización no modifica el archivo."
+
+#: includes/class-admin.php:241
+msgid "Only this plugin's managed section is edited. Existing manual deny rules remain outside its control. Blocks remain after deactivation or uninstall."
+msgstr "Solo se edita la sección gestionada por este plugin. Las reglas de denegación manuales existentes quedan fuera de su control. Los bloqueos se mantienen tras desactivar o desinstalar el plugin."
+
+#: includes/class-admin.php:246
+msgid "Resume SDN measurement"
+msgstr "Reanudar la medición de SDN"
+
+#: includes/class-admin.php:249
+msgid "SDN stays active. Undecided observation windows overlapping a server change are conservatively counted as indeterminate due to site-side restriction, not as deterrence success. No IP addresses are copied to SDN or shared."
+msgstr "SDN permanece activo. Las ventanas de observación aún sin determinar que coincidan con un cambio en el servidor se contabilizan, por precaución, como indeterminadas debido a una restricción del sitio, no como éxitos de disuasión. No se copian direcciones IP a SDN ni se comparten."
+
+#: includes/class-admin.php:257
+msgid "Managed IP list"
+msgstr "Lista de IP gestionadas"
+
+#: includes/class-admin.php:258
+msgid "Preview replacement list"
+msgstr "Vista previa de la lista de sustitución"
+
+#: includes/class-admin.php:264
+msgid "Recovery history"
+msgstr "Historial de recuperación"
+
+#: includes/class-admin.php:264
+msgid "Download backup"
+msgstr "Descargar copia de seguridad"
+
+#: includes/class-admin.php:268
+msgid "Change preview"
+msgstr "Vista previa de los cambios"
+
+#: includes/class-admin.php:268
+msgid "Current managed section"
+msgstr "Sección gestionada actual"
+
+#: includes/class-admin.php:268
+msgid "(empty)"
+msgstr "(vacío)"
+
+#: includes/class-admin.php:268
+msgid "Proposed managed section"
+msgstr "Sección gestionada propuesta"
+
+#: includes/class-admin.php:268
+msgid "(remove managed section)"
+msgstr "(eliminar la sección gestionada)"
+
+#: includes/class-admin.php:269
+msgid "Download current .htaccess backup"
+msgstr "Descargar copia de seguridad del .htaccess actual"
+
+#: includes/class-admin.php:271
+msgid "I verified that these are client IPs, not CDN/proxy or shared-service addresses."
+msgstr "He comprobado que estas son IP de clientes y no direcciones de CDN, proxies o servicios compartidos."
+
+#: includes/class-admin.php:272
+msgid "I saved the backup and can restore .htaccess through hosting or SFTP if WordPress becomes unreachable."
+msgstr "He guardado la copia de seguridad y puedo restaurar .htaccess a través del alojamiento o mediante SFTP si WordPress deja de estar accesible."
+
+#: includes/class-admin.php:273
+msgid "Apply server changes"
+msgstr "Aplicar cambios en el servidor"
+
+#: includes/class-admin.php:278
+msgid "Read existing WAF logs"
+msgstr "Leer los registros existentes del WAF"
+
+#: includes/class-admin.php:279
+msgid "Raw IPs are read locally only when an administrator views the records. Provider logs are never modified. URLs, payloads, cookies and user accounts are not read."
+msgstr "Las IP sin procesar solo se leen localmente cuando un administrador consulta los registros. Los registros del proveedor nunca se modifican. No se leen URL, cargas útiles, cookies ni cuentas de usuario."
+
+#: includes/class-admin.php:280
+msgid "Minimum repeat count"
+msgstr "Número mínimo de repeticiones"
+
+#: includes/class-admin.php:280
+msgid "Window (minutes)"
+msgstr "Ventana (minutos)"
+
+#: includes/class-admin.php:281
+msgid "Protected IP addresses"
+msgstr "Direcciones IP protegidas"
+
+#: includes/class-admin.php:282
+msgid "Your current REMOTE_ADDR and SERVER_ADDR are protected automatically. Forwarded IP headers are not trusted by this plugin. Add monitoring, proxy and administrator IPs here."
+msgstr "Sus valores actuales de REMOTE_ADDR y SERVER_ADDR se protegen automáticamente. Este plugin no confía en las cabeceras de IP reenviadas. Añada aquí las IP de los servicios de supervisión, los proxies y los administradores."
+
+#: includes/class-admin.php:283
+msgid "Enable manual .htaccess editing with backup and self-check"
+msgstr "Activar la edición manual de .htaccess con copia de seguridad y autocomprobación"
+
+#: includes/class-admin.php:284
+msgid "Apache 2.4 and same-directory, single-site WordPress only. Self-checks cannot guarantee recovery after process termination or hosting failures. Keep independent hosting/SFTP access. No background or automatic IP blocking."
+msgstr "Solo se admite Apache 2.4 y WordPress de sitio único instalado en el mismo directorio que la página de inicio del sitio. Las autocomprobaciones no pueden garantizar la recuperación tras la finalización del proceso o fallos del alojamiento. Mantenga un acceso independiente al alojamiento o por SFTP. No se realizan bloqueos de IP en segundo plano ni automáticos."
+
+#: includes/class-admin.php:285
+msgid "Up to three full configuration backups and configured IPs remain in the local database. Preview and probe tokens expire. There is no Hub, telemetry, geolocation lookup or remote block list. Uninstall does not remove server blocks or recovery data."
+msgstr "En la base de datos local se conservan hasta tres copias de seguridad completas de la configuración y las IP configuradas. Los tokens de vista previa y de comprobación caducan. No hay Hub, telemetría, consultas de geolocalización ni listas de bloqueo remotas. La desinstalación no elimina los bloqueos del servidor ni los datos de recuperación."
+
+#: includes/class-admin.php:286
+msgid "Save settings"
+msgstr "Guardar ajustes"
+
+#: includes/class-ip-rules.php:83
+msgid "Only exact public IPv4 or IPv6 addresses are accepted. Private, reserved, masked addresses, hostnames and ranges are not accepted."
+msgstr "Solo se aceptan direcciones IPv4 o IPv6 públicas exactas. No se aceptan direcciones privadas, reservadas o enmascaradas, nombres de host ni rangos."
+
+#: includes/class-ip-rules.php:86
+msgid "The list contains your current connection, the server address, or a protected IP. Remove it before continuing."
+msgstr "La lista contiene la IP de su conexión actual, la dirección del servidor o una IP protegida. Elimine la dirección correspondiente antes de continuar."
+
+#: includes/class-ip-rules.php:113
+msgid "The settings file is unreadable or larger than 128 KiB."
+msgstr "El archivo de ajustes no se puede leer o supera los 128 KiB."
+
+#: includes/class-ip-rules.php:121
+#: includes/class-ip-rules.php:125
+msgid "The managed section is ambiguous or was moved. Restore or review it manually."
+msgstr "La sección gestionada es ambigua o se ha movido. Restáurela o revísela manualmente."
+
+#: includes/class-ip-rules.php:132
+msgid "The managed section was edited outside this plugin. No changes were made."
+msgstr "La sección gestionada se ha editado fuera de este plugin. No se ha realizado ningún cambio."
+
+#: includes/class-server-file.php:13
+msgid "An existing, regular .htaccess file of at most 128 KiB is required. Symbolic links are not supported."
+msgstr "Se requiere un archivo .htaccess existente de tipo normal y de un máximo de 128 KiB. No se admiten enlaces simbólicos."
+
+#: includes/class-server-file.php:16
+#: includes/class-server-file.php:29
+msgid "The settings file could not be read."
+msgstr "No se ha podido leer el archivo de ajustes."
+
+#: includes/class-server-file.php:22
+#: includes/class-server-file.php:64
+#: includes/class-server-file.php:82
+msgid "The settings file changed. Create a fresh preview before applying."
+msgstr "El archivo de ajustes ha cambiado. Cree una nueva vista previa antes de aplicar los cambios."
+
+#: includes/class-server-file.php:26
+msgid "The file or its directory is not writable, or the result exceeds 128 KiB."
+msgstr "No se puede escribir en el archivo o en su directorio, o el resultado supera los 128 KiB."
+
+#: includes/class-server-file.php:32
+msgid "Use non-executable file permissions without group or world write access before editing."
+msgstr "Antes de editar, establezca permisos de archivo sin permisos de ejecución para ningún usuario ni permisos de escritura para el grupo o el resto de usuarios."
+
+#: includes/class-server-file.php:39
+msgid "A private temporary file could not be created."
+msgstr "No se ha podido crear un archivo temporal privado."
+
+#: includes/class-server-file.php:70
+msgid "The settings file could not be replaced. No partial file was installed."
+msgstr "No se ha podido sustituir el archivo de ajustes. No se ha instalado ningún archivo incompleto."
+
+#: includes/class-server-file.php:84
+msgid "No changes to apply."
+msgstr "No hay cambios que aplicar."
+
+#: includes/class-server-file.php:86
+msgid "The preflight site check failed. The settings file was not changed."
+msgstr "La comprobación previa del sitio ha fallado. No se ha modificado el archivo de ajustes."
+
+#: includes/class-server-file.php:87
+msgid "The database backup could not be saved. The settings file was not changed."
+msgstr "No se ha podido guardar la copia de seguridad en la base de datos. No se ha modificado el archivo de ajustes."
+
+#: includes/class-server-file.php:89
+msgid "Preflight or backup failed. The settings file was not changed."
+msgstr "La comprobación previa o la copia de seguridad ha fallado. No se ha modificado el archivo de ajustes."
+
+#: includes/class-server-file.php:97
+msgid "The file changed again during verification. Review its current contents before retrying."
+msgstr "El archivo ha vuelto a cambiar durante la verificación. Revise su contenido actual antes de volver a intentarlo."
+
+#: includes/class-server-file.php:101
+msgid "The site check failed and automatic rollback could not safely complete. Restore the downloaded backup through your hosting panel or SFTP immediately."
+msgstr "La comprobación del sitio ha fallado y no se ha podido completar la reversión automática de forma segura. Restaure inmediatamente la copia de seguridad descargada a través del panel de su alojamiento o mediante SFTP."
+
+#: includes/class-server-file.php:102
+msgid "The site check failed. The previous file was restored automatically."
+msgstr "La comprobación del sitio ha fallado. Se ha restaurado automáticamente el archivo anterior."
+
+#: includes/class-server.php:22
+msgid "A previous server change interrupted SDN measurement. Review the current file and resume measurement below before another change."
+msgstr "Un cambio anterior en el servidor interrumpió la medición de SDN. Revise el archivo actual y reanude la medición a continuación antes de realizar otro cambio."
+
+#: includes/class-server.php:25
+msgid "Update Semantic Deterrence to version 0.1.8 or later to change IP blocks while its responses or observation windows are active."
+msgstr "Actualice Semantic Deterrence a la versión 0.1.8 o posterior para cambiar los bloqueos de IP mientras sus respuestas o ventanas de observación estén activas."
+
+#: includes/class-server.php:34
+msgid "SDN measurement state is unavailable. Server changes are disabled until it can be read."
+msgstr "El estado de la medición de SDN no está disponible. Los cambios en el servidor están desactivados hasta que se pueda leer."
+
+#: includes/class-server.php:41
+msgid "Compatible SDN measurement support and administrator access are required."
+msgstr "Se requieren compatibilidad con la medición de SDN y permisos de administrador."
+
+#: includes/class-server.php:43
+msgid "No interrupted SDN measurement is available to resume."
+msgstr "No hay ninguna medición de SDN interrumpida que se pueda reanudar."
+
+#: includes/class-server.php:48
+#: includes/class-server.php:150
+msgid "Another change is in progress. Try again later."
+msgstr "Hay otro cambio en curso. Vuelva a intentarlo más tarde."
+
+#: includes/class-server.php:53
+msgid "The site self-check failed. Measurement remains interrupted; review the server configuration and recovery access."
+msgstr "La autocomprobación del sitio ha fallado. La medición sigue interrumpida; revise la configuración del servidor y el acceso para la recuperación."
+
+#: includes/class-server.php:55
+msgid "SDN measurement could not be resumed. No server file was changed by this recovery attempt."
+msgstr "No se ha podido reanudar la medición de SDN. Este intento de recuperación no ha modificado ningún archivo del servidor."
+
+#: includes/class-server.php:70
+msgid "Editing requires Apache 2.4, a single-site installation, and enabled WordPress file modifications."
+msgstr "La edición requiere Apache 2.4, una instalación de sitio único y que las modificaciones de archivos de WordPress estén activadas."
+
+#: includes/class-server.php:75
+msgid "WordPress and the site home must use the same directory in this version."
+msgstr "En esta versión, WordPress y la página de inicio del sitio deben utilizar el mismo directorio."
+
+#: includes/class-server.php:136
+msgid "Administrator access is required."
+msgstr "Se requieren permisos de administrador."
+
+#: includes/class-server.php:138
+msgid "The preview expired. Create a new preview."
+msgstr "La vista previa ha caducado. Cree una nueva vista previa."
+
+#: includes/class-server.php:147
+#: includes/class-server.php:164
+msgid "The change could not be completed. Review the current file and backups before retrying."
+msgstr "No se ha podido completar el cambio. Revise el archivo actual y las copias de seguridad antes de volver a intentarlo."
+
+#: includes/class-server.php:155
+msgid "The server file changed. Create a new preview and download a fresh backup."
+msgstr "El archivo del servidor ha cambiado. Cree una nueva vista previa y descargue una copia de seguridad nueva."
+
+#: includes/class-server.php:159
+msgid "SDN measurement could not be protected. No server changes were started. Review the SDN measurement status before retrying."
+msgstr "No se ha podido proteger la medición de SDN. No se ha iniciado ningún cambio en el servidor. Revise el estado de la medición de SDN antes de volver a intentarlo."
+
+#: includes/class-server.php:169
+msgid "The file change attempt finished, but SDN measurement remains interrupted. Review the managed IP list and use Resume SDN measurement. Do not assume the file was unchanged."
+msgstr "El intento de modificación del archivo ha finalizado, pero la medición de SDN sigue interrumpida. Revise la lista de IP gestionadas y utilice «Reanudar la medición de SDN». No dé por hecho que el archivo no ha cambiado."
+
+#: includes/class-sources.php:62
+msgid "Unsupported log source."
+msgstr "Origen de registros no compatible."
+
+#: includes/class-sources.php:66
+msgid "The selected WAF is not active."
+msgstr "El WAF seleccionado no está activo."
+
+#: includes/class-sources.php:73
+msgid "The provider log table is unavailable."
+msgstr "La tabla de registros del proveedor no está disponible."
+
+#: includes/class-sources.php:89
+#: includes/class-sources.php:93
+msgid "The provider log could not be read. No raw database details are shown."
+msgstr "No se ha podido leer el registro del proveedor. No se muestran detalles sin procesar de la base de datos."

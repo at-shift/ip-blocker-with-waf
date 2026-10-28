@@ -1,6 +1,6 @@
 # atshift IP Blocker
 
-**WordPress.org distribution, version 1.0.0.** The approved plugin name, directory, entry file and text domain use **atshift IP Blocker / atshift-ip-blocker**. This release includes the latest GitHub pilot's SDN coexistence features and English/Japanese interfaces, while retaining the reviewed input, nonce and file-transaction protections.
+**WordPress.org distribution, version 1.0.1.** The approved plugin name, directory, entry file and text domain use **atshift IP Blocker / atshift-ip-blocker**. This release includes the latest GitHub pilot's SDN coexistence features and 15 interface languages, while retaining the reviewed input, nonce and file-transaction protections.
 
 Existing `ipbw_*` settings, backups and legacy managed-file markers are intentionally retained. The older GitHub package on [`main`](https://github.com/at-shift/ip-blocker-with-waf/tree/main) remains a separate distribution; this package uses WordPress.org updates and has no external updater.
 
@@ -18,7 +18,7 @@ Existing WAFs may record hundreds of repeat requests from one address. This plug
 - Exact public IPv4/IPv6 only, at most 50 managed IPs. No hostnames, ranges, masked IPs or private/reserved addresses.
 - Protects the current `REMOTE_ADDR`, `SERVER_ADDR`, and explicitly configured IPs from selection. Never trusts forwarding headers on its own.
 - WAF reads and server editing are separate opt-ins, both disabled initially.
-- English source strings and a complete bundled Japanese catalog, loaded for the current WordPress user locale.
+- English source strings and complete bundled catalogs for Japanese, Spanish (`es_ES`), German (`de_DE`), French (`fr_FR`), Brazilian Portuguese (`pt_BR`), Italian (`it_IT`), Russian (`ru_RU`), Dutch (`nl_NL`), Simplified Chinese (`zh_CN`), Polish (`pl_PL`), Turkish (`tr_TR`), Indonesian (`id_ID`), Traditional Chinese/Taiwan (`zh_TW`) and Korean (`ko_KR`). The interface follows the current WordPress user's locale.
 
 The tested provider sources are CloudSecure 1.4.18 and Wordfence 9.0.2. Their internal schemas are not public compatibility contracts. SiteGuard login histories are not general WAF logs; BBQ has no built-in historical IP log; NinjaFirewall may mask IPs. These adapters are deliberately not included in this first version.
 

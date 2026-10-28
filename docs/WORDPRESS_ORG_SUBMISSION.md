@@ -2,7 +2,7 @@
 
 ## Distribution Boundary
 
-The plugin was approved with name **atshift IP Blocker**, slug and text domain `atshift-ip-blocker`. The reviewed English-only 0.1.2 ZIP is retained as the initial tag. Version 1.0.0 includes the GitHub pilot's SDN 0.1.8 measurement API integration and a bundled Japanese catalog alongside the English source strings. The reviewed explicit nonce checks, strict inputs and atomic filesystem exceptions are retained. There is no external updater, Update URI override, telemetry, remote block list or remote executable code. The older GitHub distribution remains on `main`.
+The plugin was approved with name **atshift IP Blocker**, slug and text domain `atshift-ip-blocker`. The reviewed English-only 0.1.2 ZIP is retained as the initial tag. Version 1.0.0 added the GitHub pilot's SDN 0.1.8 measurement API integration and Japanese. Version 1.0.1 adds another 13 bundled catalogs for 15 interface languages including English. The reviewed explicit nonce checks, strict inputs and atomic filesystem exceptions are retained. There is no external updater, Update URI override, telemetry, remote block list or remote executable code. The older GitHub distribution remains on `main`.
 
 The package contains only `wordpress-plugin/`, under the installation directory `atshift-ip-blocker/`, with main file `atshift-ip-blocker.php`. Repository tests, QA results, configuration, databases and backups are not included. Runtime class names, `ipbw_*` settings/backup keys and `# BEGIN/END IP Blocker with WAF` markers remain for data and file compatibility; these are internal legacy identifiers, not the displayed plugin name or requested slug.
 
@@ -31,4 +31,4 @@ The initial provider schemas examined were CloudSecure WP Security 1.4.18 and Wo
 
 Self-checks do not guarantee recovery after process termination, hosting failure or a concurrent external edit. Keep independent hosting/SFTP access. Uninstall deliberately leaves server blocks and recovery data intact; remove unwanted managed blocks first. This behavior is documented in the plugin readme.
 
-The review approval covers the submitted 0.1.2 package. Version 1.0.0 is the maintainer's tested release update; Plugin Check does not represent a new manual review or a security guarantee.
+The review approval covers the submitted 0.1.2 package. Versions 1.0.0 and 1.0.1 are the maintainer's tested release updates; Plugin Check does not represent a new manual review or a security guarantee.
