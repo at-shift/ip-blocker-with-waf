@@ -5,7 +5,8 @@ output="${1:-$root/build}"
 temp="$(mktemp -d)"
 trap 'rm -rf "$temp"' EXIT
 mkdir -p "$output" "$temp/atshift-ip-blocker"
-rsync -a --exclude='.DS_Store' "$root/wordpress-plugin/" "$temp/atshift-ip-blocker/"
+output="$(cd "$output" && pwd)"
+rsync -a --exclude='.DS_Store' --exclude='*~' "$root/wordpress-plugin/" "$temp/atshift-ip-blocker/"
 cd "$temp"
 zip -qr atshift-ip-blocker.zip atshift-ip-blocker
 shasum -a 256 atshift-ip-blocker.zip > atshift-ip-blocker.zip.sha256

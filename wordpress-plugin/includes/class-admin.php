@@ -11,6 +11,7 @@ class IP_Blocker_WAF_Admin {
 		add_action( 'admin_post_ipbw_save', array( __CLASS__, 'save' ) );
 		add_action( 'admin_post_ipbw_apply', array( __CLASS__, 'apply' ) );
 		add_action( 'admin_post_ipbw_backup', array( __CLASS__, 'download_backup' ) );
+		add_action( 'admin_post_ipbw_resume_measurement', array( __CLASS__, 'resume_measurement' ) );
 	}
 
 	public static function require_admin() {
@@ -107,17 +108,30 @@ class IP_Blocker_WAF_Admin {
 		check_admin_referer( 'ipbw_apply' );
 		$settings = self::settings();
 		$plan = get_transient( self::session_key( 'plan' ) );
-		delete_transient( self::session_key( 'plan' ) );
 		$downloaded = get_transient( self::session_key( 'backup_ready' ) );
-		delete_transient( self::session_key( 'backup_ready' ) );
+		if ( ! $settings['editing'] ) {
+			self::notice( __( 'Enable server editing in Connections first.', 'atshift-ip-blocker' ), true );
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Both acknowledgements must be the exact checkbox value, not a sanitized approximation.
-		$confirmed = '1' === wp_unslash( $_POST['recovery_confirmed'] ?? '' ) && '1' === wp_unslash( $_POST['address_confirmed'] ?? '' );
-		if ( ! $settings['editing'] || ! $confirmed || ! is_array( $plan ) || ! is_string( $downloaded ) || ! hash_equals( $plan['hash'] ?? '', $downloaded ) ) {
-			self::notice( __( 'Enable editing, download the current backup, and confirm address attribution and recovery access before applying.', 'atshift-ip-blocker' ), true );
+		} elseif ( '1' !== wp_unslash( $_POST['recovery_confirmed'] ?? '' ) || '1' !== wp_unslash( $_POST['address_confirmed'] ?? '' ) ) {
+			self::notice( __( 'Both address attribution and independent recovery access must be confirmed.', 'atshift-ip-blocker' ), true );
+		} elseif ( ! is_array( $plan ) ) {
+			self::notice( __( 'The preview expired or was already used. Create a new preview.', 'atshift-ip-blocker' ), true );
+		} elseif ( ! is_string( $downloaded ) || ! hash_equals( $plan['hash'] ?? '', $downloaded ) ) {
+			self::notice( __( 'Download the current .htaccess backup from this preview before applying. An old or expired download cannot be used.', 'atshift-ip-blocker' ), true );
 		} else {
+			delete_transient( self::session_key( 'plan' ) );
+			delete_transient( self::session_key( 'backup_ready' ) );
 			$result = IP_Blocker_WAF_Server::apply_plan( $plan, IP_Blocker_WAF_IP_Rules::protected_addresses( $settings['protected'] ) );
 			self::notice( is_wp_error( $result ) ? $result->get_error_message() : __( 'Server settings updated and the site self-check passed. This does not prove that a selected remote IP was blocked.', 'atshift-ip-blocker' ), is_wp_error( $result ) );
 		}
+		wp_safe_redirect( self::url( 'rules' ) ); exit;
+	}
+
+	public static function resume_measurement() {
+		self::post();
+		check_admin_referer( 'ipbw_resume_measurement' );
+		$result = IP_Blocker_WAF_Server::resume_measurement();
+		self::notice( is_wp_error( $result ) ? $result->get_error_message() : __( 'SDN measurement resumed. Interrupted windows remain indeterminate; the SDN mode and assignment were not changed.', 'atshift-ip-blocker' ), is_wp_error( $result ) );
 		wp_safe_redirect( self::url( 'rules' ) ); exit;
 	}
 
@@ -225,6 +239,15 @@ class IP_Blocker_WAF_Admin {
 		if ( is_wp_error( $state ) ) { self::message( $state->get_error_message(), true ); echo '</section>'; self::recovery_history(); return; }
 		if ( ! $settings['editing'] ) { self::message( __( 'Server editing is disabled. Viewing does not change the file.', 'atshift-ip-blocker' ) ); }
 		self::message( __( 'Only this plugin\'s managed section is edited. Existing manual deny rules remain outside its control. Blocks remain after deactivation or uninstall.', 'atshift-ip-blocker' ) );
+		$measurement_status = IP_Blocker_WAF_Server::measurement_status();
+		if ( is_wp_error( $measurement_status ) ) {
+			self::message( $measurement_status->get_error_message(), true );
+			if ( 'measurement_pending' === $measurement_status->get_error_code() ) {
+				?><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"><input type="hidden" name="action" value="ipbw_resume_measurement"><?php wp_nonce_field( 'ipbw_resume_measurement' ); ?><?php self::button( __( 'Resume SDN measurement', 'atshift-ip-blocker' ), 'update' ); ?></form><?php
+			}
+		} elseif ( IP_Blocker_WAF_Server::has_measurement_api() ) {
+			self::message( __( 'SDN stays active. Undecided observation windows overlapping a server change are conservatively counted as indeterminate due to site-side restriction, not as deterrence success. No IP addresses are copied to SDN or shared.', 'atshift-ip-blocker' ) );
+		}
 		if ( 'POST' === sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ?? '' ) ) ) {
 			$preview = self::preview( $content, $settings );
 			if ( is_wp_error( $preview ) ) { self::message( $preview->get_error_message(), true ); }

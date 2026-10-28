@@ -2,7 +2,7 @@
 /** Submission naming changes must not rename saved data or server markers. */
 define( 'ABSPATH', __DIR__ );
 define( 'IP_BLOCKER_WAF_FILE', dirname( __DIR__ ) . '/wordpress-plugin/atshift-ip-blocker.php' );
-define( 'IP_BLOCKER_WAF_VERSION', '0.1.2' );
+define( 'IP_BLOCKER_WAF_VERSION', '1.0.0' );
 $menu = array(); $assets = array(); $checks = 0;
 function add_menu_page( ...$args ) { $GLOBALS['menu'] = $args; }
 function current_user_can( $cap ) { return 'manage_options' === $cap; }

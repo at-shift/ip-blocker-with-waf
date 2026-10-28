@@ -1,0 +1,661 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: atshift IP Blocker 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/atshift-ip-"
+"blocker\n"
+"POT-Creation-Date: 2026-10-28T09:33:54+00:00\n"
+"PO-Revision-Date: 2026-10-22 00:00+0000\n"
+"Last-Translator: at-shift\n"
+"Language-Team: Japanese\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. Plugin Name of the plugin
+#: atshift-ip-blocker.php
+msgid "atshift IP Blocker"
+msgstr "atshift IP Blocker"
+
+#. Description of the plugin
+#: atshift-ip-blocker.php
+msgid ""
+"Review local WAF IP observations and manually manage server-side IP blocks "
+"with backups and rollback checks."
+msgstr ""
+"既存WAFのIP検知記録を確認し、バックアップとロールバック確認を伴うサーバー側の"
+"IP遮断を手動で管理します。"
+
+#. Author of the plugin
+#: atshift-ip-blocker.php
+msgid "@shift"
+msgstr "@shift"
+
+#: includes/class-admin.php:19 includes/class-sources.php:59
+msgid "Administrator access on a single-site installation is required."
+msgstr "シングルサイトの管理者権限が必要です。"
+
+#: includes/class-admin.php:60 includes/class-admin.php:63
+msgid "Enter no more than 50 valid protected IP addresses."
+msgstr "保護する有効なIPアドレスを50件以内で入力してください。"
+
+#: includes/class-admin.php:76
+msgid "Settings saved."
+msgstr "設定を保存しました。"
+
+#: includes/class-admin.php:90
+msgid "Backup not found."
+msgstr "バックアップが見つかりません。"
+
+#: includes/class-admin.php:113 includes/class-admin.php:141
+msgid "Enable server editing in Connections first."
+msgstr "先に「接続と安全設定」でサーバー設定の編集を有効にしてください。"
+
+#: includes/class-admin.php:116
+msgid ""
+"Both address attribution and independent recovery access must be confirmed."
+msgstr "接続元IPの帰属と、独立した復旧手段の両方を確認してください。"
+
+#: includes/class-admin.php:118
+msgid "The preview expired or was already used. Create a new preview."
+msgstr ""
+"プレビューの有効期限が切れたか、既に使用されています。プレビューを作り直して"
+"ください。"
+
+#: includes/class-admin.php:120
+msgid ""
+"Download the current .htaccess backup from this preview before applying. An "
+"old or expired download cannot be used."
+msgstr ""
+"反映前に、このプレビューから現在の.htaccessバックアップを取得してください。古"
+"い、または期限切れのダウンロードは使用できません。"
+
+#: includes/class-admin.php:125
+msgid ""
+"Server settings updated and the site self-check passed. This does not prove "
+"that a selected remote IP was blocked."
+msgstr ""
+"サーバー設定を更新し、サイトの自己診断が成功しました。選択した接続元IPの遮断"
+"を証明するものではありません。"
+
+#: includes/class-admin.php:134
+msgid ""
+"SDN measurement resumed. Interrupted windows remain indeterminate; the SDN "
+"mode and assignment were not changed."
+msgstr ""
+"SDNの測定を再開しました。中断した観測は判定不能のままとし、SDNのモードや実験"
+"割り当ては変更していません。"
+
+#: includes/class-admin.php:149 includes/class-ip-rules.php:74
+msgid "Enter no more than 50 exact public IP addresses, one per line."
+msgstr "公開IPアドレスの完全一致を1行に1件、50件以内で入力してください。"
+
+#: includes/class-admin.php:151
+msgid "Select at least one repeated candidate."
+msgstr "反復検知の候補を1件以上選択してください。"
+
+#: includes/class-admin.php:158
+msgid "The preview could not be saved."
+msgstr "プレビューを保存できませんでした。"
+
+#: includes/class-admin.php:171
+msgid "Plugin views"
+msgstr "プラグインの画面"
+
+#: includes/class-admin.php:172
+msgid "WAF observations"
+msgstr "WAFの検知記録"
+
+#: includes/class-admin.php:172
+msgid "Server blocks"
+msgstr "サーバーの遮断設定"
+
+#: includes/class-admin.php:172 includes/class-admin.php:277
+msgid "Connections & safety"
+msgstr "接続と安全設定"
+
+#: includes/class-admin.php:189
+msgid "SQL injection"
+msgstr "SQLインジェクション"
+
+#: includes/class-admin.php:189
+msgid "Cross-site scripting"
+msgstr "クロスサイトスクリプティング"
+
+#: includes/class-admin.php:189
+msgid "OS command injection"
+msgstr "OSコマンドインジェクション"
+
+#: includes/class-admin.php:189
+msgid "Code injection"
+msgstr "コードインジェクション"
+
+#: includes/class-admin.php:189
+msgid "Mail header injection"
+msgstr "メールヘッダインジェクション"
+
+#: includes/class-admin.php:204
+msgid "Local WAF records"
+msgstr "このサイトのWAF記録"
+
+#: includes/class-admin.php:206
+msgid "Source"
+msgstr "取得元"
+
+#: includes/class-admin.php:207
+msgid "Period"
+msgstr "期間"
+
+#: includes/class-admin.php:207
+msgid "24 hours"
+msgstr "24時間"
+
+#: includes/class-admin.php:207
+msgid "7 days"
+msgstr "7日間"
+
+#: includes/class-admin.php:207
+msgid "30 days"
+msgstr "30日間"
+
+#: includes/class-admin.php:208
+msgid "Include below-threshold groups"
+msgstr "基準未満のグループも表示する"
+
+#: includes/class-admin.php:209
+msgid "Read logs"
+msgstr "記録を読み込む"
+
+#: includes/class-admin.php:210
+msgid ""
+"Up to 10,000 retained rows and 200 IP/classification groups. Counts are "
+"source-specific records, not confirmed attacks. No automatic polling or "
+"external sharing."
+msgstr ""
+"保存されている最新10,000件、IP・分類別で最大200グループを読み込みます。取得元"
+"の記録件数であり、攻撃の確定数ではありません。自動更新や外部共有は行いませ"
+"ん。"
+
+#: includes/class-admin.php:212
+msgid ""
+"This source is disabled. Enable it in Connections & safety to read its IP "
+"records."
+msgstr ""
+"この取得元は無効です。IPの記録を読むには「接続と安全設定」で有効にしてくださ"
+"い。"
+
+#. translators: 1: minimum record count, 2: rolling window duration in minutes.
+#: includes/class-admin.php:217
+#, php-format
+msgid ""
+"Candidate threshold: %1$d records of the same classification from the same "
+"IP within any %2$d-minute window in this period. This is not proof of "
+"identical payloads or an attack."
+msgstr ""
+"候補の基準：選択期間内のいずれかの%2$d分間に、同じIP・同じ分類の記録が%1$d件"
+"以上あること。同一の攻撃内容や攻撃であることを証明するものではありません。"
+
+#: includes/class-admin.php:218
+msgid ""
+"CloudSecure retained detections may include records that were not blocked."
+msgstr ""
+"CloudSecureの保存記録には、遮断されなかった検知も含まれる場合があります。"
+
+#: includes/class-admin.php:218
+msgid ""
+"Wordfence uses retained blocked:waf records with a valid category. Generic "
+"blocks, learning-mode logs and unknown categories are not combined into "
+"candidates."
+msgstr ""
+"Wordfenceでは、有効な分類があるblocked:waf記録のみを使用します。一般的な遮"
+"断、学習モードの記録、分類不明の記録を候補の集計には混ぜません。"
+
+#: includes/class-admin.php:221 includes/class-admin.php:228
+msgid "Select"
+msgstr "選択"
+
+#: includes/class-admin.php:221 includes/class-admin.php:228
+msgid "Classification"
+msgstr "分類"
+
+#: includes/class-admin.php:221 includes/class-admin.php:228
+msgid "Records"
+msgstr "記録件数"
+
+#: includes/class-admin.php:221 includes/class-admin.php:228
+msgid "Peak in window"
+msgstr "時間枠内の最大件数"
+
+#: includes/class-admin.php:221 includes/class-admin.php:228
+msgid "Last seen"
+msgstr "最終検知"
+
+#: includes/class-admin.php:221 includes/class-admin.php:228
+msgid "Eligibility"
+msgstr "選択可否"
+
+#. translators: %s: exact IP address to select for manual review.
+#: includes/class-admin.php:226
+#, php-format
+msgid "Select %s"
+msgstr "%sを選択"
+
+#: includes/class-admin.php:228
+msgid "Review required"
+msgstr "要確認"
+
+#: includes/class-admin.php:228
+msgid "Below threshold"
+msgstr "基準未満"
+
+#: includes/class-admin.php:228
+msgid "Protected / non-public"
+msgstr "保護対象・非公開IP"
+
+#: includes/class-admin.php:230
+msgid "No matching groups for this period and threshold."
+msgstr "この期間と基準に一致するグループはありません。"
+
+#: includes/class-admin.php:231
+msgid "Preview selected IP blocks"
+msgstr "選択したIPの遮断をプレビュー"
+
+#: includes/class-admin.php:235
+msgid "Managed server blocks"
+msgstr "このプラグインの遮断設定"
+
+#: includes/class-admin.php:240
+msgid "Server editing is disabled. Viewing does not change the file."
+msgstr "サーバー設定の編集は無効です。閲覧だけではファイルを変更しません。"
+
+#: includes/class-admin.php:241
+msgid ""
+"Only this plugin's managed section is edited. Existing manual deny rules "
+"remain outside its control. Blocks remain after deactivation or uninstall."
+msgstr ""
+"このプラグインの管理区間だけを編集します。既存の手動遮断ルールは管理対象外で"
+"す。無効化・アンインストール後も遮断設定は残ります。"
+
+#: includes/class-admin.php:246
+msgid "Resume SDN measurement"
+msgstr "SDNの測定を再開"
+
+#: includes/class-admin.php:249
+msgid ""
+"SDN stays active. Undecided observation windows overlapping a server change "
+"are conservatively counted as indeterminate due to site-side restriction, "
+"not as deterrence success. No IP addresses are copied to SDN or shared."
+msgstr ""
+"SDNは継続します。サーバー変更に重なる未確定の観測は、抑止の成功ではなく、サイ"
+"ト側の制限による判定不能として保守的に集計します。IPをSDNへコピーしたり共有し"
+"たりしません。"
+
+#: includes/class-admin.php:257
+msgid "Managed IP list"
+msgstr "管理するIP一覧"
+
+#: includes/class-admin.php:258
+msgid "Preview replacement list"
+msgstr "置き換え内容をプレビュー"
+
+#: includes/class-admin.php:264
+msgid "Recovery history"
+msgstr "復旧用バックアップの履歴"
+
+#: includes/class-admin.php:264
+msgid "Download backup"
+msgstr "バックアップをダウンロード"
+
+#: includes/class-admin.php:268
+msgid "Change preview"
+msgstr "変更内容のプレビュー"
+
+#: includes/class-admin.php:268
+msgid "Current managed section"
+msgstr "現在の管理区間"
+
+#: includes/class-admin.php:268
+msgid "(empty)"
+msgstr "（空）"
+
+#: includes/class-admin.php:268
+msgid "Proposed managed section"
+msgstr "変更後の管理区間"
+
+#: includes/class-admin.php:268
+msgid "(remove managed section)"
+msgstr "（管理区間を削除）"
+
+#: includes/class-admin.php:269
+msgid "Download current .htaccess backup"
+msgstr "現在の.htaccessをバックアップとしてダウンロード"
+
+#: includes/class-admin.php:271
+msgid ""
+"I verified that these are client IPs, not CDN/proxy or shared-service "
+"addresses."
+msgstr ""
+"選択したIPがCDN・プロキシ・共用サービスではなく、実際の接続元IPであることを確"
+"認しました。"
+
+#: includes/class-admin.php:272
+msgid ""
+"I saved the backup and can restore .htaccess through hosting or SFTP if "
+"WordPress becomes unreachable."
+msgstr ""
+"バックアップを保存し、WordPressに接続できなくても、サーバー管理画面やSFTPか"
+"ら.htaccessを復旧できます。"
+
+#: includes/class-admin.php:273
+msgid "Apply server changes"
+msgstr "サーバー設定に反映"
+
+#: includes/class-admin.php:278
+msgid "Read existing WAF logs"
+msgstr "既存WAFの記録を読み込む"
+
+#: includes/class-admin.php:279
+msgid ""
+"Raw IPs are read locally only when an administrator views the records. "
+"Provider logs are never modified. URLs, payloads, cookies and user accounts "
+"are not read."
+msgstr ""
+"管理者が記録を表示するときだけ、このサイト内でIPを読み込みます。取得元の記録"
+"は変更しません。URL、攻撃内容、Cookie、ユーザー情報は読み込みません。"
+
+#: includes/class-admin.php:280
+msgid "Minimum repeat count"
+msgstr "反復検知の基準件数"
+
+#: includes/class-admin.php:280
+msgid "Window (minutes)"
+msgstr "集計する時間枠（分）"
+
+#: includes/class-admin.php:281
+msgid "Protected IP addresses"
+msgstr "保護するIPアドレス"
+
+#: includes/class-admin.php:282
+msgid ""
+"Your current REMOTE_ADDR and SERVER_ADDR are protected automatically. "
+"Forwarded IP headers are not trusted by this plugin. Add monitoring, proxy "
+"and administrator IPs here."
+msgstr ""
+"現在のREMOTE_ADDRとSERVER_ADDRは自動的に保護します。このプラグインは転送ヘッ"
+"ダーを信用しません。監視サービス、プロキシ、管理者のIPをここに追加してくださ"
+"い。"
+
+#: includes/class-admin.php:283
+msgid "Enable manual .htaccess editing with backup and self-check"
+msgstr "バックアップと自己診断付きで.htaccessの手動編集を有効にする"
+
+#: includes/class-admin.php:284
+msgid ""
+"Apache 2.4 and same-directory, single-site WordPress only. Self-checks "
+"cannot guarantee recovery after process termination or hosting failures. "
+"Keep independent hosting/SFTP access. No background or automatic IP blocking."
+msgstr ""
+"Apache 2.4で、サイトのホームと同じディレクトリに設置したシングルサイトの"
+"WordPressのみ対応します。プロセスの強制終了やサーバー障害時の復旧は保証できま"
+"せん。サーバー管理画面・SFTPへの独立した接続手段を確保してください。自動・"
+"バックグラウンドでのIP遮断は行いません。"
+
+#: includes/class-admin.php:285
+msgid ""
+"Up to three full configuration backups and configured IPs remain in the "
+"local database. Preview and probe tokens expire. There is no Hub, telemetry, "
+"geolocation lookup or remote block list. Uninstall does not remove server "
+"blocks or recovery data."
+msgstr ""
+"設定したIPと、設定ファイル全体のバックアップを最新3件までこのサイトのデータ"
+"ベースに保存します。プレビューと診断用トークンには有効期限があります。Hub、外"
+"部送信、位置情報検索、外部遮断リストはありません。アンインストールしても遮断"
+"設定と復旧用データは削除しません。"
+
+#: includes/class-admin.php:286
+msgid "Save settings"
+msgstr "設定を保存"
+
+#: includes/class-ip-rules.php:83
+msgid ""
+"Only exact public IPv4 or IPv6 addresses are accepted. Private, reserved, "
+"masked addresses, hostnames and ranges are not accepted."
+msgstr ""
+"公開IPv4・IPv6アドレスの完全一致のみ指定できます。プライベート・予約・伏せ字"
+"のIP、ホスト名、範囲指定は使用できません。"
+
+#: includes/class-ip-rules.php:86
+msgid ""
+"The list contains your current connection, the server address, or a "
+"protected IP. Remove it before continuing."
+msgstr ""
+"現在の接続元、サーバー、または保護対象のIPが含まれています。除外してから続行"
+"してください。"
+
+#: includes/class-ip-rules.php:113
+msgid "The settings file is unreadable or larger than 128 KiB."
+msgstr "設定ファイルを読み取れないか、128 KiBを超えています。"
+
+#: includes/class-ip-rules.php:121 includes/class-ip-rules.php:125
+msgid ""
+"The managed section is ambiguous or was moved. Restore or review it manually."
+msgstr ""
+"管理区間を特定できないか、位置が変更されています。手動で確認・復旧してくださ"
+"い。"
+
+#: includes/class-ip-rules.php:132
+msgid ""
+"The managed section was edited outside this plugin. No changes were made."
+msgstr ""
+"管理区間がこのプラグイン以外から編集されています。変更は行いませんでした。"
+
+#: includes/class-server-file.php:13
+msgid ""
+"An existing, regular .htaccess file of at most 128 KiB is required. Symbolic "
+"links are not supported."
+msgstr ""
+"128 KiB以内の既存の通常ファイル.htaccessが必要です。シンボリックリンクは使用"
+"できません。"
+
+#: includes/class-server-file.php:16 includes/class-server-file.php:29
+msgid "The settings file could not be read."
+msgstr "設定ファイルを読み込めませんでした。"
+
+#: includes/class-server-file.php:22 includes/class-server-file.php:64
+#: includes/class-server-file.php:82
+msgid "The settings file changed. Create a fresh preview before applying."
+msgstr ""
+"設定ファイルが変更されています。新しいプレビューを作成してから反映してくださ"
+"い。"
+
+#: includes/class-server-file.php:26
+msgid ""
+"The file or its directory is not writable, or the result exceeds 128 KiB."
+msgstr ""
+"ファイルやディレクトリに書き込み権限がないか、変更後の内容が128 KiBを超えてい"
+"ます。"
+
+#: includes/class-server-file.php:32
+msgid ""
+"Use non-executable file permissions without group or world write access "
+"before editing."
+msgstr ""
+"編集前に、実行権限とグループ・その他への書き込み権限がないファイル権限にして"
+"ください。"
+
+#: includes/class-server-file.php:39
+msgid "A private temporary file could not be created."
+msgstr "非公開の一時ファイルを作成できませんでした。"
+
+#: includes/class-server-file.php:70
+msgid "The settings file could not be replaced. No partial file was installed."
+msgstr ""
+"設定ファイルを置き換えられませんでした。不完全なファイルは設置していません。"
+
+#: includes/class-server-file.php:84
+msgid "No changes to apply."
+msgstr "反映する変更はありません。"
+
+#: includes/class-server-file.php:86
+msgid "The preflight site check failed. The settings file was not changed."
+msgstr "変更前のサイト診断に失敗しました。設定ファイルは変更していません。"
+
+#: includes/class-server-file.php:87
+msgid ""
+"The database backup could not be saved. The settings file was not changed."
+msgstr ""
+"データベースにバックアップを保存できませんでした。設定ファイルは変更していま"
+"せん。"
+
+#: includes/class-server-file.php:89
+msgid "Preflight or backup failed. The settings file was not changed."
+msgstr ""
+"変更前の診断またはバックアップに失敗しました。設定ファイルは変更していませ"
+"ん。"
+
+#: includes/class-server-file.php:97
+msgid ""
+"The file changed again during verification. Review its current contents "
+"before retrying."
+msgstr ""
+"検証中にファイルが再び変更されました。再試行前に現在の内容を確認してくださ"
+"い。"
+
+#: includes/class-server-file.php:101
+msgid ""
+"The site check failed and automatic rollback could not safely complete. "
+"Restore the downloaded backup through your hosting panel or SFTP immediately."
+msgstr ""
+"サイト診断に失敗し、自動復旧を安全に完了できませんでした。ダウンロードした"
+"バックアップを、サーバー管理画面またはSFTPから直ちに復元してください。"
+
+#: includes/class-server-file.php:102
+msgid "The site check failed. The previous file was restored automatically."
+msgstr "サイト診断に失敗しました。変更前のファイルを自動で復元しました。"
+
+#: includes/class-server.php:22
+msgid ""
+"A previous server change interrupted SDN measurement. Review the current "
+"file and resume measurement below before another change."
+msgstr ""
+"前回のサーバー変更でSDNの測定が中断しています。現在のファイルを確認し、下のボ"
+"タンで測定を再開してから変更してください。"
+
+#: includes/class-server.php:25
+msgid ""
+"Update Semantic Deterrence to version 0.1.8 or later to change IP blocks "
+"while its responses or observation windows are active."
+msgstr ""
+"SDNの応答や観測を続けながらIP遮断を変更するには、Semantic Deterrenceを0.1.8以"
+"降へ更新してください。"
+
+#: includes/class-server.php:34
+msgid ""
+"SDN measurement state is unavailable. Server changes are disabled until it "
+"can be read."
+msgstr ""
+"SDNの測定状態を確認できません。確認できるまでサーバー設定は変更できません。"
+
+#: includes/class-server.php:41
+msgid ""
+"Compatible SDN measurement support and administrator access are required."
+msgstr "対応するSDNの測定連携と管理者権限が必要です。"
+
+#: includes/class-server.php:43
+msgid "No interrupted SDN measurement is available to resume."
+msgstr "再開待ちのSDN測定はありません。"
+
+#: includes/class-server.php:48 includes/class-server.php:150
+msgid "Another change is in progress. Try again later."
+msgstr "別の変更処理が進行中です。時間をおいて再試行してください。"
+
+#: includes/class-server.php:53
+msgid ""
+"The site self-check failed. Measurement remains interrupted; review the "
+"server configuration and recovery access."
+msgstr ""
+"サイトの自己診断に失敗しました。測定は中断したままです。サーバー設定と復旧手"
+"段を確認してください。"
+
+#: includes/class-server.php:55
+msgid ""
+"SDN measurement could not be resumed. No server file was changed by this "
+"recovery attempt."
+msgstr ""
+"SDNの測定を再開できませんでした。この復旧操作ではサーバーファイルを変更してい"
+"ません。"
+
+#: includes/class-server.php:70
+msgid ""
+"Editing requires Apache 2.4, a single-site installation, and enabled "
+"WordPress file modifications."
+msgstr ""
+"編集にはApache 2.4、シングルサイト構成、WordPressのファイル変更が許可された環"
+"境が必要です。"
+
+#: includes/class-server.php:75
+msgid ""
+"WordPress and the site home must use the same directory in this version."
+msgstr ""
+"このバージョンでは、WordPressとサイトのホームが同じディレクトリにある必要があ"
+"ります。"
+
+#: includes/class-server.php:136
+msgid "Administrator access is required."
+msgstr "管理者権限が必要です。"
+
+#: includes/class-server.php:138
+msgid "The preview expired. Create a new preview."
+msgstr "プレビューの有効期限が切れました。新しいプレビューを作成してください。"
+
+#: includes/class-server.php:147 includes/class-server.php:164
+msgid ""
+"The change could not be completed. Review the current file and backups "
+"before retrying."
+msgstr ""
+"変更処理を完了できませんでした。再試行前に現在のファイルとバックアップを確認"
+"してください。"
+
+#: includes/class-server.php:155
+msgid ""
+"The server file changed. Create a new preview and download a fresh backup."
+msgstr ""
+"サーバーファイルが変更されています。プレビューを作り直し、新しいバックアップ"
+"を取得してください。"
+
+#: includes/class-server.php:159
+msgid ""
+"SDN measurement could not be protected. No server changes were started. "
+"Review the SDN measurement status before retrying."
+msgstr ""
+"SDNの測定を保護できなかったため、サーバー変更は開始していません。SDNの測定状"
+"態を確認して再試行してください。"
+
+#: includes/class-server.php:169
+msgid ""
+"The file change attempt finished, but SDN measurement remains interrupted. "
+"Review the managed IP list and use Resume SDN measurement. Do not assume the "
+"file was unchanged."
+msgstr ""
+"ファイル変更の処理は終了しましたが、SDNの測定が中断したままです。管理するIP一"
+"覧を確認し「SDNの測定を再開」を実行してください。ファイルが未変更とは限りませ"
+"ん。"
+
+#: includes/class-sources.php:62
+msgid "Unsupported log source."
+msgstr "対応していない記録の取得元です。"
+
+#: includes/class-sources.php:66
+msgid "The selected WAF is not active."
+msgstr "選択したWAFは有効化されていません。"
+
+#: includes/class-sources.php:73
+msgid "The provider log table is unavailable."
+msgstr "取得元の記録テーブルを利用できません。"
+
+#: includes/class-sources.php:89 includes/class-sources.php:93
+msgid "The provider log could not be read. No raw database details are shown."
+msgstr ""
+"取得元の記録を読み込めませんでした。データベースの内部情報は表示していませ"
+"ん。"

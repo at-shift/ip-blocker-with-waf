@@ -1,8 +1,8 @@
 # atshift IP Blocker
 
-**WordPress.org submission branch (`wordpress-org`).** The GitHub distribution is maintained separately on [`main`](https://github.com/at-shift/ip-blocker-with-waf/tree/main). This branch is English-only, contains no bundled language packs or external update checker, and must not be merged into `main` before approval. Translation and integration will be handled after the submission is accepted.
+**WordPress.org distribution, version 1.0.0.** The approved plugin name, directory, entry file and text domain use **atshift IP Blocker / atshift-ip-blocker**. This release includes the latest GitHub pilot's SDN coexistence features and English/Japanese interfaces, while retaining the reviewed input, nonce and file-transaction protections.
 
-The pending application uses the revised display name **atshift IP Blocker**, requested slug **atshift-ip-blocker**, and matching text domain. This is a naming-only revision of the unreleased WordPress.org 0.1.2 candidate, not a new GitHub release. Existing `ipbw_*` settings, backup identifiers and legacy managed-file markers are intentionally retained. The published GitHub package/folder and its update URL are unchanged; the SDN coexistence feature on GitHub `main` is not included in this application revision.
+Existing `ipbw_*` settings, backups and legacy managed-file markers are intentionally retained. The older GitHub package on [`main`](https://github.com/at-shift/ip-blocker-with-waf/tree/main) remains a separate distribution; this package uses WordPress.org updates and has no external updater.
 
 **A local, administrator-operated WordPress desk for reviewing WAF IP records and manually managing Apache IP blocks.**
 
@@ -18,7 +18,7 @@ Existing WAFs may record hundreds of repeat requests from one address. This plug
 - Exact public IPv4/IPv6 only, at most 50 managed IPs. No hostnames, ranges, masked IPs or private/reserved addresses.
 - Protects the current `REMOTE_ADDR`, `SERVER_ADDR`, and explicitly configured IPs from selection. Never trusts forwarding headers on its own.
 - WAF reads and server editing are separate opt-ins, both disabled initially.
-- English-only submission package, with translation-ready source strings. Bundled language files are intentionally omitted until approval.
+- English source strings and a complete bundled Japanese catalog, loaded for the current WordPress user locale.
 
 The tested provider sources are CloudSecure 1.4.18 and Wordfence 9.0.2. Their internal schemas are not public compatibility contracts. SiteGuard login histories are not general WAF logs; BBQ has no built-in historical IP log; NinjaFirewall may mask IPs. These adapters are deliberately not included in this first version.
 
@@ -46,7 +46,7 @@ Deactivation or uninstall does **not** remove server blocks or recovery data. Re
 ## Privacy And Load
 
 - No telemetry, Hub, geolocation service, remote block list, automatic WAF installation or background request collection.
-- No IP/URL/attack payload is sent to GitHub or a third-party service by the runtime. Publishing this repository shares source code only, never site logs or configuration backups.
+- No observed WAF IP, site URL, attack payload or configuration backup is sent to GitHub or a third-party service. Publishing this repository shares source code only.
 - Only IP, timestamp and detection-classification fields are returned to the plugin. Wordfence categories are extracted from its JSON in the database with a length guard; full JSON, URLs, matched strings, cookies, usernames, bodies and User-Agent values are not returned.
 - The log screen reads at most the latest 10,000 provider rows and returns at most 200 IP/classification groups, sorted by peak-window count. Counts are local reference observations, not proof of an attack or identical payloads. Peak windows may be historical within the selected period; review last-seen/peak timestamps before acting. High-volume or expired logs can truncate the requested period. No automatic refresh, per-request hooks, or scheduled scans are added.
 - Source rows are not copied into another event table. Configured/protected IPs, up to three full configuration backups, preview plans, and short-lived readiness/probe/lock data remain locally. Expired WordPress transients may be physically removed later by WordPress cleanup.
@@ -57,14 +57,26 @@ Deactivation or uninstall does **not** remove server blocks or recovery data. Re
 
 This project is separate from Semantic Deterrence and has no aggregate-sharing integration. Server blocking prevents later requests from reaching WordPress; absence of follow-up is therefore not evidence of a semantic warning's effect.
 
-If Semantic Deterrence is active, this plugin refuses server changes while its deterrence/experiment responses are enabled or a responded observation window is still open. Switch it to observation-only and wait for the existing windows to finish before applying a change. The compatibility check reads only whether a window exists; it does not read source HMACs or modify experiment data. Older/different schemas fail closed. Other external blocking tools remain outside this protection.
+With Semantic Deterrence **0.1.8 or later**, manual server blocks can coexist with its deterrence/experiment responses. Its mode, response selection and experiment assignment do not change. Before attempting a file change, SDN records an opaque local measurement revision and conservatively marks overlapping undecided response windows as `rate_limited` (indeterminate), not `observed_ceased`. This affects all still-open undecided windows, not only the selected IP: no IP-to-series lookup or additional raw-IP retention is introduced. Already observed continuation and completed results are preserved. Unfinalized older revisions are conservatively censored too; late requests and failed post-insert updates cannot become false non-continuation successes.
+
+The revision contains only a random token, start time and pending flag; it is never exported. Events persist only the revision token locally, and export explicitly excludes it. A new API is required on **both plugins**. With older SDN versions, the original refusal remains while responses or windows are active, with an update message shown before applying. Unknown state fails closed.
+
+Ordinary failed/rolled-back attempts also censor overlapping windows conservatively. If a process stops or measurement completion fails, SDN keeps counting new responses as indeterminate. Review the current managed list and independent recovery access, then use **Resume SDN measurement** in Server blocks. This runs a site health check and closes the pending measurement change without rewriting `.htaccess`. Never automatically clear this state on a timer. Other external blocking tools and manual hosting edits remain outside this integration; their interference is not detectable by this API.
 
 ## Repository And Development
+
+### WordPress.org Updates
+
+This distribution uses WordPress's standard update service for `atshift-ip-blocker`. No GitHub update checker or Update URI override is included.
+
+The older GitHub distribution has a different installation directory and entry filename. Do not activate both distributions: they share runtime classes and saved-setting keys. To migrate, back up the site, deactivate the old GitHub plugin, install this package, verify retained settings, and remove the inactive old package. Server blocks and recovery data remain available.
+
 
 `wordpress-plugin/` is the installable source. `tests/` contains inert, isolated regression fixtures. No third-party WAF code is redistributed.
 
 ```sh
 php tests/run.php
+php tests/updater.php
 find wordpress-plugin tests -name '*.php' -print0 | xargs -0 -n1 php -l
 bash bin/build.sh /tmp/atshift-ip-blocker-package
 ```

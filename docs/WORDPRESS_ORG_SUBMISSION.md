@@ -2,7 +2,7 @@
 
 ## Distribution Boundary
 
-This is the `wordpress-org` branch of **atshift IP Blocker**, previously submitted as IP Blocker with WAF. The requested new slug and text domain are `atshift-ip-blocker`. This naming-only revision keeps the unreleased application version at 0.1.2; it does not add the GitHub main branch's newer SDN protocol or updater. The submission package is English-only and includes no PO/MO language pack, bundled translation template, external update checker, Update URI override, telemetry, remote block list or remote executable code. The separate GitHub distribution lives on `main`. These branches will be translated and integrated only after approval.
+The plugin was approved with name **atshift IP Blocker**, slug and text domain `atshift-ip-blocker`. The reviewed English-only 0.1.2 ZIP is retained as the initial tag. Version 1.0.0 includes the GitHub pilot's SDN 0.1.8 measurement API integration and a bundled Japanese catalog alongside the English source strings. The reviewed explicit nonce checks, strict inputs and atomic filesystem exceptions are retained. There is no external updater, Update URI override, telemetry, remote block list or remote executable code. The older GitHub distribution remains on `main`.
 
 The package contains only `wordpress-plugin/`, under the installation directory `atshift-ip-blocker/`, with main file `atshift-ip-blocker.php`. Repository tests, QA results, configuration, databases and backups are not included. Runtime class names, `ipbw_*` settings/backup keys and `# BEGIN/END IP Blocker with WAF` markers remain for data and file compatibility; these are internal legacy identifiers, not the displayed plugin name or requested slug.
 
@@ -31,4 +31,4 @@ The initial provider schemas examined were CloudSecure WP Security 1.4.18 and Wo
 
 Self-checks do not guarantee recovery after process termination, hosting failure or a concurrent external edit. Keep independent hosting/SFTP access. Uninstall deliberately leaves server blocks and recovery data intact; remove unwanted managed blocks first. This behavior is documented in the plugin readme.
 
-Plugin Check is an aid, not approval by the WordPress.org reviewers. The application has not been submitted by creating this package.
+The review approval covers the submitted 0.1.2 package. Version 1.0.0 is the maintainer's tested release update; Plugin Check does not represent a new manual review or a security guarantee.

@@ -4,7 +4,7 @@ Tags: security, firewall, ip, access-control
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.2
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,6 +22,8 @@ Failed site checks attempt rollback but cannot guarantee recovery after process 
 
 == Privacy ==
 
+This WordPress.org distribution uses the standard WordPress.org update service. It contains no external update checker.
+
 Source reads are administrator-triggered, limited to 10,000 retained rows and 200 IP/classification groups. Only IP, timestamp and classification fields are returned. Wordfence extracts a bounded category from valid JSON in the database; raw request data is not returned. Provider logs are never modified. There is no telemetry, Hub, geolocation service, remote block list or background collection.
 
 Configured IPs, up to three full configuration backups, and expiring preview/readiness/probe/lock data remain in the local database. Applying a change sends random-token self-probes to this site's home URL, with no admin cookies, no redirects and normal TLS verification. Infrastructure access logs may contain those requests. Keep configuration backups private.
@@ -35,16 +37,29 @@ No. A log entry or high count is not proof of an attack. An administrator must r
 It never independently trusts forwarding headers. Only use server editing when Apache's client-IP restoration and provider attribution have been correctly configured. Shared-service/proxy IP blocking can deny legitimate visitors.
 
 = Can it run alongside Semantic Deterrence? =
-Yes, but changes are refused while semantic responses are enabled or responded observation windows are open, to avoid confusing server blocking with warning effectiveness. See the repository README for the exact guard and limitations.
+Yes. With Semantic Deterrence 0.1.8 or later, responses and experiment assignment stay enabled during manual IP blocking. An opaque local measurement revision protects overlapping undecided windows: they are classified as rate_limited (indeterminate), never as deterrence success. No IP or WAF record is copied to SDN. Older SDN versions still refuse changes while responses or observation windows are active. Interrupted changes require explicit measurement recovery after a site health check.
 
 == Changelog ==
 
+= 1.0.0 =
+* First stable WordPress.org release under the approved name atshift IP Blocker and slug atshift-ip-blocker.
+* Include the latest SDN 0.1.8 coexistence and measurement recovery support from the GitHub pilot.
+* Add bundled Japanese translations alongside the English interface using the approved text domain.
+* Preserve existing ipbw settings, backups and managed .htaccess section markers.
+* Use WordPress.org updates without a GitHub updater or Update URI override.
+* Retain the reviewed submission nonce checks, strict input validation and documented atomic-file protections.
+
+
+= 0.1.3 =
+* Allow manual IP blocks alongside SDN experiments through the SDN 0.1.8 measurement API, without changing its mode or experiment assignment.
+* Protect overlapping undecided observation windows from being classified as non-continuation successes; keep these results indeterminate in local and shared statistics.
+* Require explicit, health-checked measurement recovery after an interrupted change. Preserve the legacy safety guard with older SDN versions.
+* Show compatibility and recovery guidance before applying changes, and separate missing confirmations, expired previews and missing backup errors.
+
 = 0.1.2 =
-* Rename the pending WordPress.org submission to atshift IP Blocker, with the requested slug and text domain atshift-ip-blocker. Existing settings and managed server-section identifiers are preserved.
-* Prepare the WordPress.org submission package and add tested-version metadata.
-* Make POST nonce verification explicit in each action, unslash inputs, retain strict exact-IP and consent validation, and add translator context for placeholders.
-* Document the narrowly scoped native filesystem and live-query exceptions required for atomic configuration replacement and current WAF observations.
-* Keep the WordPress.org submission branch English-only, without bundled language files or a GitHub updater. Translation functions remain ready for future WordPress.org language packs.
+* Add GitHub Release notifications and plugin details through WordPress's normal update interface, only in the GitHub distribution.
+* Validate stable release versions and exact repository assets, cache metadata, verify downloaded ZIPs against their named SHA-256 file, and reject missing or mismatched checksums.
+* Keep the WordPress.org submission in a separate English-only branch without this updater. Retain Japanese translations in the GitHub package and register them on init.
 
 = 0.1.1 =
 * Add official WordPress.org introduction links for CloudSecure WP Security and Wordfence to the administrator connection settings and plugin documentation.
