@@ -1,6 +1,6 @@
 <?php
 /** Run only on an isolated install: wp eval-file tests/wordpress-release.php. */
-if ( ! defined( 'WP_CLI' ) || ! WP_CLI || 'ipbw_release_20261028' !== DB_NAME ) {
+if ( ! defined( 'WP_CLI' ) || ! WP_CLI || ! in_array( DB_NAME, array( 'ipbw_release_20261028', 'ipbw_guidance_20261103' ), true ) ) {
 	throw new RuntimeException( 'Use the isolated release fixture database.' );
 }
 $GLOBALS['ipbw_release_checks'] = 0;
@@ -13,7 +13,7 @@ function release_check( $ok, $label ) {
 try {
 	require_once ABSPATH . 'wp-admin/includes/plugin.php';
 	$data = get_plugin_data( IP_BLOCKER_WAF_FILE, false, false );
-	release_check( '1.0.1' === $data['Version'] && 'atshift IP Blocker' === $data['Name'] && 'atshift-ip-blocker' === $data['TextDomain'], 'WordPress plugin metadata' );
+	release_check( '1.0.2' === $data['Version'] && 'atshift IP Blocker' === $data['Name'] && 'atshift-ip-blocker' === $data['TextDomain'], 'WordPress plugin metadata' );
 	release_check( empty( $data['UpdateURI'] ) && ! class_exists( 'IP_Blocker_WAF_Updater', false ), 'official update route only' );
 	wp_set_current_user( 1 );
 	$_SERVER['REQUEST_METHOD'] = 'GET';
@@ -34,11 +34,30 @@ try {
 		foreach ( array( 'observations', 'connections', 'rules' ) as $tab ) {
 			$_GET = array( 'tab' => $tab );
 			ob_start(); IP_Blocker_WAF_Admin::render(); $html = ob_get_clean();
-			release_check( false !== strpos( $html, $label ) && false !== strpos( $html, 'v1.0.1' ), $locale . ' renders ' . $tab );
+			release_check( false !== strpos( $html, $label ) && false !== strpos( $html, 'v1.0.2' ), $locale . ' renders ' . $tab );
 		}
 		if ( 'en_US' !== $locale ) { restore_previous_locale(); }
 	}
 	switch_to_locale( 'ja' );
+	if ( ! class_exists( 'Atshift_Semantic_Deterrence_Storage', false ) ) {
+		class Atshift_Semantic_Deterrence_Storage {
+			public static $external = '0';
+			public static function get_settings() { return array( 'external_waf_enabled' => self::$external, 'mode' => 'experiment', 'experiment_enabled' => '1' ); }
+		}
+	}
+	update_option( 'ipbw_settings', array( 'sources' => array( 'cloudsecure' ), 'editing' => '0' ), false );
+	$_GET = array( 'tab' => 'connections' );
+	ob_start(); IP_Blocker_WAF_Admin::render(); $guidance_html = ob_get_clean();
+	release_check( false !== strpos( $guidance_html, 'Semantic Deterrence → 設定 → 高度な設定 → 外部WAFの参考観測' ) && false !== strpos( $guidance_html, '外部WAF連携を有効にする' ), 'guidance names exact SD page, section and checkbox' );
+	release_check( false !== strpos( $guidance_html, 'page=atshift-semantic-deterrence-settings' ), 'guidance links to SD settings' );
+	release_check( false !== strpos( $guidance_html, 'IP遮断は独立して動作します' ) && '0' === Atshift_Semantic_Deterrence_Storage::$external, 'SD reference observation opt-in remains independent and unchanged' );
+	Atshift_Semantic_Deterrence_Storage::$external = '1';
+	ob_start(); IP_Blocker_WAF_Admin::render(); $enabled_html = ob_get_clean();
+	release_check( false === strpos( $enabled_html, 'page=atshift-semantic-deterrence-settings' ), 'enabled SD reference observation does not repeat reminder' );
+	Atshift_Semantic_Deterrence_Storage::$external = '0';
+	update_option( 'ipbw_settings', array( 'sources' => array( 'wordfence' ), 'editing' => '0' ), false );
+	ob_start(); IP_Blocker_WAF_Admin::render(); $wordfence_html = ob_get_clean();
+	release_check( false === strpos( $wordfence_html, 'page=atshift-semantic-deterrence-settings' ), 'Wordfence-only source does not imply SD reference support' );
 	release_check( '接続元IPの帰属と、独立した復旧手段の両方を確認してください。' === __( 'Both address attribution and independent recovery access must be confirmed.', 'atshift-ip-blocker' ), 'latest save-flow translation loaded' );
 	release_check( 'SDNの測定を再開' === __( 'Resume SDN measurement', 'atshift-ip-blocker' ), 'latest measurement recovery translation loaded' );
 	restore_previous_locale();
@@ -52,6 +71,9 @@ try {
 	$_REQUEST['_wpnonce'] = wp_create_nonce( 'ipbw_save' );
 	try { IP_Blocker_WAF_Admin::save(); } catch ( RuntimeException $e ) { release_check( 'release-saved' === $e->getMessage(), 'nonce-protected save completed' ); }
 	$saved = IP_Blocker_WAF_Admin::settings();
+	$saved_notice = get_transient( 'ipbw_notice_1' );
+	release_check( false !== strpos( $saved_notice['text'], 'Semantic Deterrence → Settings → Advanced Settings → External WAF Reference Observations' ), 'save reminder carries exact SD path' );
+	release_check( ! $saved_notice['error'] && '0' === Atshift_Semantic_Deterrence_Storage::$external, 'successful save remains successful and does not enable SD integration' );
 	release_check( array( 'cloudsecure' ) === $saved['sources'] && ! $saved['editing'] && 50 === $saved['threshold'], 'independent opt-ins and thresholds saved' );
 	add_filter( 'wp_die_handler', static function () { return static function () { throw new RuntimeException( 'release-denied' ); }; } );
 	$_REQUEST['_wpnonce'] = 'invalid';

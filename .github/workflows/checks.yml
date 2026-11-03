@@ -15,6 +15,8 @@ jobs:
         run: php tests/measurement.php
       - name: Admin save flow checks
         run: php tests/admin-flow.php
+      - name: Legacy GitHub updater checks
+        run: php tests/updater.php
       - name: Translation checks
         run: |
           if ! command -v msgfmt >/dev/null; then sudo apt-get update && sudo apt-get install -y gettext; fi
@@ -22,4 +24,6 @@ jobs:
       - name: PHP syntax
         run: find wordpress-plugin tests -name '*.php' -print0 | xargs -0 -n1 php -l
       - name: Build installable ZIP
-        run: bash bin/build.sh
+        run: |
+          bash bin/build.sh
+          bash bin/build-github.sh

@@ -3,7 +3,7 @@
 # Agent-authored translation, reviewed against the English catalog and plugin usage.
 msgid ""
 msgstr ""
-"Project-Id-Version: atshift IP Blocker 1.0.1\n"
+"Project-Id-Version: atshift IP Blocker 1.0.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/atshift-ip-blocker\n"
 "POT-Creation-Date: 2026-10-28T09:47:11+00:00\n"
 "PO-Revision-Date: 2026-10-28 00:00+0000\n"
@@ -509,3 +509,11 @@ msgstr "제공자의 로그 테이블을 사용할 수 없습니다."
 #: includes/class-sources.php:93
 msgid "The provider log could not be read. No raw database details are shown."
 msgstr "제공자의 로그를 읽을 수 없습니다. 데이터베이스의 원시 세부 정보는 표시하지 않습니다."
+
+#: includes/class-admin.php
+msgid "For optional CloudSecure / BBQ reference observations in Semantic Deterrence, open Semantic Deterrence → Settings → Advanced Settings → External WAF Reference Observations, select Enable external WAF integration, and save settings. IP blocking works independently of this setting."
+msgstr "Semantic Deterrence에서 선택 사항인 CloudSecure / BBQ 참고 관측을 사용하려면 Semantic Deterrence → 설정 → 고급 설정 → 외부 WAF 참고 관측을 열고 “외부 WAF 연동 활성화”를 선택한 다음 설정을 저장하세요. IP 차단은 이 설정과 독립적으로 작동합니다."
+
+#: includes/class-admin.php
+msgid "Open Semantic Deterrence settings"
+msgstr "Semantic Deterrence 설정 열기"

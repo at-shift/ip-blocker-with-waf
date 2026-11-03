@@ -1,8 +1,12 @@
 # atshift IP Blocker
 
-**WordPress.org distribution, version 1.0.1.** The approved plugin name, directory, entry file and text domain use **atshift IP Blocker / atshift-ip-blocker**. This release includes the latest GitHub pilot's SDN coexistence features and 15 interface languages, while retaining the reviewed input, nonce and file-transaction protections.
+![atshift IP Blocker icon](assets/wordpress-org/icon-128x128.png)
 
-Existing `ipbw_*` settings, backups and legacy managed-file markers are intentionally retained. The older GitHub package on [`main`](https://github.com/at-shift/ip-blocker-with-waf/tree/main) remains a separate distribution; this package uses WordPress.org updates and has no external updater.
+**WordPress.org distribution, version 1.0.2.** The approved plugin name, directory, entry file and text domain use **atshift IP Blocker / atshift-ip-blocker**. This release includes the latest GitHub pilot's SDN coexistence features and 15 interface languages, while retaining the reviewed input, nonce and file-transaction protections.
+
+Existing `ipbw_*` settings, backups and legacy managed-file markers are intentionally retained. Releases contain two builds from the same core: `atshift-ip-blocker.zip` uses WordPress.org updates, while `ip-blocker-with-waf.zip` preserves the original GitHub installation path and checksum-verified GitHub updater for existing users. The compatibility updater lives outside `wordpress-plugin/` and is added only by `bin/build-github.sh`; it never enters the WordPress.org ZIP. Do not activate both packages together.
+
+For a new installation, use [WordPress.org](https://wordpress.org/plugins/atshift-ip-blocker/) or the `atshift-ip-blocker.zip` Release asset. If you already use the older GitHub version, its updater selects `ip-blocker-with-waf.zip` automatically; use that asset for manual updates too. Each ZIP has its own named SHA-256 companion.
 
 **A local, administrator-operated WordPress desk for reviewing WAF IP records and manually managing Apache IP blocks.**
 

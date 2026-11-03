@@ -4,7 +4,7 @@ Tags: security, firewall, ip, access-control
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,6 +40,12 @@ It never independently trusts forwarding headers. Only use server editing when A
 Yes. With Semantic Deterrence 0.1.8 or later, responses and experiment assignment stay enabled during manual IP blocking. An opaque local measurement revision protects overlapping undecided windows: they are classified as rate_limited (indeterminate), never as deterrence success. No IP or WAF record is copied to SDN. Older SDN versions still refuse changes while responses or observation windows are active. Interrupted changes require explicit measurement recovery after a site health check.
 
 == Changelog ==
+
+= 1.0.2 =
+* Identify the exact Semantic Deterrence settings path and checkbox for optional CloudSecure / BBQ reference observations when saving CloudSecure connections.
+* Link directly to Semantic Deterrence settings from Connections & safety when those optional observations are disabled.
+* Keep IP blocking independent from SD reference observations; no SD opt-in, mode or experiment assignment is changed.
+* Clarify this guidance in all 15 interface languages and add the supplied WordPress.org directory icon.
 
 = 1.0.1 =
 * Add complete bundled translations for Spanish, German, French, Brazilian Portuguese, Italian, Russian, Dutch, Simplified Chinese, Polish, Turkish, Indonesian, Traditional Chinese (Taiwan) and Korean.

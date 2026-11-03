@@ -73,7 +73,8 @@ class IP_Blocker_WAF_Admin {
 		$editing = '1' === wp_unslash( $_POST['editing'] ?? '' ) ? '1' : '0';
 		update_option( self::SETTINGS, array( 'sources' => $sources, 'protected' => implode( "\n", array_unique( $ips ) ), 'editing' => $editing, 'threshold' => in_array( $threshold, array( 20, 30, 50, 100 ), true ) ? $threshold : 30, 'minutes' => in_array( $minutes, array( 5, 10, 30 ), true ) ? $minutes : 10 ), false );
 		delete_transient( self::session_key( 'plan' ) );
-		self::notice( __( 'Settings saved.', 'atshift-ip-blocker' ) );
+		$guidance = self::external_waf_guidance( self::settings() );
+		self::notice( trim( __( 'Settings saved.', 'atshift-ip-blocker' ) . ' ' . $guidance ) );
 		wp_safe_redirect( self::url( 'connections' ) ); exit;
 	}
 
@@ -185,6 +186,12 @@ class IP_Blocker_WAF_Admin {
 	}
 
 	private static function message( $text, $error = false ) { ?><p role="status" class="ipbw-message<?php echo $error ? ' is-error' : ''; ?>"><?php echo esc_html( $text ); ?></p><?php }
+	private static function external_waf_guidance( $settings ) {
+		if ( ! in_array( 'cloudsecure', $settings['sources'], true ) || ! class_exists( 'Atshift_Semantic_Deterrence_Storage', false ) || ! is_callable( array( 'Atshift_Semantic_Deterrence_Storage', 'get_settings' ) ) ) { return ''; }
+		$sd_settings = Atshift_Semantic_Deterrence_Storage::get_settings();
+		if ( '1' === ( $sd_settings['external_waf_enabled'] ?? '0' ) ) { return ''; }
+		return __( 'For optional CloudSecure / BBQ reference observations in Semantic Deterrence, open Semantic Deterrence → Settings → Advanced Settings → External WAF Reference Observations, select Enable external WAF integration, and save settings. IP blocking works independently of this setting.', 'atshift-ip-blocker' );
+	}
 	private static function classification( $kind ) {
 		$labels = array( 'SQL injection' => __( 'SQL injection', 'atshift-ip-blocker' ), 'Cross-site scripting' => __( 'Cross-site scripting', 'atshift-ip-blocker' ), 'OS command injection' => __( 'OS command injection', 'atshift-ip-blocker' ), 'Code injection' => __( 'Code injection', 'atshift-ip-blocker' ), 'Mail header injection' => __( 'Mail header injection', 'atshift-ip-blocker' ) );
 		return $labels[$kind] ?? $kind;
@@ -275,6 +282,9 @@ class IP_Blocker_WAF_Admin {
 
 	private static function connections( $settings ) {
 		?><section class="ipbw-section"><h2><?php esc_html_e( 'Connections & safety', 'atshift-ip-blocker' ); ?></h2><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"><input type="hidden" name="action" value="ipbw_save"><?php wp_nonce_field( 'ipbw_save' ); ?>
+		<?php $sd_guidance = self::external_waf_guidance( $settings ); if ( '' !== $sd_guidance ) : ?>
+		<p class="ipbw-message"><?php echo esc_html( $sd_guidance ); ?> <a href="<?php echo esc_url( admin_url( 'admin.php?page=atshift-semantic-deterrence-settings' ) ); ?>"><?php esc_html_e( 'Open Semantic Deterrence settings', 'atshift-ip-blocker' ); ?></a></p>
+		<?php endif; ?>
 		<fieldset><legend><?php esc_html_e( 'Read existing WAF logs', 'atshift-ip-blocker' ); ?></legend><?php $plugin_pages = array( 'cloudsecure' => 'https://wordpress.org/plugins/cloudsecure-wp-security/', 'wordfence' => 'https://wordpress.org/plugins/wordfence/' ); ?><?php foreach ( IP_Blocker_WAF_Sources::providers() as $key => $name ) : ?><div class="ipbw-check ipbw-source"><label><input type="checkbox" name="sources[<?php echo esc_attr( $key ); ?>]" value="1" <?php checked( in_array( $key, $settings['sources'], true ) ); ?>> <?php echo esc_html( $name ); ?></label> <a href="<?php echo esc_url( $plugin_pages[$key] ); ?>" target="_blank" rel="noopener noreferrer">WordPress.org <span class="dashicons dashicons-external" aria-hidden="true"></span></a></div><?php endforeach; ?></fieldset>
 		<p class="ipbw-meta"><?php esc_html_e( 'Raw IPs are read locally only when an administrator views the records. Provider logs are never modified. URLs, payloads, cookies and user accounts are not read.', 'atshift-ip-blocker' ); ?></p>
 		<div class="ipbw-toolbar"><label><?php esc_html_e( 'Minimum repeat count', 'atshift-ip-blocker' ); ?> <select name="threshold"><?php foreach ( array( 20, 30, 50, 100 ) as $count ) : ?><option value="<?php echo esc_attr( $count ); ?>" <?php selected( $settings['threshold'], $count ); ?>><?php echo esc_html( $count ); ?></option><?php endforeach; ?></select></label><label><?php esc_html_e( 'Window (minutes)', 'atshift-ip-blocker' ); ?> <select name="minutes"><?php foreach ( array( 5, 10, 30 ) as $minutes ) : ?><option value="<?php echo esc_attr( $minutes ); ?>" <?php selected( $settings['minutes'], $minutes ); ?>><?php echo esc_html( $minutes ); ?></option><?php endforeach; ?></select></label></div>

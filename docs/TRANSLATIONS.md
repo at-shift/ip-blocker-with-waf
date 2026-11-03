@@ -1,6 +1,6 @@
 # Interface translations
 
-Version 1.0.1 includes English source strings and 14 bundled gettext catalogs:
+Version 1.0.2 includes English source strings and 14 bundled gettext catalogs:
 
 | Locale | Language |
 | --- | --- |
@@ -39,7 +39,9 @@ Translations are agent-authored and reviewed without Google Translate or another
 
 For 1.0.1, each of the 13 added catalogs received a second, read-only review by a different agent. One ambiguity in the Italian permissions guidance was corrected to state that execution is forbidden for all users, while write access is forbidden for group/other users. No other material translation issues were found in that review.
 
-Run `python3 tests/translations.py` with GNU gettext installed. It checks the exact locale set, all 117 active source entries, headers, nonempty translations, printf placeholders, technical identifiers and freshly compiled MO equality. The isolated WordPress release fixture checks every compiled translation through WordPress's locale switcher, renders all three views in every locale, and exercises settings/permission checks.
+Run `python3 tests/translations.py` with GNU gettext installed. It checks the exact locale set, all 119 active source entries, headers, nonempty translations, printf placeholders, technical identifiers and freshly compiled MO equality. The isolated WordPress release fixture checks every compiled translation through WordPress's locale switcher, renders all three views in every locale, and exercises settings/permission checks.
+
+Version 1.0.2 adds the exact SD navigation path and checkbox for optional CloudSecure / BBQ reference observations, reusing the translated labels in SD's catalogs. The reminder is shown after saving CloudSecure connections only when SD is loaded and its reference observations are disabled. It does not enable this opt-in or change SD's mode/experiment assignment. Wordfence-only connections do not receive this reminder.
 
 To regenerate source messages, run `wp i18n make-pot wordpress-plugin wordpress-plugin/languages/atshift-ip-blocker.pot --domain=atshift-ip-blocker --slug=atshift-ip-blocker --exclude=languages`. Update catalogs without accepting fuzzy translations, compile each PO with `msgfmt --check --check-format`, and rerun validation before packaging.
 
