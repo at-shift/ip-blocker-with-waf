@@ -2,7 +2,7 @@
 /**
  * Plugin Name: atshift IP Blocker
  * Description: Review local WAF IP observations and manually manage server-side IP blocks with backups and rollback checks.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Requires at least: 6.4
  * Requires PHP: 7.4
  * Author: @shift
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'IP_BLOCKER_WAF_VERSION', '1.0.2' );
+define( 'IP_BLOCKER_WAF_VERSION', '1.0.3' );
 define( 'IP_BLOCKER_WAF_FILE', __FILE__ );
 require_once __DIR__ . '/includes/class-ip-rules.php';
 require_once __DIR__ . '/includes/class-sources.php';

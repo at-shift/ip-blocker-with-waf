@@ -4,7 +4,7 @@ Tags: security, firewall, ip, access-control
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,6 +26,8 @@ This WordPress.org distribution uses the standard WordPress.org update service. 
 
 Source reads are administrator-triggered, limited to 10,000 retained rows and 200 IP/classification groups. Only IP, timestamp and classification fields are returned. Wordfence extracts a bounded category from valid JSON in the database; raw request data is not returned. Provider logs are never modified. There is no telemetry, Hub, geolocation service, remote block list or background collection.
 
+The preview includes optional external reference links to Cloudflare and RIPEstat. They do not include selected IPs. An IP entered manually on an external service is sent directly to that service.
+
 Configured IPs, up to three full configuration backups, and expiring preview/readiness/probe/lock data remain in the local database. Applying a change sends random-token self-probes to this site's home URL, with no admin cookies, no redirects and normal TLS verification. Infrastructure access logs may contain those requests. Keep configuration backups private.
 
 == Frequently Asked Questions ==
@@ -40,6 +42,15 @@ It never independently trusts forwarding headers. Only use server editing when A
 Yes. With Semantic Deterrence 0.1.8 or later, responses and experiment assignment stay enabled during manual IP blocking. An opaque local measurement revision protects overlapping undecided windows: they are classified as rate_limited (indeterminate), never as deterrence success. No IP or WAF record is copied to SDN. Older SDN versions still refuse changes while responses or observation windows are active. Interrupted changes require explicit measurement recovery after a site health check.
 
 == Changelog ==
+
+= 1.0.3 =
+* Mark IPs currently present in this plugin's validated .htaccess section as Blocked, disable duplicate selection, and restore normal eligibility after removal. Manual rules outside the section are not classified by this badge.
+* Organize change previews into IP attribution, independent recovery backup, and required confirmations before applying.
+* Add visible Required badges to the backup download and both confirmation checkboxes, and improve spacing above the download button.
+* Explain why database recovery history cannot replace a local download when WordPress is unreachable, and how to restore the downloaded .txt file as .htaccess through hosting or SFTP.
+* Add hosting-log, trusted-proxy and published-range verification guidance, with generic Cloudflare and RIPEstat links that do not include selected IPs. Do not block an IP whose attribution is uncertain.
+* Reword the recovery acknowledgement as personal recovery capability and translate all new labels and guidance in all 15 interface languages.
+* Preserve administrator permissions, nonces, the mandatory current-file backup, explicit confirmations and SDN measurement protections.
 
 = 1.0.2 =
 * Identify the exact Semantic Deterrence settings path and checkbox for optional CloudSecure / BBQ reference observations when saving CloudSecure connections.

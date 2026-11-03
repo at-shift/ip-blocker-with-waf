@@ -13,7 +13,7 @@ function release_check( $ok, $label ) {
 try {
 	require_once ABSPATH . 'wp-admin/includes/plugin.php';
 	$data = get_plugin_data( IP_BLOCKER_WAF_FILE, false, false );
-	release_check( '1.0.2' === $data['Version'] && 'atshift IP Blocker' === $data['Name'] && 'atshift-ip-blocker' === $data['TextDomain'], 'WordPress plugin metadata' );
+	release_check( '1.0.3' === $data['Version'] && 'atshift IP Blocker' === $data['Name'] && 'atshift-ip-blocker' === $data['TextDomain'], 'WordPress plugin metadata' );
 	release_check( empty( $data['UpdateURI'] ) && ! class_exists( 'IP_Blocker_WAF_Updater', false ), 'official update route only' );
 	wp_set_current_user( 1 );
 	$_SERVER['REQUEST_METHOD'] = 'GET';
@@ -34,8 +34,17 @@ try {
 		foreach ( array( 'observations', 'connections', 'rules' ) as $tab ) {
 			$_GET = array( 'tab' => $tab );
 			ob_start(); IP_Blocker_WAF_Admin::render(); $html = ob_get_clean();
-			release_check( false !== strpos( $html, $label ) && false !== strpos( $html, 'v1.0.2' ), $locale . ' renders ' . $tab );
+			release_check( false !== strpos( $html, $label ) && false !== strpos( $html, 'v1.0.3' ), $locale . ' renders ' . $tab );
 		}
+		$preview_method = new ReflectionMethod( IP_Blocker_WAF_Admin::class, 'render_preview' );
+		if ( PHP_VERSION_ID < 80100 ) { $preview_method->setAccessible( true ); }
+		ob_start(); $preview_method->invoke( null, array( 'current' => '', 'next' => 'fixture' ) ); $preview_html = ob_get_clean();
+		release_check( 3 === substr_count( $preview_html, 'class="ipbw-required">' . esc_html( __( 'Required', 'atshift-ip-blocker' ) ) . '</span>' ), $locale . ' preview displays all required badges' );
+		release_check( false !== strpos( $preview_html, esc_html( __( 'I can recover if WordPress becomes unreachable by replacing .htaccess with the backup file through my hosting control panel or SFTP.', 'atshift-ip-blocker' ) ) ), $locale . ' preview displays recovery capability confirmation' );
+		$verify_at = strpos( $preview_html, esc_html( __( '1. Verify the IP addresses', 'atshift-ip-blocker' ) ) );
+		$backup_at = strpos( $preview_html, esc_html( __( '2. Download a recovery backup', 'atshift-ip-blocker' ) ) );
+		$apply_at = strpos( $preview_html, esc_html( __( '3. Confirm and apply', 'atshift-ip-blocker' ) ) );
+		release_check( false !== $verify_at && false !== $backup_at && false !== $apply_at && $verify_at < $backup_at && $backup_at < $apply_at, $locale . ' preview preserves translated safety-step order' );
 		if ( 'en_US' !== $locale ) { restore_previous_locale(); }
 	}
 	switch_to_locale( 'ja' );

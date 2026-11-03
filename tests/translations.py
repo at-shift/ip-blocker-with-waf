@@ -46,11 +46,11 @@ def read_po(path):
 
 
 source = set(read_po(LANG / "atshift-ip-blocker.pot")) - {""}
-assert len(source) == 119, "Update the expected catalog size after reviewing new strings."
+assert len(source) == 131, "Update the expected catalog size after reviewing new strings."
 actual = {p.stem.removeprefix("atshift-ip-blocker-") for p in LANG.glob("atshift-ip-blocker-*.po")}
 assert actual == LOCALES, f"Locale set mismatch: {actual ^ LOCALES}"
 placeholder = re.compile(r"%(?:\d+\$)?[-+0 #]*(?:\d+|\*)?(?:\.(?:\d+|\*))?[bcdeEfFgGosuxXdi%]")
-technical = (".htaccess", "REMOTE_ADDR", "SERVER_ADDR", "CloudSecure", "Wordfence", "Semantic Deterrence", "SDN", "SFTP", "WordPress", "Apache", "IPv4", "IPv6", "blocked:waf")
+technical = (".htaccess", ".txt", "REMOTE_ADDR", "SERVER_ADDR", "CloudSecure", "Wordfence", "Semantic Deterrence", "SDN", "SFTP", "WordPress", "Apache", "IPv4", "IPv6", "blocked:waf", "X-Forwarded-For", "CF-Connecting-IP", "ASN", "WHOIS", "Cloudflare", "RIPEstat")
 
 for locale in sorted(LOCALES):
     path = LANG / f"atshift-ip-blocker-{locale}.po"

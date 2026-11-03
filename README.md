@@ -2,7 +2,7 @@
 
 ![atshift IP Blocker icon](assets/wordpress-org/icon-128x128.png)
 
-**WordPress.org distribution, version 1.0.2.** The approved plugin name, directory, entry file and text domain use **atshift IP Blocker / atshift-ip-blocker**. This release includes the latest GitHub pilot's SDN coexistence features and 15 interface languages, while retaining the reviewed input, nonce and file-transaction protections.
+**WordPress.org distribution, version 1.0.3.** The approved plugin name, directory, entry file and text domain use **atshift IP Blocker / atshift-ip-blocker**. This release includes the latest GitHub pilot's SDN coexistence features and 15 interface languages, while retaining the reviewed input, nonce and file-transaction protections.
 
 Existing `ipbw_*` settings, backups and legacy managed-file markers are intentionally retained. Releases contain two builds from the same core: `atshift-ip-blocker.zip` uses WordPress.org updates, while `ip-blocker-with-waf.zip` preserves the original GitHub installation path and checksum-verified GitHub updater for existing users. The compatibility updater lives outside `wordpress-plugin/` and is added only by `bin/build-github.sh`; it never enters the WordPress.org ZIP. Do not activate both packages together.
 
@@ -31,7 +31,7 @@ The tested provider sources are CloudSecure 1.4.18 and Wordfence 9.0.2. Their in
 1. Explicitly enable the required log source and server editing in **Connections & safety**. Confirm that the site's IP attribution is correct, especially behind a CDN/proxy.
 2. Review the source-specific records, select IPs, or edit the existing managed IP list under **Server blocks**. An empty replacement list removes only this plugin's section.
 3. Generate a preview. The preview expires after ten minutes and is bound to the current user's session context and current file hash.
-4. Download the current `.htaccess` backup. Confirm independent hosting/SFTP recovery access and that the selected IPs are client addresses, not shared-service or proxy addresses.
+4. Follow the preview's three steps: verify IP attribution against hosting logs and provider ranges, download the current `.htaccess` backup, then complete both **Required** acknowledgements. Network-operator lookup alone cannot identify an attacker or rule out a shared address. Generic reference links do not include selected IPs; manually entering an IP on an external service sends it to that service.
 5. Apply. The plugin verifies the original file hash again, runs a baseline loopback probe, saves a private database backup, replaces the file via a same-directory temporary file and rename, and repeats the probe.
 6. A failed post-change check attempts to restore the exact previous file. It refuses to overwrite a concurrent external change during rollback; manual recovery may then be required.
 
@@ -45,10 +45,13 @@ Self-checks prove only that a probe reached this plugin, not that a selected rem
 
 A PHP process can terminate after replacement but before verification or rollback. Hosting failures or concurrent changes can also prevent recovery. **Keep the downloaded original file and independent hosting/SFTP access.** Do not edit `.htaccess` simultaneously through another tool. Backups are not stored as public files, but the full configuration is retained privately in the local WordPress database (latest three images).
 
+The independent download remains mandatory: Recovery history requires access to WordPress, which may be unavailable after a server configuration error. Confirm that the download was saved locally. To recover through the hosting control panel or SFTP, rename the downloaded `.txt` backup to `.htaccess` and replace the file in the site's WordPress directory.
+
 Deactivation or uninstall does **not** remove server blocks or recovery data. Remove the managed section before uninstalling if the blocks are no longer required. To clean up after server recovery, remove the plugin's `ipbw_settings`, `ipbw_backups`, `ipbw_write_lock` options and expired `ipbw_*` transients through a trusted database administration tool. Never remove another plugin's records.
 
 ## Privacy And Load
 
+- The log screen marks IPs currently present in this plugin's validated managed server section as **Blocked** and disables duplicate selection. Removing a rule restores the normal eligibility label on the next view. Manual rules outside the managed section are not classified by this badge; the label describes configuration, not proof of a rejected remote request.
 - No telemetry, Hub, geolocation service, remote block list, automatic WAF installation or background request collection.
 - No observed WAF IP, site URL, attack payload or configuration backup is sent to GitHub or a third-party service. Publishing this repository shares source code only.
 - Only IP, timestamp and detection-classification fields are returned to the plugin. Wordfence categories are extracted from its JSON in the database with a length guard; full JSON, URLs, matched strings, cookies, usernames, bodies and User-Agent values are not returned.

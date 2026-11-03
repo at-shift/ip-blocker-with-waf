@@ -9,6 +9,11 @@ class Admin_Flow_Redirect extends RuntimeException {}
 function is_wp_error( $value ) { return $value instanceof WP_Error; }
 function __( $value, $domain = '' ) { return $value; }
 function esc_html__( $value, $domain = '' ) { return $value; }
+function esc_html( $value ) { return htmlspecialchars( (string) $value, ENT_QUOTES, 'UTF-8' ); }
+function esc_attr( $value ) { return esc_html( $value ); }
+function esc_url( $value ) { return esc_html( $value ); }
+function esc_html_e( $value, $domain = '' ) { echo esc_html( $value ); }
+function wp_nonce_field( $action ) {}
 function current_user_can( $cap ) { global $capable; return $capable; }
 function is_multisite() { return false; }
 function wp_die( $text = '', $title = '', $args = array() ) { throw new RuntimeException( 'denied' ); }
@@ -53,4 +58,16 @@ $nonce_ok = false;
 try { submit_fixture(); admin_flow_check( false, 'nonce required' ); } catch ( RuntimeException $error ) { admin_flow_check( 'nonce' === $error->getMessage(), 'invalid nonce refused' ); }
 $nonce_ok = true; $capable = false;
 try { submit_fixture(); admin_flow_check( false, 'admin required' ); } catch ( RuntimeException $error ) { admin_flow_check( 'denied' === $error->getMessage(), 'non-admin refused' ); }
+$method = new ReflectionMethod( IP_Blocker_WAF_Admin::class, 'render_preview' );
+if ( PHP_VERSION_ID < 80100 ) { $method->setAccessible( true ); }
+ob_start(); $method->invoke( null, array( 'current' => '', 'next' => 'fixture' ) ); $html = ob_get_clean();
+admin_flow_check( 3 === substr_count( $html, 'class="ipbw-required">Required</span>' ), 'download and both acknowledgements visibly marked required' );
+admin_flow_check( 2 === substr_count( $html, 'value="1" required' ), 'native required validation remains on both checkboxes' );
+admin_flow_check( strpos( $html, '1. Verify the IP addresses' ) < strpos( $html, '2. Download a recovery backup' ) && strpos( $html, '2. Download a recovery backup' ) < strpos( $html, '3. Confirm and apply' ), 'attribution, independent backup and confirmation remain in order' );
+admin_flow_check( false !== strpos( $html, 'WordPress database' ) && false !== strpos( $html, 'cannot be downloaded from this screen' ), 'explains why recovery history does not replace an independent download' );
+admin_flow_check( false !== strpos( $html, 'rename the downloaded .txt backup to .htaccess' ), 'recovery explains the actual attachment filename' );
+admin_flow_check( false !== strpos( $html, 'I can recover if WordPress becomes unreachable' ) && false === strpos( $html, 'I saved the backup and can restore' ), 'recovery acknowledgement describes personal recovery capability' );
+admin_flow_check( false !== strpos( $html, 'Do not rely on X-Forwarded-For or CF-Connecting-IP alone.' ) && false !== strpos( $html, 'If attribution is uncertain, do not block the IP.' ), 'attribution guidance preserves proxy and uncertainty limitations' );
+preg_match_all( '/<a href="([^"]+)"/', $html, $links );
+admin_flow_check( array( 'https://www.cloudflare.com/ips/', 'https://stat.ripe.net/' ) === $links[1], 'reference links do not disclose selected IPs or query parameters' );
 echo 'PASS ' . $checks . ' admin prerequisites, errors and replay checks' . PHP_EOL;

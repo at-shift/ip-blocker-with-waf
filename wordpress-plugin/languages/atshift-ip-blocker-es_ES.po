@@ -2,7 +2,7 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: atshift IP Blocker 1.0.2\n"
+"Project-Id-Version: atshift IP Blocker 1.0.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/atshift-ip-blocker\n"
 "POT-Creation-Date: 2026-10-28T09:33:54+00:00\n"
 "PO-Revision-Date: 2026-10-28 00:00+0000\n"
@@ -298,10 +298,6 @@ msgstr "Descargar copia de seguridad del .htaccess actual"
 msgid "I verified that these are client IPs, not CDN/proxy or shared-service addresses."
 msgstr "He comprobado que estas son IP de clientes y no direcciones de CDN, proxies o servicios compartidos."
 
-#: includes/class-admin.php:272
-msgid "I saved the backup and can restore .htaccess through hosting or SFTP if WordPress becomes unreachable."
-msgstr "He guardado la copia de seguridad y puedo restaurar .htaccess a través del alojamiento o mediante SFTP si WordPress deja de estar accesible."
-
 #: includes/class-admin.php:273
 msgid "Apply server changes"
 msgstr "Aplicar cambios en el servidor"
@@ -516,3 +512,55 @@ msgstr "Para las observaciones de referencia opcionales de CloudSecure / BBQ en 
 #: includes/class-admin.php
 msgid "Open Semantic Deterrence settings"
 msgstr "Abrir los Ajustes de Semantic Deterrence"
+
+#: includes/class-admin.php
+msgid "Blocked"
+msgstr "Bloqueada"
+
+#: includes/class-admin.php
+msgid "1. Verify the IP addresses"
+msgstr "1. Verificar las direcciones IP"
+
+#: includes/class-admin.php
+msgid "Compare the selected IPs and request times with your hosting access logs. If you use a CDN or reverse proxy, ask your host which client IP Apache uses for .htaccess rules and how trusted proxies are configured. Do not rely on X-Forwarded-For or CF-Connecting-IP alone."
+msgstr "Compara las direcciones IP seleccionadas y las horas de las solicitudes con los registros de acceso de tu alojamiento. Si utilizas una CDN o un proxy inverso, consulta a tu proveedor de alojamiento qué IP del cliente utiliza Apache para las reglas de .htaccess y cómo se configuran los proxies de confianza. No te bases únicamente en X-Forwarded-For o CF-Connecting-IP."
+
+#: includes/class-admin.php
+msgid "Check the provider's published IP ranges and look up the network operator (ASN / WHOIS). An operator name alone does not identify an attacker or prove that an IP is not shared. If attribution is uncertain, do not block the IP."
+msgstr "Consulta los rangos de IP publicados por el proveedor y busca al operador de la red (ASN / WHOIS). El nombre de un operador por sí solo no identifica a un atacante ni demuestra que una IP no sea compartida. Si no está claro a quién corresponde la IP, no la bloquees."
+
+#: includes/class-admin.php
+msgid "Cloudflare IP ranges"
+msgstr "Rangos de IP de Cloudflare"
+
+#: includes/class-admin.php
+msgid "Network operator lookup (RIPEstat)"
+msgstr "Consulta del operador de la red (RIPEstat)"
+
+#: includes/class-admin.php
+msgid "These links open external reference sites without including the selected IPs. Any IP you enter there is sent directly to that service."
+msgstr "Estos enlaces abren sitios externos de referencia sin incluir las direcciones IP seleccionadas. Cualquier IP que introduzcas allí se envía directamente a ese servicio."
+
+#: includes/class-admin.php
+msgid "2. Download a recovery backup"
+msgstr "2. Descargar una copia de seguridad para la recuperación"
+
+#: includes/class-admin.php
+msgid "Required"
+msgstr "Obligatorio"
+
+#: includes/class-admin.php
+msgid "A backup in Recovery history is stored in the WordPress database and cannot be downloaded from this screen if WordPress becomes unreachable. Download the current .htaccess file to your computer before applying changes and confirm that it was saved."
+msgstr "Las copias de seguridad del historial de recuperación se guardan en la base de datos de WordPress y no se pueden descargar desde esta pantalla si WordPress deja de estar accesible. Descarga el archivo .htaccess actual en tu ordenador antes de aplicar los cambios y confirma que se ha guardado."
+
+#: includes/class-admin.php
+msgid "To recover without WordPress, open your hosting control panel or SFTP, rename the downloaded .txt backup to .htaccess, and replace the .htaccess file in the site's WordPress directory."
+msgstr "Para recuperar el acceso sin WordPress, abre el panel de control de tu alojamiento o conéctate por SFTP, cambia el nombre de la copia de seguridad descargada de .txt a .htaccess y sustituye el archivo .htaccess del directorio de WordPress del sitio."
+
+#: includes/class-admin.php
+msgid "3. Confirm and apply"
+msgstr "3. Confirmar y aplicar"
+
+#: includes/class-admin.php
+msgid "I can recover if WordPress becomes unreachable by replacing .htaccess with the backup file through my hosting control panel or SFTP."
+msgstr "Si WordPress deja de estar accesible, puedo recuperar el acceso sustituyendo .htaccess por el archivo de copia de seguridad a través del panel de control de mi alojamiento o por SFTP."

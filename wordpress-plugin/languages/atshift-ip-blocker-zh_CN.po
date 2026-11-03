@@ -3,7 +3,7 @@
 # Agent-authored translation, reviewed against the English catalog and plugin usage.
 msgid ""
 msgstr ""
-"Project-Id-Version: atshift IP Blocker 1.0.2\n"
+"Project-Id-Version: atshift IP Blocker 1.0.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/atshift-ip-blocker\n"
 "POT-Creation-Date: 2026-10-28T09:47:11+00:00\n"
 "PO-Revision-Date: 2026-10-28 00:00+0000\n"
@@ -299,10 +299,6 @@ msgstr "下载当前 .htaccess 备份"
 msgid "I verified that these are client IPs, not CDN/proxy or shared-service addresses."
 msgstr "我已核实这些是客户端 IP，而不是 CDN/代理或共享服务的地址。"
 
-#: includes/class-admin.php:272
-msgid "I saved the backup and can restore .htaccess through hosting or SFTP if WordPress becomes unreachable."
-msgstr "我已保存备份，并且在无法访问 WordPress 时，可以通过主机管理或 SFTP 恢复 .htaccess。"
-
 #: includes/class-admin.php:273
 msgid "Apply server changes"
 msgstr "应用服务器更改"
@@ -517,3 +513,55 @@ msgstr "如需在 Semantic Deterrence 中使用可选的 CloudSecure / BBQ 参�
 #: includes/class-admin.php
 msgid "Open Semantic Deterrence settings"
 msgstr "打开 Semantic Deterrence 设置"
+
+#: includes/class-admin.php
+msgid "Blocked"
+msgstr "已封禁"
+
+#: includes/class-admin.php
+msgid "1. Verify the IP addresses"
+msgstr "1. 核实 IP 地址"
+
+#: includes/class-admin.php
+msgid "Compare the selected IPs and request times with your hosting access logs. If you use a CDN or reverse proxy, ask your host which client IP Apache uses for .htaccess rules and how trusted proxies are configured. Do not rely on X-Forwarded-For or CF-Connecting-IP alone."
+msgstr "将所选 IP 和请求时间与主机访问日志进行比对。如果您使用 CDN 或反向代理，请向主机服务商确认 Apache 在应用 .htaccess 规则时使用哪个客户端 IP，以及受信任代理的配置方式。不要仅凭 X-Forwarded-For 或 CF-Connecting-IP 作出判断。"
+
+#: includes/class-admin.php
+msgid "Check the provider's published IP ranges and look up the network operator (ASN / WHOIS). An operator name alone does not identify an attacker or prove that an IP is not shared. If attribution is uncertain, do not block the IP."
+msgstr "核对服务商公布的 IP 地址范围，并查询网络运营方信息（ASN / WHOIS）。仅凭运营方名称无法确定攻击者身份，也无法证明某个 IP 并非由多方共用。如果无法确定该 IP 的归属，请勿屏蔽。"
+
+#: includes/class-admin.php
+msgid "Cloudflare IP ranges"
+msgstr "Cloudflare IP 地址范围"
+
+#: includes/class-admin.php
+msgid "Network operator lookup (RIPEstat)"
+msgstr "查询网络运营方（RIPEstat）"
+
+#: includes/class-admin.php
+msgid "These links open external reference sites without including the selected IPs. Any IP you enter there is sent directly to that service."
+msgstr "这些链接会打开外部参考网站，且不会附带所选 IP。您在这些网站输入的任何 IP 都会直接发送给相应服务。"
+
+#: includes/class-admin.php
+msgid "2. Download a recovery backup"
+msgstr "2. 下载恢复用备份"
+
+#: includes/class-admin.php
+msgid "Required"
+msgstr "必需"
+
+#: includes/class-admin.php
+msgid "A backup in Recovery history is stored in the WordPress database and cannot be downloaded from this screen if WordPress becomes unreachable. Download the current .htaccess file to your computer before applying changes and confirm that it was saved."
+msgstr "恢复历史记录中的备份存储在 WordPress 数据库中。如果 WordPress 无法访问，就无法从此页面下载备份。应用更改前，请将当前的 .htaccess 文件下载到您的计算机，并确认文件已保存。"
+
+#: includes/class-admin.php
+msgid "To recover without WordPress, open your hosting control panel or SFTP, rename the downloaded .txt backup to .htaccess, and replace the .htaccess file in the site's WordPress directory."
+msgstr "如需在无法使用 WordPress 的情况下恢复，请打开主机控制面板或通过 SFTP 连接，将下载的 .txt 备份重命名为 .htaccess，然后替换此站点的 WordPress 目录中的 .htaccess 文件。"
+
+#: includes/class-admin.php
+msgid "3. Confirm and apply"
+msgstr "3. 确认并应用"
+
+#: includes/class-admin.php
+msgid "I can recover if WordPress becomes unreachable by replacing .htaccess with the backup file through my hosting control panel or SFTP."
+msgstr "如果 WordPress 无法访问，我能够通过主机控制面板或 SFTP，用备份文件替换 .htaccess 来恢复访问。"
