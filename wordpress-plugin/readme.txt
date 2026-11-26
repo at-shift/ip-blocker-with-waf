@@ -2,9 +2,9 @@
 Contributors: atshift
 Tags: security, firewall, ip, access-control
 Requires at least: 6.4
-Tested up to: 7.1
+Tested up to: 7.2
 Requires PHP: 7.4
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,9 @@ It never independently trusts forwarding headers. Only use server editing when A
 Yes. With Semantic Deterrence 0.1.8 or later, responses and experiment assignment stay enabled during manual IP blocking. An opaque local measurement revision protects overlapping undecided windows: they are classified as rate_limited (indeterminate), never as deterrence success. No IP or WAF record is copied to SDN. Older SDN versions still refuse changes while responses or observation windows are active. Interrupted changes require explicit measurement recovery after a site health check.
 
 == Changelog ==
+
+= 1.0.4 =
+* Confirmed compatibility with WordPress 7.2 and PHP 8.6.
 
 = 1.0.3 =
 * Mark IPs currently present in this plugin's validated .htaccess section as Blocked, disable duplicate selection, and restore normal eligibility after removal. Manual rules outside the section are not classified by this badge.

@@ -13,7 +13,7 @@ function release_check( $ok, $label ) {
 try {
 	require_once ABSPATH . 'wp-admin/includes/plugin.php';
 	$data = get_plugin_data( IP_BLOCKER_WAF_FILE, false, false );
-	release_check( '1.0.3' === $data['Version'] && 'atshift IP Blocker' === $data['Name'] && 'atshift-ip-blocker' === $data['TextDomain'], 'WordPress plugin metadata' );
+	release_check( '1.0.4' === $data['Version'] && 'atshift IP Blocker' === $data['Name'] && 'atshift-ip-blocker' === $data['TextDomain'], 'WordPress plugin metadata' );
 	release_check( empty( $data['UpdateURI'] ) && ! class_exists( 'IP_Blocker_WAF_Updater', false ), 'official update route only' );
 	wp_set_current_user( 1 );
 	$_SERVER['REQUEST_METHOD'] = 'GET';
@@ -34,7 +34,7 @@ try {
 		foreach ( array( 'observations', 'connections', 'rules' ) as $tab ) {
 			$_GET = array( 'tab' => $tab );
 			ob_start(); IP_Blocker_WAF_Admin::render(); $html = ob_get_clean();
-			release_check( false !== strpos( $html, $label ) && false !== strpos( $html, 'v1.0.3' ), $locale . ' renders ' . $tab );
+			release_check( false !== strpos( $html, $label ) && false !== strpos( $html, 'v1.0.4' ), $locale . ' renders ' . $tab );
 		}
 		$preview_method = new ReflectionMethod( IP_Blocker_WAF_Admin::class, 'render_preview' );
 		if ( PHP_VERSION_ID < 80100 ) { $preview_method->setAccessible( true ); }
